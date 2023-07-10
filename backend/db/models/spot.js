@@ -10,13 +10,20 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Spot.belongsTo(
+        models.User, {
+          foreignKey: 'ownerId'
+        }
+      )
     }
   }
   Spot.init({
     ownerId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: "Users"
+      }
     },
     address: {
       type: DataTypes.STRING,
@@ -90,7 +97,8 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isInt: true
       }
-    }
+    },
+
   }, {
     sequelize,
     modelName: 'Spot',
