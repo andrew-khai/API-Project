@@ -90,7 +90,8 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isInt: true
       }
-    }
+    },
+
   }, {
     sequelize,
     modelName: 'Spot',
