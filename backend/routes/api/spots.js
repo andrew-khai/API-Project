@@ -251,6 +251,12 @@ router.put(
       })
     }
     let spot = await Spot.findByPk(req.params.spotId);
+    if (!spot) {
+      res.status(404)
+      return res.json({
+        message: "Spot couldn't be found"
+      })
+    }
     // console.log('spot ownerId', spot.ownerId)
     if (ownerId !== spot.ownerId) {
       res.status(403);
@@ -276,6 +282,40 @@ router.put(
     // console.log('spot after', spot)
 
     res.json(spot)
+  }
+)
+
+router.delete(
+  '/:spotId',
+  async (req, res) => {
+    const ownerId = req.user.id
+    // console.log(user);
+    if (!ownerId) {
+      res.status(401);
+      return res.json({
+        message: "Authentication required"
+      })
+    }
+    let spot = await Spot.findByPk(req.params.spotId);
+    if (!spot) {
+      res.status(404)
+      return res.json({
+        message: "Spot couldn't be found"
+      })
+    }
+    if (ownerId !== spot.ownerId) {
+      res.status(403);
+      return res.json({
+        message: "Forbidden"
+      })
+    }
+
+    if (ownerId === spot.ownerId) {
+      await spot.destroy()
+    }
+    res.json({
+      message: "Successfully deleted"
+    })
   }
 )
 
