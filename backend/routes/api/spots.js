@@ -27,18 +27,18 @@ const validateSpot = [
     .exists({ checkFalsy: true })
     .withMessage(`Description is required`),
   check('price')
-    .isInt({min:1})
+    .isInt({ min: 1 })
     .withMessage(`Price per day is required`),
   check('lat')
-    .isFloat({min:-90, max:90})
+    .isFloat({ min: -90, max: 90 })
     .withMessage(`Latitude is not valid`),
   check('lng')
-    .isFloat({min:-180, max:180})
+    .isFloat({ min: -180, max: 180 })
     .withMessage(`Longitude is not valid`),
   check('name')
-    .isLength({max:50})
+    .isLength({ max: 50 })
     .withMessage(`Name must be less than 50 characters`),
-    handleValidationErrors
+  handleValidationErrors
 ]
 
 //Get ALL Spots
@@ -87,7 +87,7 @@ router.get(
           spot.previewImage = spotImage.url
         }
       })
-      spot.avgRating = total/spot.Reviews.length
+      spot.avgRating = total / spot.Reviews.length
       delete spot.Reviews
       delete spot.SpotImages
     })
@@ -99,7 +99,7 @@ router.get(
     // const avgRating = totalReviewStars / reviewCount
 
 
-    res.json({Spots: allSpots})
+    res.json({ Spots: allSpots })
   }
 );
 
@@ -136,7 +136,7 @@ router.get(
           spot.previewImage = spotImage.url
         }
       })
-      spot.avgRating = total/spot.Reviews.length
+      spot.avgRating = total / spot.Reviews.length
       delete spot.Reviews
       delete spot.SpotImages
     })
@@ -150,6 +150,57 @@ router.get(
         message: `No spots owned`
       })
     }
+  }
+)
+
+//Add an Image to a Spot
+router.post(
+  '/:spotId/images',
+  async (req, res) => {
+    const ownerId = req.user.id
+    if (!ownerId) {
+      res.status(401);
+      return res.json({
+        message: "Authentication required"
+      })
+    }
+    const { url, preview } = req.body;
+    let spot = await Spot.findByPk(req.params.spotId, {
+      include: [
+        {
+          model: SpotImage
+        }
+      ]
+    });
+    // console.log('spot', spot)
+    if (!spot) {
+      res.status(404)
+      return res.json({
+        message: "Spot couldn't be found"
+      })
+    }
+    // console.log('owner', spot.ownerId)
+    if (ownerId !== spot.ownerId) {
+      res.status(403);
+      return res.json({
+        message: "Forbidden"
+      })
+    }
+    if (ownerId === spot.ownerId) {
+      // console.log(spot.ownerId)
+      let spotId = spot.id;
+      let image = await SpotImage.create({ spotId, url, preview });
+      console.log(image.spotId)
+      const newImage = {
+        id: image.id,
+        spotId: spot.id,
+        url: image.url,
+        preview: image.preview
+      }
+
+      res.json(newImage)
+    }
+    // console.log(spot.SpotImages)
   }
 )
 
@@ -194,7 +245,7 @@ router.get(
     })
     // console.log(total)
     currentSpot.numReviews = numReviews;
-    currentSpot.avgStarRating = total/numReviews;
+    currentSpot.avgStarRating = total / numReviews;
     // console.log(avgStarRating)
     delete currentSpot.Reviews
 
@@ -285,6 +336,7 @@ router.put(
   }
 )
 
+//DELETE a Spot
 router.delete(
   '/:spotId',
   async (req, res) => {
