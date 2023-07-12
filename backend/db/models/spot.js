@@ -36,19 +36,24 @@ module.exports = (sequelize, DataTypes) => {
           hooks: true
         }
       )
+      Spot.hasMany(
+        models.Review, {
+          foreignKey: "spotId",
+          onDelete: "CASCADE",
+          hooks: true
+        }
+      )
     }
   }
   Spot.init({
     ownerId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.INTEGER
     },
     address: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
-        isAlphanumeric: true,
+        notEmpty: true
       }
     },
     city: {
@@ -97,16 +102,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
-        isAlphanumeric: true
+        notEmpty: true
       }
     },
     description: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
-        isAlphanumeric: true
+        notEmpty: true
       }
     },
     price: {
