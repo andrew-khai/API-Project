@@ -27,19 +27,13 @@ const validateSpot = [
     .exists({ checkFalsy: true })
     .withMessage(`Description is required`),
   check('price')
-    .exists({ checkFalsy: true })
+    .isInt({min:1})
     .withMessage(`Price per day is required`),
-  check('price')
-    .not()
-    .isInt()
-    .withMessage(`Enter a valid price`),
   check('lat')
-    .not()
-    .isDecimal()
+    .isFloat({min:-90, max:90})
     .withMessage(`Latitude is not valid`),
   check('lng')
-    .not()
-    .isDecimal()
+    .isFloat({min:-180, max:180})
     .withMessage(`Longitude is not valid`),
     handleValidationErrors
 ]
