@@ -112,13 +112,40 @@ router.get(
   async (req, res) => {
     const user = req.user.id
     const userSpots = await Spot.findAll({
+      include: [
+        {
+          model: Review
+        },
+        {
+          model: SpotImage
+        }
+      ],
       where: {
         ownerId: user
       }
     })
+    let allSpots = [];
+    userSpots.forEach(spot => {
+      allSpots.push(spot.toJSON())
+    })
+    allSpots.forEach(spot => {
+      let total = 0;
+      spot.Reviews.forEach(review => {
+        total += review.stars
+      })
+      spot.SpotImages.forEach(spotImage => {
+        console.log(spotImage)
+        if (spotImage.preview) {
+          spot.previewImage = spotImage.url
+        }
+      })
+      spot.avgRating = total/spot.Reviews.length
+      delete spot.Reviews
+      delete spot.SpotImages
+    })
     if (userSpots && userSpots.length !== 0) {
       res.json({
-        Spots: userSpots
+        Spots: allSpots
       })
     } else {
       res.status(404);
