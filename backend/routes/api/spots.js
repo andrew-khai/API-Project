@@ -35,6 +35,9 @@ const validateSpot = [
   check('lng')
     .isFloat({min:-180, max:180})
     .withMessage(`Longitude is not valid`),
+  check('name')
+    .isLength({max:50})
+    .withMessage(`Name must be less than 50 characters`),
     handleValidationErrors
 ]
 
@@ -231,6 +234,48 @@ router.post(
         message: "Forbidden"
       })
     }
+  }
+)
+
+//EDIT a Spot
+router.put(
+  '/:spotId',
+  validateSpot,
+  async (req, res) => {
+    const ownerId = req.user.id
+    // console.log(user);
+    if (!ownerId) {
+      res.status(401);
+      return res.json({
+        message: "Authentication required"
+      })
+    }
+    let spot = await Spot.findByPk(req.params.spotId);
+    // console.log('spot ownerId', spot.ownerId)
+    if (ownerId !== spot.ownerId) {
+      res.status(403);
+      return res.json({
+        message: "Forbidden"
+      })
+    }
+    // console.log('spot before', spot)
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    if (ownerId === spot.ownerId) {
+      if (address) spot.address = address;
+      if (city) spot.city = city;
+      if (state) spot.state = state;
+      if (country) spot.country = country;
+      if (lat) spot.lat = lat;
+      if (lng) spot.lng = lng;
+      if (name) spot.name = name;
+      if (description) spot.description = description;
+      if (price) spot.price = price;
+    }
+
+    await spot.save()
+    // console.log('spot after', spot)
+
+    res.json(spot)
   }
 )
 
