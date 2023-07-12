@@ -41,7 +41,7 @@ const validateSpot = [
     .not()
     .isDecimal()
     .withMessage(`Longitude is not valid`),
-    // handleValidationErrors
+    handleValidationErrors
 ]
 
 //Get ALL Spots
@@ -177,8 +177,7 @@ router.get(
         }
       ]
     })
-    const reviews = spot.Review
-
+    console.log(spot)
 
     if (!spot) {
       res.status(404)
