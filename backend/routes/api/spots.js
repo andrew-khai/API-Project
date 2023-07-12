@@ -79,7 +79,7 @@ router.get(
         total += review.stars
       })
       spot.SpotImages.forEach(spotImage => {
-        console.log(spotImage)
+        // console.log(spotImage)
         if (spotImage.preview) {
           spot.previewImage = spotImage.url
         }
@@ -128,7 +128,7 @@ router.get(
         total += review.stars
       })
       spot.SpotImages.forEach(spotImage => {
-        console.log(spotImage)
+        // console.log(spotImage)
         if (spotImage.preview) {
           spot.previewImage = spotImage.url
         }
@@ -167,19 +167,36 @@ router.get(
         },
         {
           model: Review,
-          attributes: []
         }
       ]
     })
-    console.log(spot)
-
     if (!spot) {
       res.status(404)
       return res.json({
         message: `Spot couldn't be found`
       })
     }
-    res.json(spot)
+    let currentSpot = spot.toJSON();
+
+    currentSpot.Owner = currentSpot.User;
+    delete currentSpot.User;
+
+    let reviews = spot.Reviews;
+    // console.log(spot.Reviews)
+    let numReviews = reviews.length;
+    // console.log(reviewCount)
+    let total = 0;
+    let totalReviewStars = reviews.forEach(review => {
+      total += review.stars;
+    })
+    // console.log(total)
+    currentSpot.numReviews = numReviews;
+    currentSpot.avgStarRating = total/numReviews;
+    // console.log(avgStarRating)
+    delete currentSpot.Reviews
+
+    // console.log(currentSpot)
+    res.json(currentSpot)
   }
 )
 
