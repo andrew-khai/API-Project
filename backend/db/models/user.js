@@ -43,12 +43,16 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: {
+          msg: "User with that email already exists"
+        }
       },
       username: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: {
+          msg: "User with that username already exists"
+        }
       },
       hashedPassword: {
         type: DataTypes.STRING.BINARY,
