@@ -167,6 +167,7 @@ router.get(
 //Add an Image to a Spot
 router.post(
   '/:spotId/images',
+  requireAuth,
   async (req, res) => {
     const ownerId = req.user.id
     if (!ownerId) {
@@ -364,6 +365,7 @@ router.get(
 router.post(
   '',
   validateSpot,
+  requireAuth,
   async (req, res) => {
     const ownerId = req.user.id;
 
@@ -398,6 +400,7 @@ router.post(
 router.put(
   '/:spotId',
   validateSpot,
+  requireAuth,
   async (req, res) => {
     const ownerId = req.user.id
     // console.log(user);
@@ -445,6 +448,7 @@ router.put(
 //DELETE a Spot
 router.delete(
   '/:spotId',
+  requireAuth,
   async (req, res) => {
     const ownerId = req.user.id
     // console.log(user);

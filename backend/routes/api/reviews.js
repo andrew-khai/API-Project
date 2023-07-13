@@ -23,6 +23,7 @@ const validateReview = [
 //GET ALL Reviews of Current User
 router.get(
   '/current',
+  requireAuth,
   async (req, res) => {
     const user = req.user.id
     // console.log(user)
@@ -129,6 +130,7 @@ router.post(
 router.put(
   '/:reviewId',
   validateReview,
+  requireAuth,
   async (req, res) => {
     const userId = req.user.id;
     if (!userId) {
