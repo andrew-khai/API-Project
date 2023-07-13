@@ -251,15 +251,57 @@ router.get(
 router.post(
   '/:spotId/reviews',
   validateReview,
+  requireAuth,
   async (req, res) => {
-    const user = req.user.id
-    if (!user) {
-      res.status(401);
+    const userId = req.user.id
+    // if (!user) {
+    //   res.status(401);
+    //   return res.json({
+    //     message: "Authetication required"
+    //   })
+    // }
+    const spotId = req.params.spotId;
+    const { review, stars } = req.body
+    let spot = await Spot.findByPk(req.params.spotId, {
+      include: [
+        {
+          model: Review
+        }
+      ]
+    });
+    if (!spot) {
+      res.status(404)
       return res.json({
-        message: "Authetication required"
+        message: "Spot couldn't be found"
       })
     }
-    const { review, stars } = req.body
+    spot.Reviews.forEach(review => {
+      // console.log(review.userId)
+      if (userId === review.userId) {
+        res.status(500);
+        return res.json({
+          message: "User already has a review for this spot"
+        })
+      }
+    })
+    if (userId === spot.ownerId) {
+      res.status(403);
+      return res.json({
+        message: "Owner cannot submit review"
+      })
+    } else {
+      let userReview = await Review.create({ userId, spotId, review, stars });
+      // console.log(userReview.id)
+      const newReview = {
+        id: userReview.id,
+        userId: userId,
+        spotId: spot.id,
+        review: userReview.review,
+        stars: userReview.stars
+      }
+
+      return res.json(userReview)
+    }
 
   }
 )
@@ -338,7 +380,7 @@ router.post(
         price: spot.price
       }
 
-      return res.json(newSpot)
+      return res.json(spot)
     } else {
       res.status(403)
       return res.json({
