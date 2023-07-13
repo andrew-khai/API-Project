@@ -57,7 +57,7 @@ router.get(
       // console.log(review)
       // console.log(review.Spot.SpotImages)
       review.Spot.SpotImages.forEach(spotImage => {
-        console.log(spotImage)
+        // console.log(spotImage)
         // console.log('preview', spotImage.preview)
         if (spotImage.preview) {
           review.Spot.previewImage = spotImage.url
