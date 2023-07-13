@@ -41,6 +41,16 @@ const validateSpot = [
   handleValidationErrors
 ]
 
+const validateReview = [
+  check('review')
+    .exists({ checkFalsy: true })
+    .withMessage(`Review text is required`),
+  check('stars')
+    .isInt({min: 1, max: 5})
+    .withMessage(`Stars must be an integer from 1 to 5`),
+  handleValidationErrors
+]
+
 //Get ALL Spots
 router.get(
   '',
@@ -106,6 +116,7 @@ router.get(
 //Get all Spots for Current User
 router.get(
   '/current',
+  requireAuth,
   async (req, res) => {
     const user = req.user.id
     const userSpots = await Spot.findAll({
@@ -210,6 +221,15 @@ router.get(
   async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId)
     const reviews = await Review.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ['id', 'firstName', 'lastName']
+        },
+        // {
+        //   model: ReviewImage
+        // }
+      ],
       where: {
         spotId: req.params.spotId
       }
@@ -223,6 +243,23 @@ router.get(
     res.json({
       Reviews: reviews
     })
+  }
+)
+
+//Create a Review for Spot based on Spot's ID
+router.post(
+  '/:spotId/reviews',
+  validateReview,
+  async (req, res) => {
+    const user = req.user.id
+    if (!user) {
+      res.status(401);
+      return res.json({
+        message: "Authetication required"
+      })
+    }
+    const { review, stars } = req.body
+
   }
 )
 
