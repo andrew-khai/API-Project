@@ -226,9 +226,10 @@ router.get(
           model: User,
           attributes: ['id', 'firstName', 'lastName']
         },
-        // {
-        //   model: ReviewImage
-        // }
+        {
+          model: ReviewImage,
+          attributes: ['id', 'url']
+        }
       ],
       where: {
         spotId: req.params.spotId
