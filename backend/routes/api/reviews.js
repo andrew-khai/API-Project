@@ -15,7 +15,7 @@ const validateReview = [
     .exists({ checkFalsy: true })
     .withMessage(`Review text is required`),
   check('stars')
-    .isInt({min: 1, max: 5})
+    .isInt({ min: 1, max: 5 })
     .withMessage(`Stars must be an integer from 1 to 5`),
   handleValidationErrors
 ]
@@ -69,6 +69,59 @@ router.get(
     res.json({
       Reviews: allReviews
     })
+  }
+)
+
+//Create an Image for a Review
+router.post(
+  '/:reviewId/images',
+  requireAuth,
+  async (req, res) => {
+    const user = req.user.id
+    const { url } = req.body;
+    const review = await Review.findByPk(req.params.reviewId, {
+      include: [
+        {
+          model: ReviewImage
+        }
+      ]
+    });
+    if (!review) {
+      res.status(404);
+      return res.json({
+        message: `Review couldn't be found`
+      })
+    }
+    if (user !== review.userId) {
+      res.status(403);
+      return res.json({
+        message: "Forbidden"
+      })
+    }
+    console.log('length', review.ReviewImages.length)
+    if (review.ReviewImages.length === 10) {
+      res.status(403);
+      return res.json({
+        message: `Maximum number of images for this resource was reached`
+      })
+    }
+    if (user === review.userId) {
+      // console.log(user, review.userId)
+      let reviewId = review.id;
+      let image = await ReviewImage.create({ reviewId, url });
+      const newImage = {
+        id: image.id,
+        reviewId: reviewId,
+        url: image.url
+      }
+      res.json(newImage)
+    }
+    // else {
+    //   res.status(403);
+    //   return res.json({
+    //     message: `Maximum number of images for this resource was reached`
+    //   })
+    // }
   }
 )
 
