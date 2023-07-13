@@ -201,7 +201,7 @@ router.post(
       // console.log(spot.ownerId)
       let spotId = spot.id;
       let image = await SpotImage.create({ spotId, url, preview });
-      console.log(image.spotId)
+      // console.log(image.spotId)
       const newImage = {
         id: image.id,
         spotId: spot.id,
@@ -275,8 +275,10 @@ router.post(
         message: "Spot couldn't be found"
       })
     }
+    let reviewedBy = []
     spot.Reviews.forEach(review => {
       // console.log(review.userId)
+      reviewedBy.push(review.userId)
       if (userId === review.userId) {
         res.status(500);
         return res.json({
@@ -284,12 +286,14 @@ router.post(
         })
       }
     })
+    // console.log('reviewed', reviewedBy)
     if (userId === spot.ownerId) {
       res.status(403);
       return res.json({
         message: "Owner cannot submit review"
       })
-    } else {
+    }
+    if (!reviewedBy.includes(userId)) {
       let userReview = await Review.create({ userId, spotId, review, stars });
       // console.log(userReview.id)
       const newReview = {
