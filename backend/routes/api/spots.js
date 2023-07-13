@@ -204,6 +204,28 @@ router.post(
   }
 )
 
+//Get All Reviews by Spot ID
+router.get(
+  '/:spotId/reviews',
+  async (req, res) => {
+    const spot = await Spot.findByPk(req.params.spotId)
+    const reviews = await Review.findAll({
+      where: {
+        spotId: req.params.spotId
+      }
+    })
+    if (!spot) {
+      res.status(404);
+      return res.json({
+        message: `Spot couldn't be found`
+      })
+    }
+    res.json({
+      Reviews: reviews
+    })
+  }
+)
+
 //Get details of a Spot from an ID
 router.get(
   '/:spotId',
