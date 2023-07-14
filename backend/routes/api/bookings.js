@@ -56,7 +56,18 @@ router.put(
   requireAuth,
   async (req, res) => {
     const userId = req.user.id;
-    const userBooking = await Booking.findByPk(req.params.bookingId);
+    const userBooking = await Booking.findByPk(req.params.bookingId, {
+      include: [
+        {
+          model: Spot,
+          include: [
+            {
+              model: Booking
+            }
+          ]
+        }
+      ]
+    });
     // console.log('booking', userBooking.startDate)
     if (!userBooking) {
       res.status(404)
@@ -76,48 +87,72 @@ router.put(
     const startDateString = new Date(startDate).toDateString()
     // console.log('start', startDateString)
     const startDateObj = new Date(startDateString).getTime()
-    // console.log('start', startDateObj)
+    // console.log('start obj', startDateObj)
     const endDateString = new Date(endDate).toDateString()
     // console.log('end', endDateString)
     const endDateObj = new Date(endDateString).getTime()
-    // console.log('end', endDateObj)
+    // console.log('end obj', endDateObj)
+
     if (startDateObj >= endDateObj) {
       res.status(400);
       return res.json({
         message: "endDate cannot come before startdate"
       })
     }
-    if (userBooking.startDate.getTime() < new Date().getTime() || userBooking.endDate.getTime() < new Date().getTime()) {
+    if (userBooking.startDate.getTime() < new Date().getTime()) {
       res.status(403);
       return res.json({
         message: "Past bookings can't be modified"
       })
     }
-    if (startDateObj >= userBooking.startDate.getTime() && startDateObj <= userBooking.endDate.getTime()) {
-      res.status(403);
-      return res.json({
-        message: "Sorry, this spot is already booked for the specified dates",
-        errors: {
-          startDate: "Start date conflicts with an existing booking"
+    let allBookingId = [parseInt(req.params.bookingId)];
+    // console.log('first', allBookingId)
+
+    // console.log(userBooking.Spot.Bookings.length)
+    for (let i = 0; i < userBooking.Spot.Bookings.length; i++) {
+      let booking = userBooking.Spot.Bookings[i];
+      // console.log('booking', booking)
+      // console.log(booking.id)
+
+      if (!allBookingId.includes(booking.id)) {
+        allBookingId.push(booking.id)
+        let startDate = booking.startDate.getTime();
+        // console.log('start', startDate)
+        let endDate = booking.endDate.getTime();
+        // console.log('end', endDate)
+        if (startDateObj >= startDate && startDateObj <= endDate) {
+          res.status(403);
+          return res.json({
+            message: "Sorry, this spot is already booked for the specified dates",
+            errors: {
+              startDate: "Start date conflicts with an existing booking"
+            }
+          })
         }
-      })
-    }
-    if (endDateObj >= userBooking.startDate.getTime() && endDateObj <= userBooking.endDate.getTime()) {
-      res.status(403);
-      return res.json({
-        message: "Sorry, this spot is already booked for the specified dates",
-        errors: {
-          endDate: "End date conflicts with an existing booking"
+        if (endDateObj >= startDate && endDateObj <= endDate) {
+          res.status(403);
+          return res.json({
+            message: "Sorry, this spot is already booked for the specified dates",
+            errors: {
+              endDate: "End date conflicts with an existing booking"
+            }
+          })
         }
-      })
+      }
+      // console.log('second', allBookingId)
     }
+
     if (userId === userBooking.userId) {
       if (startDate) userBooking.startDate = startDate;
       if (endDate) userBooking.endDate = endDate;
     }
     await userBooking.save()
 
-    res.json(userBooking)
+    let currentBooking = userBooking.toJSON()
+    // console.log('current', currentBooking)
+    delete currentBooking.Spot;
+
+    res.json(currentBooking)
 
   }
 )
