@@ -53,9 +53,11 @@ const validateReview = [
 
 const validateQuery = [
   query('page')
+    .exists()
     .isInt({ min: 1 })
     .withMessage('Page must be greater than or equal to 1'),
   query('size')
+    .exists()
     .isInt({ min: 1 })
     .withMessage('Size must be greater than or equal to 1'),
   handleValidationErrors
@@ -63,7 +65,7 @@ const validateQuery = [
 //Get ALL Spots
 router.get(
   '',
-  validateQuery,
+  // validateQuery,
   async (req, res) => {
     let pagination = {};
     let { page, size } = req.query;
@@ -83,9 +85,13 @@ router.get(
       pagination.limit = size;
       pagination.offset = size * (page - 1);
     }
+    if (!page || !size) {
+      pagination.limit = 20;
+    }
     // if (pagination.offset === 0) {
     //   pagination.offset = 1;
     // }
+    const where = {}
 
     const spots = await Spot.findAll({
       include: [
@@ -102,7 +108,9 @@ router.get(
         {
           model: SpotImage
         }
-      ]
+      ],
+      where,
+      ...pagination
       // attributes: [
       //   [sequelize.fn('AVG', sequelize.col('stars')),
       //     'avgRating']
