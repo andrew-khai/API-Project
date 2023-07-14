@@ -99,7 +99,7 @@ router.post(
         message: "Forbidden"
       })
     }
-    console.log('length', review.ReviewImages.length)
+    // console.log('length', review.ReviewImages.length)
     if (review.ReviewImages.length === 10) {
       res.status(403);
       return res.json({
