@@ -50,4 +50,37 @@ router.get(
   }
 )
 
+//Edit a Booking
+router.put(
+  '/:bookingId',
+  requireAuth,
+  async (req, res) => {
+    const userId = req.user.id;
+    const userBooking = await Booking.findByPk(req.params.bookingId);
+    if (!userBooking) {
+      res.status(404)
+      return res.json({
+        message: "Booking couldn't be found"
+      })
+    }
+
+  }
+)
+
+//Delete a Booking
+router.delete(
+  '/:bookingId',
+  requireAuth,
+  async (req, res) => {
+    const user = req.user.id;
+    let booking = await Booking.findByPk(req.params.bookingId);
+    if (!booking) {
+      res.status(404)
+      return res.json({
+        message: "Booking couldn't be found"
+      })
+    }
+  }
+)
+
 module.exports = router;
