@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, Review, SpotImage, ReviewImage, Booking } = require('../../db/models');
 
-const { check } = require('express-validator');
+const { check, query } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
@@ -51,10 +51,39 @@ const validateReview = [
   handleValidationErrors
 ]
 
+const validateQuery = [
+  query('page')
+    .isInt({ min: 1 })
+    .withMessage('Page must be greater than or equal to 1'),
+  query('size')
+    .isInt({ min: 1 })
+    .withMessage('Size must be greater than or equal to 1'),
+  handleValidationErrors
+]
 //Get ALL Spots
 router.get(
   '',
+  validateQuery,
   async (req, res) => {
+    let pagination = {};
+    let { page, size } = req.query;
+    page = parseInt(page);
+    size = parseInt(size);
+
+    if (!page) page = 1;
+    if (!size) size = 20;
+
+    if (page >= 10) {
+      page = 10;
+    }
+    if (size >= 20) {
+      pagination.limit = 20;
+    }
+    if (page >= 1 && size >= 1) {
+      pagination.limit = size;
+      pagination.offset = size * (page - 1);
+    }
+
     const spots = await Spot.findAll({
       include: [
         {
@@ -109,7 +138,11 @@ router.get(
     // const avgRating = totalReviewStars / reviewCount
 
 
-    res.json({ Spots: allSpots })
+    res.json({
+      Spots: allSpots,
+      page,
+      size
+    })
   }
 );
 
