@@ -129,12 +129,31 @@ router.delete(
   async (req, res) => {
     const user = req.user.id;
     let booking = await Booking.findByPk(req.params.bookingId);
+    // console.log(booking.startDate.getTime())
     if (!booking) {
       res.status(404)
       return res.json({
         message: "Booking couldn't be found"
       })
     }
+    if (user !== booking.userId) {
+      res.status(403);
+      return res.json({
+        message: "Forbidden"
+      })
+    }
+    if (booking.startDate.getTime() <= new Date().getTime() && booking.endDate.getTime() >= new Date().getTime()) {
+      res.status(403);
+      return res.json({
+        message: "Bookings that have been started can't be deleted"
+      })
+    }
+    if (user === booking.userId) {
+      await booking.destroy()
+    }
+    res.json({
+      message: "Successfully deleted"
+    })
   }
 )
 
