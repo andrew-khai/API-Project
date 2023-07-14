@@ -83,6 +83,9 @@ router.get(
       pagination.limit = size;
       pagination.offset = size * (page - 1);
     }
+    // if (pagination.offset === 0) {
+    //   pagination.offset = 1;
+    // }
 
     const spots = await Spot.findAll({
       include: [
@@ -140,6 +143,7 @@ router.get(
 
     res.json({
       Spots: allSpots,
+      // ...pagination,
       page,
       size
     })
@@ -409,7 +413,7 @@ router.post(
       })
     }
     if (userId === spot.ownerId) {
-      res.status(404)
+      res.status(403)
       return res.json({
         message: "User owns this spot"
       })
@@ -425,6 +429,7 @@ router.post(
     // console.log('end', endDateString)
     const endDateObj = new Date(endDateString).getTime()
     // console.log('end', endDateObj)
+    // console.log(spot)
     if (startDateObj >= endDateObj) {
       res.status(400);
       return res.json({
@@ -437,12 +442,33 @@ router.post(
         message: "Start or End date cannot be before current day"
       })
     }
-
-    // console.log(spot)
     // console.log('bookings', spot.Bookings);
-    spot.Bookings.forEach(booking => {
-      // console.log('booking start', booking.startDate.getTime())
-      // console.log('booking end', booking.endDate)
+    // spot.Bookings.forEach(booking => {
+    //   // console.log('booking start', booking.startDate.getTime())
+    //   // console.log('booking end', booking.endDate)
+    //   let startDate = booking.startDate.getTime();
+    //   let endDate = booking.endDate.getTime();
+    //   if (startDateObj >= startDate && startDateObj <= endDate) {
+    //     res.status(403);
+    //     return res.json({
+    //       message: "Sorry, this spot is already booked for the specified dates",
+    //       errors: {
+    //         startDate: "Start date conflicts with an existing booking"
+    //       }
+    //     })
+    //   }
+    //   else if (endDateObj >= startDate && endDateObj <= endDate) {
+    //     res.status(403);
+    //     return res.json({
+    //       message: "Sorry, this spot is already booked for the specified dates",
+    //       errors: {
+    //         endDate: "End date conflicts with an existing booking"
+    //       }
+    //     })
+    //   }
+    // })
+    for (let i = 0; i < spot.Bookings.length; i++) {
+      let booking = spot.Bookings[i];
       let startDate = booking.startDate.getTime();
       let endDate = booking.endDate.getTime();
       if (startDateObj >= startDate && startDateObj <= endDate) {
@@ -454,7 +480,7 @@ router.post(
           }
         })
       }
-      if (endDateObj >= startDate && endDateObj <= endDate) {
+      else if (endDateObj >= startDate && endDateObj <= endDate) {
         res.status(403);
         return res.json({
           message: "Sorry, this spot is already booked for the specified dates",
@@ -463,20 +489,21 @@ router.post(
           }
         })
       }
-    })
-
-    let spotId = spot.id
-
-    const userBooking = await Booking.create({ spotId, userId, startDate, endDate })
-    const newBooking = {
-      id: userBooking.id,
-      spotId: spotId,
-      userId: userId,
-      startDate: userBooking.startDate,
-      endDate: userBooking.endDate
     }
-    // console.log('spot', spot.Bookings)
-    return res.json(userBooking)
+
+      let spotId = spot.id
+
+      const userBooking = await Booking.create({ spotId, userId, startDate, endDate })
+      const newBooking = {
+        id: userBooking.id,
+        spotId: spotId,
+        userId: userId,
+        startDate: userBooking.startDate,
+        endDate: userBooking.endDate
+      }
+      // console.log('spot', spot.Bookings)
+      return res.json(userBooking)
+
   }
 )
 
