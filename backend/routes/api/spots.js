@@ -46,7 +46,7 @@ const validateReview = [
     .exists({ checkFalsy: true })
     .withMessage(`Review text is required`),
   check('stars')
-    .isInt({min: 1, max: 5})
+    .isInt({ min: 1, max: 5 })
     .withMessage(`Stars must be an integer from 1 to 5`),
   handleValidationErrors
 ]
@@ -325,21 +325,21 @@ router.get(
       })
     }
     if (user === spot.ownerId) {
-    const booking = await Booking.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['id', 'firstName', 'lastName']
+      const booking = await Booking.findAll({
+        include: [
+          {
+            model: User,
+            attributes: ['id', 'firstName', 'lastName']
+          }
+        ],
+        attributes: ['id', 'spotId', 'userId', 'startDate', 'endDate', 'createdAt', 'updatedAt'],
+        where: {
+          spotId: spot.id
         }
-      ],
-      attributes: ['id', 'spotId', 'userId', 'startDate', 'endDate', 'createdAt', 'updatedAt'],
-      where: {
-        spotId: spot.id
-      }
-    })
-    return res.json({
-      Bookings: booking
-    })
+      })
+      return res.json({
+        Bookings: booking
+      })
     }
     if (user !== spot.ownerId) {
       const booking = await Booking.findAll({
@@ -399,7 +399,7 @@ router.post(
       })
     }
     if (startDateObj < new Date().getTime() || endDateObj < new Date().getTime()) {
-      res.status(400);
+      res.status(403);
       return res.json({
         message: "Start or End date cannot be before current day"
       })
@@ -433,9 +433,8 @@ router.post(
     })
 
     let spotId = spot.id
-    // console.log('spotId', spotId)
 
-    const userBooking = await Booking.create({spotId, userId, startDate, endDate})
+    const userBooking = await Booking.create({ spotId, userId, startDate, endDate })
     const newBooking = {
       id: userBooking.id,
       spotId: spotId,
@@ -443,7 +442,7 @@ router.post(
       startDate: userBooking.startDate,
       endDate: userBooking.endDate
     }
-    console.log('spot', spot.Bookings)
+    // console.log('spot', spot.Bookings)
     return res.json(userBooking)
   }
 )
