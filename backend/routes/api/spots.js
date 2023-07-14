@@ -135,6 +135,8 @@ router.get(
         // console.log(spotImage)
         if (spotImage.preview) {
           spot.previewImage = spotImage.url
+        } else {
+          spot.previewImage = "no preview"
         }
       })
       spot.avgRating = total / spot.Reviews.length
@@ -479,6 +481,16 @@ router.post(
       let booking = spot.Bookings[i];
       let startDate = booking.startDate.getTime();
       let endDate = booking.endDate.getTime();
+      if ((startDateObj >= startDate && startDateObj <= endDate) && (endDateObj >= startDate && endDateObj <= endDate)) {
+        res.status(403);
+        return res.json({
+          message: "Sorry, this spot is already booked for the specified dates",
+          errors: {
+            startDate: "Start date conflicts with an existing booking",
+            endDate: "End date conflicts with an existing booking"
+          }
+        })
+      }
       if (startDateObj >= startDate && startDateObj <= endDate) {
         res.status(403);
         return res.json({
@@ -488,7 +500,7 @@ router.post(
           }
         })
       }
-      else if (endDateObj >= startDate && endDateObj <= endDate) {
+      if (endDateObj >= startDate && endDateObj <= endDate) {
         res.status(403);
         return res.json({
           message: "Sorry, this spot is already booked for the specified dates",
