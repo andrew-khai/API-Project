@@ -84,10 +84,10 @@ router.put(
     if (startDateObj >= endDateObj) {
       res.status(400);
       return res.json({
-        message: "endDate cannot be on or before startdate"
+        message: "endDate cannot come before startdate"
       })
     }
-    if (startDateObj < new Date().getTime() || endDateObj < new Date().getTime()) {
+    if (userBooking.startDate.getTime() < new Date().getTime() || userBooking.endDate.getTime() < new Date().getTime()) {
       res.status(403);
       return res.json({
         message: "Past bookings can't be modified"
