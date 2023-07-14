@@ -36,7 +36,7 @@ router.get(
       allBookings.push(booking.toJSON())
     })
     allBookings.forEach(booking => {
-      console.log(booking.Spot.SpotImages)
+      // console.log(booking.Spot.SpotImages)
       booking.Spot.SpotImages.forEach(spotImage => {
         if (spotImage.preview) {
           booking.Spot.previewImage = spotImage.url
