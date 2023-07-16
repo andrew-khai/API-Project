@@ -53,41 +53,48 @@ const validateReview = [
 
 const validateQuery = [
   query('page')
-    .exists()
-    .isInt({ min: 1 })
+    // .optional()
+    .default(1)
+    .isInt({ min: 1 , max: 10})
     .withMessage('Page must be greater than or equal to 1'),
+  // add other check for when page and size are over max value
   query('size')
-    .exists()
-    .isInt({ min: 1 })
+    // .optional()
+    .default(20)
+    .isInt({ min: 1 , max: 20})
     .withMessage('Size must be greater than or equal to 1'),
   handleValidationErrors
 ]
 //Get ALL Spots
 router.get(
   '',
-  // validateQuery,
+  validateQuery,
   async (req, res) => {
-    let pagination = {};
-    let { page, size } = req.query;
+    let pagination = {limit: 20, offset: 0};
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
     page = parseInt(page);
     size = parseInt(size);
+    if (size) pagination.limit = size;
+    if (page) pagination.offset = size * (page - 1);
 
-    if (!page) page = 1;
-    if (!size) size = 20;
+    // console.log('size', typeof size)
+    // console.log('page', typeof page)
+    // if (!page) page = 1;
+    // if (!size) size = 20;
 
-    if (page >= 10) {
-      page = 10;
-    }
-    if (size >= 20) {
-      pagination.limit = 20;
-    }
-    if (page >= 1 && size >= 1) {
-      pagination.limit = size;
-      pagination.offset = size * (page - 1);
-    }
-    if (!page || !size) {
-      pagination.limit = 20;
-    }
+    // if (page >= 10) {
+    //   page = 10;
+    // }
+    // if (size >= 20) {
+    //   pagination.limit = 20;
+    // }
+    // if (page >= 1 && size >= 1) {
+    //   pagination.limit = size;
+    //   pagination.offset = size * (page - 1);
+    // }
+    // if (!page || !size) {
+    //   pagination.limit = 20;
+    // }
     // if (pagination.offset === 0) {
     //   pagination.offset = 1;
     // }
