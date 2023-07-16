@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const { Op } = require('sequelize');
 
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
@@ -55,27 +56,72 @@ const validateQuery = [
   query('page')
     // .optional()
     .default(1)
-    .isInt({ min: 1 , max: 10})
+    .isInt({ min: 1, max: 10 })
     .withMessage('Page must be greater than or equal to 1'),
   // add other check for when page and size are over max value
   query('size')
     // .optional()
     .default(20)
-    .isInt({ min: 1 , max: 20})
+    .isInt({ min: 1, max: 20 })
     .withMessage('Size must be greater than or equal to 1'),
   handleValidationErrors
 ]
+
+const getFloatMinMaxClause = (min, max) => {
+  if (min && max) {
+    return {
+      [Op.and]: [
+        { [Op.gte]: parseFloat(min) },
+        { [Op.lte]: parseFloat(max) }
+      ]
+    };
+  }
+  if (min) {
+    return {
+      [Op.gte]: parseFloat(min)
+    };
+  }
+  if (max) {
+    return {
+      [Op.lte]: parseFloat(max)
+    };
+  }
+  return;
+}
+
+const generateWhereObj = (query) => {
+  const where = {};
+
+  if (!query) return where;
+  if (query.minLat || query.maxLat) {
+    where.lat = getFloatMinMaxClause(query.minLat, query.maxLat);
+  }
+  if (query.minLng || query.maxLng) {
+    where.lng = getFloatMinMaxClause(query.minLng, query.maxLng);
+  }
+  if (query.minPrice || query.maxPrice) {
+    where.price = getFloatMinMaxClause(query.minPrice, query.maxPrice);
+  }
+
+  return where;
+}
 //Get ALL Spots
 router.get(
   '',
   validateQuery,
   async (req, res) => {
-    let pagination = {limit: 20, offset: 0};
-    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+    let pagination = { limit: 20, offset: 0 };
+    let { page, size
+      // , minLat, maxLat, minLng, maxLng, minPrice, maxPrice
+    } = req.query;
+
     page = parseInt(page);
     size = parseInt(size);
     if (size) pagination.limit = size;
     if (page) pagination.offset = size * (page - 1);
+
+    const where = generateWhereObj(req.query);
+
 
     // console.log('size', typeof size)
     // console.log('page', typeof page)
@@ -98,7 +144,6 @@ router.get(
     // if (pagination.offset === 0) {
     //   pagination.offset = 1;
     // }
-    const where = {}
 
     const spots = await Spot.findAll({
       include: [
@@ -436,8 +481,8 @@ router.post(
       })
     }
     const { startDate, endDate } = req.body;
-    // console.log('start', startDate)
-    // console.log('end', endDate)
+    // console.log('start from booking', startDate)
+    // console.log('end from booking', endDate)
     const startDateString = new Date(startDate).toDateString()
     // console.log('start', startDateString)
     const startDateObj = new Date(startDateString).getTime()
@@ -486,6 +531,7 @@ router.post(
     // })
     for (let i = 0; i < spot.Bookings.length; i++) {
       let booking = spot.Bookings[i];
+      console.log(typeof booking.startDate)
       let startDate = booking.startDate.getTime();
       let endDate = booking.endDate.getTime();
       if ((startDateObj >= startDate && startDateObj <= endDate) && (endDateObj >= startDate && endDateObj <= endDate)) {
@@ -518,18 +564,18 @@ router.post(
       }
     }
 
-      let spotId = spot.id
+    let spotId = spot.id
 
-      const userBooking = await Booking.create({ spotId, userId, startDate, endDate })
-      const newBooking = {
-        id: userBooking.id,
-        spotId: spotId,
-        userId: userId,
-        startDate: userBooking.startDate,
-        endDate: userBooking.endDate
-      }
-      // console.log('spot', spot.Bookings)
-      return res.json(userBooking)
+    const userBooking = await Booking.create({ spotId, userId, startDate, endDate })
+    const newBooking = {
+      id: userBooking.id,
+      spotId: spotId,
+      userId: userId,
+      startDate: userBooking.startDate,
+      endDate: userBooking.endDate
+    }
+    // console.log('spot', spot.Bookings)
+    return res.json(userBooking)
 
   }
 )

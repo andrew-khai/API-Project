@@ -82,10 +82,13 @@ router.put(
       })
     }
     const { startDate, endDate } = req.body;
-    // console.log('start', startDate)
-    // console.log('end', endDate)
+    // console.log('start edit', startDate)
+    // console.log('end edit', endDate)
     const startDateString = new Date(startDate).toDateString()
     // console.log('start', startDateString)
+    const startDateStringCopy = new Date(startDate)
+    // console.log('start copy', startDateStringCopy)
+    // console.log('start copy', startDateStringCopy.getTime())
     const startDateObj = new Date(startDateString).getTime()
     // console.log('start obj', startDateObj)
     const endDateString = new Date(endDate).toDateString()
@@ -117,9 +120,11 @@ router.put(
       if (!allBookingId.includes(booking.id)) {
         allBookingId.push(booking.id)
         let startDate = booking.startDate.getTime();
-        // console.log('start', startDate)
+        // console.log('start obj', new Date(startDateObj))
+        // console.log('start date', new Date (startDate))
         let endDate = booking.endDate.getTime();
-        // console.log('end', endDate)
+        // console.log('end obj', new Date(endDateObj))
+        // console.log('end date', new Date(endDate))
         if ((startDateObj >= startDate && startDateObj <= endDate) && (endDateObj >= startDate && endDateObj <= endDate)) {
           res.status(403);
           return res.json({
