@@ -64,6 +64,30 @@ const validateQuery = [
     .default(20)
     .isInt({ min: 1, max: 20 })
     .withMessage('Size must be greater than or equal to 1'),
+  query('minLat')
+    .optional()
+    .isFloat({ min: -90, max: 90 })
+    .withMessage("Minimum latitude is invalid"),
+  query('maxLat')
+    .optional()
+    .isFloat({ min: -90, max: 90 })
+    .withMessage("Maximum latitude is invalid"),
+  query('minLng')
+    .optional()
+    .isFloat({ min: -180, max: 180 })
+    .withMessage("Minimum longitude is invalid"),
+  query('maxLng')
+    .optional()
+    .isFloat({ min: -180, max: 180 })
+    .withMessage("Maximum longitude is invalid"),
+  query('minPrice')
+    .optional()
+    .isFloat({ min: 0 })
+    .withMessage("Minimum price must be greater than or equal to 0"),
+  query('maxPrice')
+    .optional()
+    .isFloat({ min: 0 })
+    .withMessage("Maximum price must be greater than or equal to 0"),
   handleValidationErrors
 ]
 
@@ -121,6 +145,8 @@ router.get(
     if (page) pagination.offset = size * (page - 1);
 
     const where = generateWhereObj(req.query);
+
+    console.log(where)
 
 
     // console.log('size', typeof size)
