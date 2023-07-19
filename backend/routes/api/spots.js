@@ -270,6 +270,8 @@ router.get(
         // console.log(spotImage)
         if (spotImage.preview) {
           spot.previewImage = spotImage.url
+        } else {
+          spot.previewImage = 'No preview'
         }
       })
       spot.avgRating = total / spot.Reviews.length
