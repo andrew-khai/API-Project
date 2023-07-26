@@ -40,6 +40,8 @@ router.get(
       booking.Spot.SpotImages.forEach(spotImage => {
         if (spotImage.preview) {
           booking.Spot.previewImage = spotImage.url
+        } else {
+          booking.Spot.previewImage = "no preview"
         }
       })
       delete booking.Spot.SpotImages
