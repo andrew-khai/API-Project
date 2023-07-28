@@ -1,0 +1,23 @@
+.hidden {
+  display: none;
+}
+
+.profile-icon {
+  cursor: pointer;
+  border: none;
+  background-color: white;
+}
+
+.no-bullet-point {
+  list-style-type: none;
+}
+
+.session-links > a {
+  margin: 5px
+}
+
+#navigation-bar {
+  display: flex;
+  justify-content: space-between;
+
+}
