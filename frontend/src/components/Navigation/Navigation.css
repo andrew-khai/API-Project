@@ -8,12 +8,24 @@
   background-color: white;
 }
 
+.home > a {
+  text-decoration: none;
+  color: black;
+}
+
 .no-bullet-point {
   list-style-type: none;
 }
 
+.session-links {
+  list-style-type: none;
+}
+
 .session-links > a {
-  margin: 5px
+  margin: 5px;
+  list-style-type: none;
+  text-decoration: none;
+  color: black;
 }
 
 #navigation-bar {
