@@ -20,6 +20,8 @@ const removeUser = () => {
 
 
 // THUNK ACTION CREATORS
+
+//Logging in a user
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
   const response = await csrfFetch("/api/session", {
@@ -34,6 +36,14 @@ export const login = (user) => async (dispatch) => {
   return response;
 };
 
+
+//Restoring session of current user
+export const restoreUser = () => async (dispatch) => {
+  const res = await csrfFetch('/api/session');
+  const data = res.json;
+  dispatch(setUser(data.user));
+  return res;
+}
 
 // REDCUER
 const initialState = { user: null };
