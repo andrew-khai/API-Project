@@ -2,34 +2,22 @@
   display: none;
 }
 
-.profile-icon {
-  cursor: pointer;
-  border: none;
-  background-color: white;
-}
-
-.home > a {
-  text-decoration: none;
-  color: black;
-}
-
-.no-bullet-point {
+.navigation-bar {
   list-style-type: none;
 }
 
-.session-links {
-  list-style-type: none;
-}
-
-.session-links > a {
-  margin: 5px;
-  list-style-type: none;
-  text-decoration: none;
-  color: black;
-}
-
-#navigation-bar {
+#navigation-list {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid lightgray;
+}
 
+.profile-button {
+  border: 1px solid lightgray;
+  border-radius: 15px;
+  padding: 8px 15px;
+  background-color: white;
 }
