@@ -47,15 +47,18 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
+          <div className="dropdown-list-container">
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
+            {/* li item for Manage Spots */}
             <li>
               <button onClick={logout}>Log Out</button>
             </li>
+          </div>
           </>
         ) : (
           <>
+          <div className="dropdown-list-container">
             <li>
               <OpenModalButton
                 buttonText="Log In"
@@ -70,6 +73,7 @@ function ProfileButton({ user }) {
                 modalComponent={<SignupFormModal />}
               />
             </li>
+          </div>
           </>
         )}
       </ul>

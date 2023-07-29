@@ -9,8 +9,8 @@ function Navigation({ isLoaded }){
 
   return (
     <ul id='navigation-list'>
-      <li className='navigation-bar'>
-        <NavLink exact to="/"><i class="fa-solid fa-house" style={{color: 'blue'}}></i></NavLink>
+      <li className='navigation-bar home-link'>
+        <NavLink exact to="/"><i class="fa-solid fa-house fa-xl" style={{color: 'blue'}}></i></NavLink>
       </li>
       {isLoaded && (
         <li className='navigation-bar'>
