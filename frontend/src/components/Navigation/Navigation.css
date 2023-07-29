@@ -21,3 +21,25 @@
   padding: 8px 15px;
   background-color: white;
 }
+
+ul.profile-dropdown {
+  /* border: 1px solid green; */
+  position: absolute;
+  right: 20px;
+}
+
+.dropdown-list-container {
+  margin-top: 5px;
+  border: 1px solid black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: white;
+  align-items: center;
+  border-radius: 15px;
+}
+
+.dropdown-list-container > li {
+  list-style-type: none;
+}
