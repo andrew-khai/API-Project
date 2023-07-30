@@ -42,38 +42,40 @@ function ProfileButton({ user }) {
   return (
     <>
       <button className="profile-button" onClick={openMenu}>
-        <i class="fa-regular fa-user fa-lg" style={{color:'orange'}}></i>
+        <i class="fa-regular fa-user fa-lg" style={{ color: 'orange' }}></i>
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-          <div className="dropdown-list-container">
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            {/* li item for Manage Spots */}
-            <li id="logout-button">
-              <button onClick={logout}>Log Out</button>
-            </li>
-          </div>
+            <div className="dropdown-list-container">
+              <div className="user-information-container">
+                <li>{user.firstName} {user.lastName}</li>
+                <li>{user.email}</li>
+              </div>
+              {/* li item for Manage Spots */}
+              <li id="logout-button">
+                <button onClick={logout}>Log Out</button>
+              </li>
+            </div>
           </>
         ) : (
           <>
-          <div className="dropdown-list-container">
-            <li className="login-signup-modal">
-              <OpenModalButton
-                buttonText="Log In"
-                onButtonClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
-            </li>
-            <li className="login-signup-modal">
-              <OpenModalButton
-                buttonText="Sign Up"
-                onButtonClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
-            </li>
-          </div>
+            <div className="dropdown-list-container">
+              <li className="login-signup-modal">
+                <OpenModalButton
+                  buttonText="Log In"
+                  onButtonClick={closeMenu}
+                  modalComponent={<LoginFormModal />}
+                />
+              </li>
+              <li className="login-signup-modal">
+                <OpenModalButton
+                  buttonText="Sign Up"
+                  onButtonClick={closeMenu}
+                  modalComponent={<SignupFormModal />}
+                />
+              </li>
+            </div>
           </>
         )}
       </ul>

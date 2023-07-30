@@ -9,7 +9,11 @@
 }
 
 .spots-boxes-details {
-  display: flex;
+  display: grid;
   flex-direction: column;
   margin-top: 10px;
+}
+
+.spots-boxes-ratings {
+  text-align: right;
 }
