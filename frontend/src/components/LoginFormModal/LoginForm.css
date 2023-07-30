@@ -22,6 +22,7 @@ input {
   border-radius: 10px;
   background-color: white;
   color: orange;
+  cursor: pointer;
 }
 
 #login-button:hover {
