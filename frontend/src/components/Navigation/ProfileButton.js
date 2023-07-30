@@ -42,7 +42,7 @@ function ProfileButton({ user }) {
   return (
     <>
       <button className="profile-button" onClick={openMenu}>
-        <i class="fa-regular fa-user fa-lg"></i>
+        <i class="fa-regular fa-user fa-lg" style={{color:'orange'}}></i>
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
@@ -51,7 +51,7 @@ function ProfileButton({ user }) {
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             {/* li item for Manage Spots */}
-            <li>
+            <li id="logout-button">
               <button onClick={logout}>Log Out</button>
             </li>
           </div>
@@ -59,14 +59,14 @@ function ProfileButton({ user }) {
         ) : (
           <>
           <div className="dropdown-list-container">
-            <li>
+            <li className="login-signup-modal">
               <OpenModalButton
                 buttonText="Log In"
                 onButtonClick={closeMenu}
                 modalComponent={<LoginFormModal />}
               />
             </li>
-            <li>
+            <li className="login-signup-modal">
               <OpenModalButton
                 buttonText="Sign Up"
                 onButtonClick={closeMenu}
