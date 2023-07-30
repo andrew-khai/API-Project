@@ -43,7 +43,7 @@ module.exports = {
         ownerId: 3,
         address: "10 Seaside Lane",
         city: "City of Atlantis",
-        state: "Atlantis",
+        state: "Atlantis Court",
         country: "United States of America",
         lat: -26.6841201,
         lng: -122.0173401,
