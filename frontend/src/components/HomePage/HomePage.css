@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
+#spots-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.spots-boxes-details {
+  display: flex;
+  flex-direction: column;
+}
