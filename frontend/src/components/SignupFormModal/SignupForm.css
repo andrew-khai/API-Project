@@ -4,3 +4,21 @@
   align-items: center;
   gap: 10px;
 }
+
+.login-signup {
+  color: orange;
+}
+
+#signup-button {
+  width: 300px;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 10px;
+  background-color: white;
+  color: orange;
+}
+
+#signup-button:hover {
+  background-color: orange;
+  color: white;
+}
