@@ -22,6 +22,7 @@ const HomePage = () => {
       <div id="spots-container">
         {spots.map(spot => (
           <div className="spots-boxes" key={spot.id}>
+            <NavLink to={`/api/spots/${spot.id}`}>
             <img className="spots-boxes-image" src={spot.previewImage} alt={spot.name}></img>
             <div className="spots-boxes-details">
               <div className="spots-location-ratings">
@@ -30,6 +31,7 @@ const HomePage = () => {
               </div>
               <div className="spots-boxes-price">${spot.price}<span className="day-text"> /day</span></div>
             </div>
+            </NavLink>
           </div>
         ))}
       </div>

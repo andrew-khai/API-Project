@@ -12,6 +12,11 @@
   width: 275px;
 }
 
+.spots-boxes > a {
+  color: black;
+  text-decoration: none;
+}
+
 .spots-boxes-details {
   display: grid;
   flex-direction: column;
