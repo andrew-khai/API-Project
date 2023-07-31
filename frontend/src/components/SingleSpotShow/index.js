@@ -15,11 +15,15 @@ const SingleSpotShow = () => {
 
   // console.log('spot', spot)
   return (
-    <div id="spot-details-container">
-      <h2>{spot.name}</h2>
-      <h3>{spot.city}, {spot.state}, {spot.country}</h3>
+    <>
+      {spot &&
+        (<div id="spot-details-container">
+          <h2>{spot.name}</h2>
+          <h3>{spot.city}, {spot.state}, {spot.country}</h3>
 
-    </div>
+        </div>
+        )}
+    </>
   )
 }
 
