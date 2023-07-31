@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 export const GET_SPOTS = "GET/api/spots";
 export const GET_SINGLE_SPOT = "GET/api/spots/:spotId";
+export const CREATE_SPOT = "POST/api/spots";
 
 //ACTION CREATORS
 //Get all spots
@@ -48,6 +49,27 @@ export const singleSpotThunk = (spotId) => async (dispatch) => {
   else {
     const errors = await res.json();
     return errors;
+  }
+}
+
+// Create a Spot
+export const createASpot = (spot) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(spot)
+  })
+
+  if (res.ok) {
+    const newSpot = await res.json();
+    dispatch(getSingleSpot(newSpot));
+    return newSpot;
+  }
+  else {
+    const errors = await res.json();
+    return errors
   }
 }
 

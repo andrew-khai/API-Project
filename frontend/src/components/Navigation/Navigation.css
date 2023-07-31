@@ -29,6 +29,12 @@
   background-color: white;
 }
 
+#profile-button-details {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 ul.profile-dropdown {
   /* border: 1px solid green; */
   position: absolute;
