@@ -13,17 +13,17 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: 1,
-        url: "/Users/andrewchan/Downloads/matterhornbasketballcourt.jpg",
+        url: "/images/placeholder-picture.png",
         preview: true
       },
       {
         spotId: 2,
-        url: "/Users/andrewchan/Downloads/basketballcourtOuterSpace.jpg",
+        url: "/images/placeholder-picture.png",
         preview: true
       },
       {
         spotId: 3,
-        url: "/Users/andrewchan/Downloads/scubadunks.jpg",
+        url: "/images/placeholder-picture.png",
         preview: true
       },
     ])

@@ -91,3 +91,28 @@ li#logout-button > button:hover {
   list-style-type: none;
   padding: 5px 20px;
 }
+
+.create-new-spot-link {
+  list-style-type: none;
+}
+
+.create-new-spot-link > a {
+  text-decoration: none;
+  color: black;
+  text-align: right;
+  font-size: 16px;
+}
+
+.create-new-spot-link > a:hover {
+  color: orange;
+  /* padding-left: 10px;
+  padding-right: 10px;
+  background-color: rgb(247, 247, 247);
+  border-radius: 30px; */
+}
+
+#user-logged-in-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

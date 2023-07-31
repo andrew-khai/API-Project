@@ -12,7 +12,16 @@ function Navigation({ isLoaded }){
       <li className='navigation-bar home-link'>
         <NavLink exact to="/"><i class="fa-solid fa-basketball fa-2xl" style={{color: 'orange'}}></i>BallBnB</NavLink>
       </li>
-      {isLoaded && (
+      {sessionUser && isLoaded ? (
+        <div id="user-logged-in-profile">
+        <li className='create-new-spot-link'>
+          <NavLink to='/api/spots'>Create a New Spot</NavLink>
+        </li>
+        <li className='navigation-bar'>
+          <ProfileButton user={sessionUser} />
+        </li>
+        </div>
+      ) : (
         <li className='navigation-bar'>
           <ProfileButton user={sessionUser} />
         </li>
