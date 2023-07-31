@@ -1,0 +1,35 @@
+#form-container {
+  display: block;
+  text-align: center;
+}
+
+#form-container > input {
+  width: 430px;
+}
+
+form {
+  display: inline-block;
+  text-align: left;
+  margin: 0px auto;
+  width: 430px;
+}
+
+#location-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#location-container > h3 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+#location-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.create-spot-button-container {
+  text-align: center;
+}

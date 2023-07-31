@@ -15,7 +15,7 @@ function Navigation({ isLoaded }){
       {sessionUser && isLoaded ? (
         <div id="user-logged-in-profile">
         <li className='create-new-spot-link'>
-          <NavLink to='/api/spots'>Create a New Spot</NavLink>
+          <NavLink to='/spots/new'>Create a New Spot</NavLink>
         </li>
         <li className='navigation-bar'>
           <ProfileButton user={sessionUser} />
