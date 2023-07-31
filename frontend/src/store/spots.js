@@ -16,7 +16,7 @@ const getSpots = (spots) => {
 const getSingleSpot = (spot) => {
   return {
     type: GET_SINGLE_SPOT,
-    payload: spot
+    spot
   }
 }
 
@@ -31,17 +31,15 @@ export const getAllSpots = () => async (dispatch) => {
     dispatch(getSpots(spots))
     return spots;
   }
+  else {
+    const errors = await res.json();
+    return errors;
+  }
 }
 
 //GET SINGLE SPOT
-export const singleSpotThunk = (spot) => async (dispatch) => {
-  const res = await csrfFetch(`/api/spots/${spot.id}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(spot)
-  })
+export const singleSpotThunk = (spotId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}`)
   if (res.ok) {
     const singleSpot = await res.json();
     dispatch(getSingleSpot(singleSpot));
@@ -68,7 +66,8 @@ const spotsReducer = (state = initialState, action) => {
       return newState;
     case GET_SINGLE_SPOT:
       newState = {...state, singleSpot: {}};
-      console.log(action.spot);
+      newState.singleSpot[action.spot.id] = action.spot
+      return newState;
     default:
       return state;
   }
