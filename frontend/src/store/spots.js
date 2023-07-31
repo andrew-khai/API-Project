@@ -33,6 +33,26 @@ export const getAllSpots = () => async (dispatch) => {
   }
 }
 
+//GET SINGLE SPOT
+export const singleSpotThunk = (spot) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spot.id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(spot)
+  })
+  if (res.ok) {
+    const singleSpot = await res.json();
+    dispatch(getSingleSpot(singleSpot));
+    return singleSpot;
+  }
+  else {
+    const errors = await res.json();
+    return errors;
+  }
+}
+
 
 //REDUCER
 const initialState = {allSpots: {}, singleSpot: {}}
@@ -46,6 +66,9 @@ const spotsReducer = (state = initialState, action) => {
         newState.allSpots[spot.id] = spot;
       })
       return newState;
+    case GET_SINGLE_SPOT:
+      newState = {...state, singleSpot: {}};
+      console.log(action.spot);
     default:
       return state;
   }

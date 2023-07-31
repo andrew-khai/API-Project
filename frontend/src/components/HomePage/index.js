@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSpots } from "../../store/spots";
-import { NavLink } from "react-router-dom";
+import SingleSpotItem from "../SpotItemDetails";
 import './HomePage.css'
 
 const HomePage = () => {
@@ -21,19 +21,12 @@ const HomePage = () => {
     <>
       <div id="spots-container">
         {spots.map(spot => (
-          <div className="spots-boxes" key={spot.id}>
-            <NavLink to={`/api/spots/${spot.id}`}>
-            <img className="spots-boxes-image" src={spot.previewImage} alt={spot.name}></img>
-            <div className="spots-boxes-details">
-              <div className="spots-location-ratings">
-                <div className="spots-boxes-city-state">{spot.city}, {spot.state}</div>
-                <div className="spots-boxes-ratings"><i className="fa-solid fa-star fa-xs"></i> {spot.avgRating}</div>
-              </div>
-              <div className="spots-boxes-price">${spot.price}<span className="day-text"> /day</span></div>
-            </div>
-            </NavLink>
-          </div>
-        ))}
+          <SingleSpotItem
+            spot={spot}
+            key={spot.id}
+          />
+        ))
+        }
       </div>
     </>
   )

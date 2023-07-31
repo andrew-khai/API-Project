@@ -1,0 +1,42 @@
+#spots-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.spots-boxes {
+  width: 275px;
+}
+
+.spots-boxes > a {
+  color: black;
+  text-decoration: none;
+}
+
+.spots-boxes-details {
+  display: grid;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.spots-boxes-images {
+  width: max-content;
+  height: 300px;
+}
+
+.spots-location-ratings {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spots-boxes-ratings {
+  text-align: right;
+}
+
+div.spots-boxes-price {
+  font-weight: bold;
+}
+
+.day-text {
+  font-weight: normal;
+}
