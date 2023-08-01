@@ -26,45 +26,37 @@ const SingleSpotShow = () => {
   // console.log('spot', spot)
   return (
     <div id="single-spot-container">
-      {spot &&
-        (
-          <div id="spot-details-container">
-            <h2>{spot.name}</h2>
-            <p>{spot.city}, {spot.state}, {spot.country}</p>
-          </div>
-        )
-      }
-      {spotImages &&
-        (
-          <div id="single-spot-images-container">
-            <img id="preview-image" src={spotImages[0].url}></img>
-          </div>
-        )
-      }
-      {spot &&
-        (
-          <div id="single-spot-details-container">
-            <div id="single-spot-description">
-              <h2>Hosted by {owner.firstName} {owner.lastName}</h2>
-              <p>{spot.description}</p>
-            </div>
-            <div id="single-spot-price-container">
-              <div id="single-spot-price-ratings">
-                <h2>${spot.price}<span style={{ fontSize: '16px', fontWeight: 'normal' }}> day</span></h2>
-                <div>
-                  <i className="fa-solid fa-star fa-xs"></i>
-                  {spot.avgStarRating}
-                  <span style={{marginLeft: '10px', marginRight: '10px', fontSize: '10px'}}>•</span>
-                  {spot.numReviews} reviews
-                </div>
-              </div>
-              <button id="reserve-button" onClick={onClick}>
-                Reserve
-              </button>
+      <div id="spot-details-container">
+        <h2>{spot.name}</h2>
+        <p>{spot.city}, {spot.state}, {spot.country}</p>
+      </div>
+      <div id="single-spot-images-container">
+        <img id="preview-image" src={spotImages[0].url}></img>
+      </div>
+      <div id="single-spot-details-container">
+        <div id="single-spot-description">
+          <h2>Hosted by {owner.firstName} {owner.lastName}</h2>
+          <p>{spot.description}</p>
+        </div>
+        <div id="single-spot-price-container">
+          <div id="single-spot-price-ratings">
+            <h2>${spot.price}<span style={{ fontSize: '16px', fontWeight: 'normal' }}> day</span></h2>
+            <div>
+              <i className="fa-solid fa-star fa-xs"></i>
+              {spot.avgStarRating}
+              <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span>
+              {spot.numReviews ?
+                <span>{spot.numReviews} reviews</span> :
+                "New"
+              }
             </div>
           </div>
-        )
-      }
+          <button id="reserve-button" onClick={onClick}>
+            Reserve
+          </button>
+        </div>
+      </div>
+
     </div>
   )
 }
