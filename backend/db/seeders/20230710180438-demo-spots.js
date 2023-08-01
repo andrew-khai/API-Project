@@ -20,7 +20,7 @@ module.exports = {
         lat: 37.7645358,
         lng: -122.4730327,
         name: "Matterhorn Basketball Court",
-        description: "You may have noticed that the Matterhorn Bobsleds never quite reach the top of the mountain. Ever wondered why? Well, the upper third of the mountain is actually open inside, with storage, staircases, and this park secret: the Matterhorn Basketball Court! The small basketball court has a full backboard and net, and sits in a small attic-like space near the top of the Matterhorn.",
+        description: "You may have noticed that the Matterhorn Bobsleds never quite reach the top of the mountain. Ever wondered why? Well, the upper third of the mountain is actually open inside, with storage, staircases, and this park secret: the Matterhorn Basketball Court!",
         price: 1234,
         createdAt: new Date(),
         updatedAt: new Date(),
