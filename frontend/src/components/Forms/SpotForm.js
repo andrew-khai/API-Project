@@ -33,6 +33,7 @@ const SpotForm = ({ spot, formType }) => {
 
     if (formType === 'Create Spot') {
       const newSpot = await dispatch(createASpot(spot))
+      console.log('newSpot', newSpot)
 
       if (newSpot.errors) {
         setErrors(newSpot.errors);

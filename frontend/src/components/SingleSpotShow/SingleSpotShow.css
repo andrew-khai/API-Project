@@ -1,0 +1,39 @@
+#single-spot-container {
+  margin-right: 40px;
+  margin-left: 40px;
+}
+
+#single-spot-images-container {
+  margin-bottom: 15px;
+}
+
+#single-spot-details-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#single-spot-price-container {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  border: 1.5px solid black;
+  border-radius: 10px;
+  padding: 20px;
+  padding-top: 0px;
+}
+
+#single-spot-price-ratings {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#reserve-button {
+  cursor: pointer;
+  width: 290px;
+  align-self: center;
+  background-color: rgb(228, 77, 77);
+  color: white;
+  padding: 10px;
+}

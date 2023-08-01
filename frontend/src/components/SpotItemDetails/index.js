@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import "./SpotItemDetails.css"
-import placeholder from '../../images/placeholder-picture.png'
+import placeholder from '../../images/basketball-court.png'
 
 const SingleSpotItem = ({ spot }) => {
   return (
