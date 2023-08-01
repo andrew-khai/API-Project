@@ -21,6 +21,13 @@ const getSingleSpot = (spot) => {
   }
 }
 
+const createSpot = (spot) => {
+  return {
+    type: CREATE_SPOT,
+    spot
+  }
+}
+
 //THUNK ACTION CREATORS
 
 //GET ALL SPOTS
@@ -64,7 +71,7 @@ export const createASpot = (spot) => async (dispatch) => {
 
   if (res.ok) {
     const newSpot = await res.json();
-    dispatch(getSingleSpot(newSpot));
+    dispatch(createSpot(newSpot));
     return newSpot;
   }
   else {
@@ -89,6 +96,10 @@ const spotsReducer = (state = initialState, action) => {
     case GET_SINGLE_SPOT:
       newState = {...state, singleSpot: {}};
       newState.singleSpot[action.spot.id] = action.spot
+      return newState;
+    case CREATE_SPOT:
+      newState = structuredClone(state);
+      newState.allSpots[action.spot.id] = action.spot;
       return newState;
     default:
       return state;
