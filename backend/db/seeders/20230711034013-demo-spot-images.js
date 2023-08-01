@@ -12,17 +12,37 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: 1,
-        url: "../../images/placeholder-picture.png",
+        url: "/images/spot-1/matterhornbasketballcourt.png",
         preview: true
       },
       {
         spotId: 2,
-        url: "../../images/placeholder-picture.png",
+        url: "/images/spot-2/space-basketball-preview.png",
         preview: true
       },
       {
+        spotId: 2,
+        url: "/images/spot-2/basketball-1.png",
+        preview: false
+      },
+      {
+        spotId: 2,
+        url: "/images/spot-2/basketball-2.png",
+        preview: false
+      },
+      {
+        spotId: 2,
+        url: "/images/spot-2/basketball-3.png",
+        preview: false
+      },
+      {
+        spotId: 2,
+        url: "/images/spot-2/basketball-4.png",
+        preview: false
+      },
+      {
         spotId: 3,
-        url: "../../images/placeholder-picture.png",
+        url: "/images/spot-3/scubadunks.png",
         preview: true
       },
     ])
