@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./SpotForm.css"
 
 const SpotForm = ({ spot, formType }) => {
+
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
 
@@ -122,7 +123,7 @@ const SpotForm = ({ spot, formType }) => {
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   placeholder="Price per night (USD)"
-                  style={{ width: '430px' }}
+                  style={{ width: '400px', marginLeft: '5px'}}
                 >
                 </input>
               </label>
@@ -142,7 +143,7 @@ const SpotForm = ({ spot, formType }) => {
                 type="text"
                 value={imageOne}
                 onChange={(e) => setImageOne(e.target.value)}
-                placeholder="Preview Image URL"
+                placeholder="Image URL"
                 style={{ width: '430px' }}
               >
               </input>
@@ -150,7 +151,7 @@ const SpotForm = ({ spot, formType }) => {
                 type="text"
                 value={imageTwo}
                 onChange={(e) => setImageTwo(e.target.value)}
-                placeholder="Preview Image URL"
+                placeholder="Image URL"
                 style={{ width: '430px' }}
               >
               </input>
@@ -158,7 +159,7 @@ const SpotForm = ({ spot, formType }) => {
                 type="text"
                 value={imageThree}
                 onChange={(e) => setImageThree(e.target.value)}
-                placeholder="Preview Image URL"
+                placeholder="Image URL"
                 style={{ width: '430px' }}
               >
               </input>
@@ -166,7 +167,7 @@ const SpotForm = ({ spot, formType }) => {
                 type="text"
                 value={imageFour}
                 onChange={(e) => setImageFour(e.target.value)}
-                placeholder="Preview Image URL"
+                placeholder="Image URL"
                 style={{ width: '430px' }}
               >
               </input>

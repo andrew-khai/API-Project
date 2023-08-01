@@ -1,5 +1,4 @@
 'use strict';
-
 const { SpotImage } = require('../models');
 
 
@@ -13,17 +12,17 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: 1,
-        url: "/images/placeholder-picture.png",
+        url: "../../images/placeholder-picture.png",
         preview: true
       },
       {
         spotId: 2,
-        url: "/images/placeholder-picture.png",
+        url: "../../images/placeholder-picture.png",
         preview: true
       },
       {
         spotId: 3,
-        url: "/images/placeholder-picture.png",
+        url: "../../images/placeholder-picture.png",
         preview: true
       },
     ])
