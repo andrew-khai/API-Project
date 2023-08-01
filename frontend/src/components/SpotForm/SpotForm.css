@@ -3,6 +3,14 @@
   text-align: center;
 }
 
+p {
+  margin-top: 5px;
+}
+
+h3 {
+  margin-bottom: 0px;
+}
+
 #form-container > input {
   width: 430px;
 }
@@ -17,6 +25,8 @@ form {
 #location-container {
   display: flex;
   flex-direction: column;
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
 }
 
 #location-container > h3 {
@@ -30,6 +40,45 @@ form {
   gap: 10px;
 }
 
+#description-container {
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
+}
+
+#title-spot-container {
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
+}
+
+#price-container {
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
+}
+
+#spot-images-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
+}
+
+#spot-images-container > h3{
+  margin-bottom: 0px;
+}
+
+#spot-images-container > p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 .create-spot-button-container {
+  margin: 15px auto;
   text-align: center;
+}
+
+.create-spot-button-container > button {
+  cursor: pointer;
+  background-color: red;
+  color: white;
 }

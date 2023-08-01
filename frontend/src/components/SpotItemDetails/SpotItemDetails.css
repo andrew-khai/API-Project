@@ -19,11 +19,6 @@
   margin-top: 10px;
 }
 
-.spots-boxes-images {
-  width: max-content;
-  height: 300px;
-}
-
 .spots-location-ratings {
   display: flex;
   justify-content: space-between;
