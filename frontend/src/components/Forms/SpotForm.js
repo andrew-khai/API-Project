@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import "./SpotForm.css"
+import { createASpot } from "../../store/spots";
 
 const SpotForm = ({ spot, formType }) => {
 
@@ -23,8 +24,23 @@ const SpotForm = ({ spot, formType }) => {
   const [imageFour, setImageFour] = useState('')
   const [errors, setErrors] = useState({});
 
+  if (!sessionUser) return null;
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setErrors({})
+    spot = {...spot, address, city, state, country, name, description, price, previewImage, imageOne, imageTwo, imageThree, imageFour}
+
+    if (formType === 'Create Spot') {
+      const newSpot = await dispatch(createASpot(spot))
+
+      if (newSpot.errors) {
+        setErrors(newSpot.errors);
+        return;
+      }
+
+      history.push(`/spots/${newSpot.id}`)
+    }
   }
 
   return (
@@ -39,7 +55,7 @@ const SpotForm = ({ spot, formType }) => {
               <p>Guests will only get your exact address once they book a reservation.</p>
               <div id="location-details">
                 <label>
-                  Country
+                  Country {errors.country}
                   <br></br>
                   <input
                     type='text'
@@ -123,7 +139,7 @@ const SpotForm = ({ spot, formType }) => {
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   placeholder="Price per night (USD)"
-                  style={{ width: '400px', marginLeft: '5px'}}
+                  style={{ width: '415px', marginLeft: '5px'}}
                 >
                 </input>
               </label>
@@ -173,7 +189,7 @@ const SpotForm = ({ spot, formType }) => {
               </input>
             </div>
             <div class="create-spot-button-container">
-              <button>
+              <button type="submit">
                 Create Spot
               </button>
             </div>
