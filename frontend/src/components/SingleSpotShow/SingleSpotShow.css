@@ -27,7 +27,7 @@
 
 #other-images-container {
   display: grid;
-  grid-template-columns: 235px 235px;
+  grid-template-columns: 233px 233px;
   grid-row: auto auto;
   grid-column-gap: 5px;
   grid-row-gap: 5px;
@@ -41,6 +41,10 @@
 
 #single-spot-description > h2 {
   margin-top: 0px;
+}
+
+#single-spot-details-container {
+  margin-top: 15px;
 }
 
 #single-spot-price-ratings {
