@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 export const GET_SPOTS = "GET/api/spots";
 export const GET_SINGLE_SPOT = "GET/api/spots/:spotId";
 export const CREATE_SPOT = "POST/api/spots";
+export const EDIT_SPOT = "PUT/api/:spotId";
 
 //ACTION CREATORS
 //Get all spots
@@ -25,6 +26,14 @@ const getSingleSpot = (spot) => {
 const createSpot = (spot) => {
   return {
     type: CREATE_SPOT,
+    spot
+  }
+}
+
+// Edit a spot
+const editSpot = (spot) => {
+  return {
+    type: EDIT_SPOT,
     spot
   }
 }
@@ -86,6 +95,29 @@ export const createASpot = (spot) => async (dispatch) => {
   }
 }
 
+// EDIT SPOT THUNK
+export const editSpotThunk = (spot) => async (dispatch) => {
+  try {
+    const res = await csrfFetch(`/api/spots/${spot.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(spot)
+    })
+
+    if (res.ok) {
+      const updatedSpot = await res.json();
+      dispatch(editSpot(updatedSpot));
+      return updatedSpot
+    }
+  }
+  catch (error) {
+    const errors = await error.json();
+    return errors;
+  }
+}
+
 
 //REDUCER
 const initialState = { allSpots: {}, singleSpot: {} }
@@ -106,8 +138,11 @@ const spotsReducer = (state = initialState, action) => {
     case CREATE_SPOT:
       newState = structuredClone(state);
       newState.allSpots[action.spot.id] = action.spot;
-      // newState.singleSpot[action.spot.id] = action.spot;
       return newState;
+    case EDIT_SPOT:
+      newState = structuredClone(state);
+      newState.singleSpot = action.spot;
+      return newState
     default:
       return state;
   }
