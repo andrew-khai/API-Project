@@ -2,8 +2,15 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import noImage from '../../images/no-picture-available.png'
 import './UserSpots.css'
+import { useHistory } from 'react-router-dom';
 
 const UserSpots = ({ spot }) => {
+  const history = useHistory();
+  const update = (e) => {
+    e.preventDefault();
+    history.push(`/spots/${spot.id}/edit`)
+  }
+
   return (
     <>
       <div className="spots-boxes" key={spot.id}>
@@ -18,8 +25,12 @@ const UserSpots = ({ spot }) => {
           </div>
         </NavLink>
         <div id='update-delete-container'>
-          <button>Update</button>
-          <button>Delete</button>
+          <button
+            onClick={update}
+          >Update</button>
+          <button
+            //todo onClick={handleDelete}
+          >Delete</button>
         </div>
       </div>
     </>

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./SpotForm.css"
-import { createASpot } from "../../store/spots";
+import { createASpot, editSpotThunk } from "../../store/spots";
 
 const SpotForm = ({ spot, formType }) => {
 
@@ -48,7 +48,18 @@ const SpotForm = ({ spot, formType }) => {
         return;
       }
 
-      // history.push(`/spots/${newSpot.id}`)
+      history.push(`/spots/${newSpot.id}`)
+    }
+
+    if (formType === 'Update Spot') {
+      const updatedSpot = await dispatch(editSpotThunk(spot));
+
+      if (updatedSpot.errors) {
+        setErrors(updatedSpot.errors);
+        return
+      }
+
+      history.push(`/spots/${updatedSpot.id}`)
     }
   }
 
