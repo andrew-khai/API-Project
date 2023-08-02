@@ -4,12 +4,21 @@ export const GET_SPOTS = "GET/api/spots";
 export const GET_SINGLE_SPOT = "GET/api/spots/:spotId";
 export const CREATE_SPOT = "POST/api/spots";
 export const EDIT_SPOT = "PUT/api/:spotId";
+export const GET_USER_SPOTS = "GET/api/current"
 
 //ACTION CREATORS
+
 //Get all spots
 const getSpots = (spots) => {
   return {
     type: GET_SPOTS,
+    spots
+  }
+}
+
+const userSpots = (spots) => {
+  return {
+    type: GET_USER_SPOTS,
     spots
   }
 }
@@ -47,6 +56,20 @@ export const getAllSpots = () => async (dispatch) => {
   if (res.ok) {
     const spots = await res.json();
     dispatch(getSpots(spots))
+    return spots;
+  }
+  else {
+    const errors = await res.json();
+    return errors;
+  }
+}
+
+//GET CURRENT USER SPOTS
+export const getUserSpots = () => async (dispatch) => {
+  const res = await csrfFetch('/api/spots/current');
+  if (res.ok) {
+    const spots = await res.json();
+    dispatch(userSpots(spots));
     return spots;
   }
   else {
@@ -127,6 +150,13 @@ const spotsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SPOTS:
       newState = { ...state, allSpots: {} }
+      action.spots.Spots.forEach(spot => {
+        newState.allSpots[spot.id] = spot;
+      })
+      return newState;
+    case GET_USER_SPOTS:
+      newState = { ...state, allSpots: {} }
+      // console.log('action spots', action.spots)
       action.spots.Spots.forEach(spot => {
         newState.allSpots[spot.id] = spot;
       })
