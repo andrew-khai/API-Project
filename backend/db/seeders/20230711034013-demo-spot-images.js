@@ -17,7 +17,7 @@ module.exports = {
       },
       {
         spotId: 2,
-        url: "/images/spot-2/space-basketball-preview.png",
+        url: "/images/spot-2/space-basketball-pre.png",
         preview: true
       },
       {
