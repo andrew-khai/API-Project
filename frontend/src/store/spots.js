@@ -21,6 +21,7 @@ const getSingleSpot = (spot) => {
   }
 }
 
+// Create Spot
 const createSpot = (spot) => {
   return {
     type: CREATE_SPOT,
@@ -71,13 +72,15 @@ export const createASpot = (spot) => async (dispatch) => {
 
   if (res.ok) {
     const newSpot = await res.json();
+    // console.log('new', newSpot)
     dispatch(createSpot(newSpot));
     return newSpot;
   }
   else {
-    const errors = await res.json();
-    console.log('errors', errors)
-    return errors
+    console.log('hello')
+    // const errors = await res.json();
+    // console.log('errors', errors)
+    // return errors
   }
 }
 

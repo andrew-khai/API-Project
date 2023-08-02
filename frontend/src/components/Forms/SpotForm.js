@@ -34,13 +34,14 @@ const SpotForm = ({ spot, formType }) => {
     if (formType === 'Create Spot') {
       const newSpot = await dispatch(createASpot(spot))
       console.log('newSpot', newSpot)
+      console.log('new error', newSpot?.errors)
 
       if (newSpot.errors) {
         setErrors(newSpot.errors);
         return;
       }
 
-      history.push(`/spots/${newSpot.id}`)
+      // history.push(`/spots/${newSpot.id}`)
     }
   }
 
@@ -56,7 +57,7 @@ const SpotForm = ({ spot, formType }) => {
               <p>Guests will only get your exact address once they book a reservation.</p>
               <div id="location-details">
                 <label>
-                  Country {errors.country}
+                  Country
                   <br></br>
                   <input
                     type='text'
@@ -66,6 +67,7 @@ const SpotForm = ({ spot, formType }) => {
                     style={{ width: '430px' }}
                   >
                   </input>
+
                 </label>
                 <label>
                   Street Address
@@ -149,7 +151,7 @@ const SpotForm = ({ spot, formType }) => {
               <h3>Liven up your spot with photos</h3>
               <p>Submit a link to at least one photo to publish your spot.</p>
               <input
-                type="text"
+                type="url"
                 value={previewImage}
                 onChange={(e) => setPreviewImage(e.target.value)}
                 placeholder="Preview Image URL"
@@ -157,7 +159,7 @@ const SpotForm = ({ spot, formType }) => {
               >
               </input>
               <input
-                type="text"
+                type="url"
                 value={imageOne}
                 onChange={(e) => setImageOne(e.target.value)}
                 placeholder="Image URL"
@@ -165,7 +167,7 @@ const SpotForm = ({ spot, formType }) => {
               >
               </input>
               <input
-                type="text"
+                type="url"
                 value={imageTwo}
                 onChange={(e) => setImageTwo(e.target.value)}
                 placeholder="Image URL"
@@ -173,7 +175,7 @@ const SpotForm = ({ spot, formType }) => {
               >
               </input>
               <input
-                type="text"
+                type="url"
                 value={imageThree}
                 onChange={(e) => setImageThree(e.target.value)}
                 placeholder="Image URL"

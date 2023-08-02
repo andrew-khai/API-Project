@@ -11,7 +11,7 @@ const SingleSpotItem = ({ spot }) => {
   return (
     <div className="spots-boxes" key={spot.id}>
       <NavLink to={`/spots/${spot.id}`}>
-        <img className="spots-boxes-image" src={spot.previewImage || noImage} alt={spot.name} style={{width: '280px', height: '250px'}}></img>
+        <img className="spots-boxes-image" src={spot.previewImage || noImage} alt={spot.name}></img>
         <div className="spots-boxes-details">
           <div className="spots-location-ratings">
             <div className="spots-boxes-city-state">{spot.city}, {spot.state}</div>

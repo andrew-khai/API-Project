@@ -22,22 +22,22 @@ module.exports = {
       },
       {
         spotId: 2,
-        url: "/images/spot-2/basketball-1.png",
+        url: "/images/spot-2/space-basketball-1.png",
         preview: false
       },
       {
         spotId: 2,
-        url: "/images/spot-2/basketball-2.png",
+        url: "/images/spot-2/space-basketball-2.png",
         preview: false
       },
       {
         spotId: 2,
-        url: "/images/spot-2/basketball-3.png",
+        url: "/images/spot-2/space-basketball-3.png",
         preview: false
       },
       {
         spotId: 2,
-        url: "/images/spot-2/basketball-4.png",
+        url: "/images/spot-2/space-basketball-4.png",
         preview: false
       },
       {
