@@ -218,9 +218,10 @@ router.get(
         // console.log(spotImage)
         if (spotImage.preview) {
           spot.previewImage = spotImage.url
-        } else {
-          spot.previewImage = "no preview"
         }
+        // else {
+        //   spot.previewImage = "no preview"
+        // }
       })
       spot.avgRating = total / spot.Reviews.length
       delete spot.Reviews

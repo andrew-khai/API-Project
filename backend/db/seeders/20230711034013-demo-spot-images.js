@@ -12,37 +12,37 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: 1,
-        url: "/images/spot-1/matterhornbasketballcourt.png",
+        url: "https://res.cloudinary.com/dtylyepxs/image/upload/v1691009592/BallBnB/matterhornbasketballcourt_luonjp.webp",
         preview: true
       },
       {
         spotId: 2,
-        url: "/images/spot-2/space-basketball-pre.png",
+        url: "https://res.cloudinary.com/dtylyepxs/image/upload/v1691009608/BallBnB/space-basketball-pre_yz2dvd.png",
         preview: true
       },
       {
         spotId: 2,
-        url: "/images/spot-2/space-basketball-1.png",
+        url: "https://res.cloudinary.com/dtylyepxs/image/upload/v1691009612/BallBnB/space-basketball-1_kjqwsj.png",
         preview: false
       },
       {
         spotId: 2,
-        url: "/images/spot-2/space-basketball-2.png",
+        url: "https://res.cloudinary.com/dtylyepxs/image/upload/v1691009610/BallBnB/space-basketball-2_jznees.png",
         preview: false
       },
       {
         spotId: 2,
-        url: "/images/spot-2/space-basketball-3.png",
+        url: "https://res.cloudinary.com/dtylyepxs/image/upload/v1691009610/BallBnB/space-basketball-3_rciaab.png",
         preview: false
       },
       {
         spotId: 2,
-        url: "/images/spot-2/space-basketball-4.png",
+        url: "https://res.cloudinary.com/dtylyepxs/image/upload/v1691009610/BallBnB/space-basketball-4_rwvdrx.png",
         preview: false
       },
       {
         spotId: 3,
-        url: "/images/spot-3/scubadunks.png",
+        url: "https://res.cloudinary.com/dtylyepxs/image/upload/v1691009625/BallBnB/scubadunks_orhmd6.webp",
         preview: true
       },
     ])
