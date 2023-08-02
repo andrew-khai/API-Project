@@ -53,6 +53,17 @@ ul.profile-dropdown {
   padding: 10px 20px;
 }
 
+.dropdown-list-container-user {
+  margin-top: 5px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: white;
+  align-items: center;
+  border-radius: 15px;
+}
+
 .dropdown-list-container > li {
   list-style-type: none;
   cursor: pointer;
@@ -71,6 +82,10 @@ li.login-signup-modal > button {
 li.login-signup-modal > button:hover {
   background-color: orange;
   color: white;
+}
+
+li#logout-button {
+  list-style-type: none;
 }
 
 li#logout-button > button {
@@ -96,6 +111,18 @@ li#logout-button > button:hover {
 .user-information-container > li{
   list-style-type: none;
   padding: 5px 20px;
+}
+
+.manage-spots-link {
+  border-bottom: 1px solid black;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.manage-spots-link > a {
+  text-decoration: none;
+  color: black;
 }
 
 .create-new-spot-link {
