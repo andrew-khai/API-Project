@@ -1,12 +1,21 @@
 #spots-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 280px);
+  grid-template-rows: 280px;
+  width: 100%;
+  column-gap: 30px;
+  row-gap: 70px;
+  justify-content: center;
 }
 
 .spots-boxes {
-  width: 275px;
+  width: 100%;
+  height: 100%;
+}
+
+.spots-boxes-image {
+  width: 100%;
+  height: 100%;
 }
 
 .spots-boxes > a {

@@ -20,6 +20,29 @@
   margin-left: 15px;
 }
 
+#single-spot-images-container {
+  display: flex;
+  margin-top: 15px;
+}
+
+#other-images-container {
+  display: grid;
+  grid-template-columns: 235px 235px;
+  grid-row: auto auto;
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+  margin-left: 5px;
+}
+
+.other-images {
+  width: 100%;
+  height: 100%;
+}
+
+#single-spot-description > h2 {
+  margin-top: 0px;
+}
+
 #single-spot-price-ratings {
   display: flex;
   align-items: center;
