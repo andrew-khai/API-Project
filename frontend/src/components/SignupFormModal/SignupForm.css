@@ -19,7 +19,7 @@
   cursor: pointer;
 }
 
-#signup-button:hover {
+#signup-button:hover:enabled {
   background-color: orange;
   color: white;
 }
