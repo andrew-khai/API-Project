@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import { singleSpotThunk } from "../../store/spots";
 import './SingleSpotShow.css'
+import noImage from '../../images/no-picture-available.png'
 
 const SingleSpotShow = () => {
   const { spotId } = useParams();
@@ -31,7 +32,7 @@ const SingleSpotShow = () => {
         <p>{spot.city}, {spot.state}, {spot.country}</p>
       </div>
       <div id="single-spot-images-container">
-        <img id="preview-image" src={spot.SpotImages[0].url}></img>
+        <img id="preview-image" src={spot.SpotImages[0].url || noImage}></img>
       </div>
       <div id="single-spot-details-container">
         <div id="single-spot-description">
