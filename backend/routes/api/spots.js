@@ -39,6 +39,9 @@ const validateSpot = [
     .isFloat({ min: -180, max: 180 })
     .withMessage(`Longitude is not valid`),
   check('name')
+    .exists({ checkFalsy: true })
+    .withMessage('Name is required'),
+  check('name')
     .isLength({ max: 50 })
     .withMessage(`Name must be less than 50 characters`),
   handleValidationErrors
