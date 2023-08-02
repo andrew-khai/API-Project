@@ -31,9 +31,11 @@ const validateSpot = [
     .isInt({ min: 1 })
     .withMessage(`Price per day is required`),
   check('lat')
+    .optional()
     .isFloat({ min: -90, max: 90 })
     .withMessage(`Latitude is not valid`),
   check('lng')
+    .optional()
     .isFloat({ min: -180, max: 180 })
     .withMessage(`Longitude is not valid`),
   check('name')

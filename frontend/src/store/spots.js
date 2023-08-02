@@ -76,6 +76,7 @@ export const createASpot = (spot) => async (dispatch) => {
   }
   else {
     const errors = await res.json();
+    console.log('errors', errors)
     return errors
   }
 }
@@ -100,6 +101,7 @@ const spotsReducer = (state = initialState, action) => {
     case CREATE_SPOT:
       newState = structuredClone(state);
       newState.allSpots[action.spot.id] = action.spot;
+      // newState.singleSpot[action.spot.id] = action.spot;
       return newState;
     default:
       return state;

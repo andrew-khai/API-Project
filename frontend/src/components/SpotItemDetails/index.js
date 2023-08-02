@@ -15,7 +15,7 @@ const SingleSpotItem = ({ spot }) => {
         <div className="spots-boxes-details">
           <div className="spots-location-ratings">
             <div className="spots-boxes-city-state">{spot.city}, {spot.state}</div>
-            <div className="spots-boxes-ratings"><i className="fa-solid fa-star fa-xs"></i> {spot.avgRating}</div>
+            <div className="spots-boxes-ratings"><i className="fa-solid fa-star fa-xs"></i> {spot.avgRating || "New"}</div>
           </div>
           <div className="spots-boxes-price">${spot.price}<span className="day-text"> /day</span></div>
         </div>
