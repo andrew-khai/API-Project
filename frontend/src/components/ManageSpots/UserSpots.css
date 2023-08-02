@@ -1,0 +1,32 @@
+#manage-spots-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  margin-bottom: 25px;
+}
+
+#manage-spots-container>h2 {
+  margin: 0px;
+}
+
+#create-new-spot-button {
+  background-color: #565555;
+  color: white;
+  cursor: pointer;
+}
+
+#user-spots-container {
+  display: grid;
+  grid-template-columns: repeat(3, 280px);
+  grid-template-rows: 280px;
+  width: 100%;
+  column-gap: 30px;
+  row-gap: 70px;
+  justify-content: center;
+}
+
+#update-delete-container {
+  display: flex;
+  column-gap: 10px;
+  margin-top: 15px;
+}
