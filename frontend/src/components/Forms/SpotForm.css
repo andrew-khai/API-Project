@@ -29,6 +29,10 @@ form {
   border-bottom: 1px solid black;
 }
 
+#location-container > h2 {
+  margin-top: 0px;
+}
+
 #location-container > h3 {
   margin-top: 0px;
   margin-bottom: 0px;
@@ -81,4 +85,17 @@ form {
   cursor: pointer;
   background-color: red;
   color: white;
+}
+
+/* ERRORS */
+span.errors {
+  margin-left: 10px;
+  color: red;
+  font-size: 0.85rem;
+}
+
+p.errors {
+  color: red;
+  font-size: 0.85rem;
+  margin-bottom: 0px;
 }
