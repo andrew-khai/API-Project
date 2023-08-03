@@ -6,6 +6,7 @@ export const CREATE_SPOT = "POST/api/spots";
 export const EDIT_SPOT = "PUT/api/:spotId";
 export const GET_USER_SPOTS = "GET/api/current";
 export const DELETE_SPOT = "DELETE/api/:spotId";
+// export const BULK_IMAGES_ADD = "POST/addImages";
 
 //ACTION CREATORS
 
@@ -39,6 +40,13 @@ const createSpot = (spot) => {
     spot
   }
 }
+
+// const addImages = (spotId, images) => {
+//   return {
+//     type: BULK_IMAGES_ADD,
+
+//   }
+// }
 
 // Edit a spot
 const editSpot = (spot) => {
@@ -126,6 +134,18 @@ export const createASpot = (spot) => async (dispatch) => {
 
   }
 }
+
+// Add Images Thunk
+// export const addImagesThunk = (spot, images) => async (dispatch) => {
+
+//   const res = await csrfFetch(`/api/${spot.id}/images`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify({spotId, url, preview})
+//   })
+// }
 
 // EDIT SPOT THUNK
 export const editSpotThunk = (spot) => async (dispatch) => {
