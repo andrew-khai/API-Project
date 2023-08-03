@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import { singleSpotThunk } from "../../store/spots";
@@ -6,9 +6,12 @@ import './SingleSpotShow.css'
 import noImage from '../../images/no-picture-available.png'
 import { getAllReviewsThunk } from "../../store/reviews";
 import SingleSpotReview from "../Reviews/SingleSpotReviews";
+import OpenModalButton from "../OpenModalButton";
+import ReviewModal from "../ReviewModal";
 
 const SingleSpotShow = () => {
   const { spotId } = useParams();
+  // const [isOwner, setIsOwner] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,6 +19,8 @@ const SingleSpotShow = () => {
     dispatch(getAllReviewsThunk(spotId))
   }, [dispatch, spotId])
 
+  const sessionUser = useSelector(state => state.session.user)
+  // console.log(sessionUser)
   const spot = useSelector(state => state.spots.singleSpot[spotId]);
   const spotReviews = useSelector(state => state.reviews.Reviews);
   const reviews = Object.values(spotReviews);
@@ -24,6 +29,7 @@ const SingleSpotShow = () => {
   const spotImages = spot.SpotImages;
   // console.log(spotImages)
   const owner = spot.Owner;
+  // console.log('owner', owner.id)
 
   const onClick = (e) => {
     e.preventDefault();
@@ -72,7 +78,7 @@ const SingleSpotShow = () => {
           </button>
         </div>
       </div>
-      <div id="reviews-container">
+      <div id="reviews-section-container">
         <div id="review-star-num-container">
           <h2>
             <i className="fa-solid fa-star fa-xs"></i>
@@ -84,13 +90,27 @@ const SingleSpotShow = () => {
             <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
             " "
           }
-          <h2>
-            {spot.numReviews ?
-              <span>{spot.numReviews} reviews</span> :
-              "New"
-            }
-          </h2>
+          {spot.numReviews ?
+            <h2>
+              {spot.numReviews === 1 ?
+                <span>{spot.numReviews} review</span> :
+                <span>{spot.numReviews} reviews</span>
+              }
+            </h2> :
+            <h2>
+              New
+            </h2>
+          }
         </div>
+          {!spot.numReviews && (sessionUser.id !== owner.id) &&
+            <div className="first-to-review-container">
+              <OpenModalButton
+                buttonText="Post Your Review"
+                modalComponent={<ReviewModal />}
+                />
+              <p>Be the first to post a review!</p>
+            </div>
+          }
         {reviews.map(review => (
           <SingleSpotReview
             review={review}

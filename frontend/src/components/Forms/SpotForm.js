@@ -143,7 +143,6 @@ const SpotForm = ({ spot, formType }) => {
           <h3>Describe your place to guests</h3>
           <p>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</p>
           <textarea
-            id=""
             type='textarea'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
