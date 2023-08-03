@@ -30,3 +30,9 @@
   column-gap: 10px;
   margin-top: 15px;
 }
+
+#update-delete-container > button {
+  background-color: #565555;
+  color: white;
+  cursor: pointer;
+}
