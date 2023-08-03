@@ -32,9 +32,7 @@ const SingleSpotShow = () => {
         <p>{spot.city}, {spot.state}, {spot.country}</p>
       </div>
       <div id="single-spot-images-container">
-        {spotImages[0] &&
           <img id="preview-image" src={spotImages[0]?.url || noImage}></img>
-        }
         <div id="other-images-container">
           <img className="other-images" src={spotImages[1]?.url || noImage}></img>
           <img className="other-images" src={spotImages[2]?.url || noImage}></img>

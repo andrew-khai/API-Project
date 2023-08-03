@@ -27,6 +27,9 @@ const validateSpot = [
   check('description')
     .exists({ checkFalsy: true })
     .withMessage(`Description is required`),
+  check('description')
+    .isLength({min: 30})
+    .withMessage('Description needs a minimum of 30 characters'),
   check('price')
     .isInt({ min: 1 })
     .withMessage(`Price per day is required`),
@@ -276,9 +279,10 @@ router.get(
         // console.log(spotImage)
         if (spotImage.preview) {
           spot.previewImage = spotImage.url
-        } else {
-          spot.previewImage = 'No preview'
         }
+        // else {
+        //   spot.previewImage = 'No preview'
+        // }
       })
       spot.avgRating = total / spot.Reviews.length
       delete spot.Reviews

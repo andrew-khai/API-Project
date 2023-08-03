@@ -9,11 +9,7 @@ const CreateASpotForm = () => {
     name: '',
     description: '',
     price: '',
-    previewImage: '',
-    imageOne: '',
-    imageTwo: '',
-    imageThree: '',
-    imageFour: '',
+    SpotImages: []
   }
 
   return (

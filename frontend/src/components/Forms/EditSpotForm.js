@@ -14,6 +14,7 @@ const EditSpotForm = () => {
 
   const spot = useSelector(state => state.spots.singleSpot[spotId]);
 
+
   if (!spot) return(<></>)
 
   return (

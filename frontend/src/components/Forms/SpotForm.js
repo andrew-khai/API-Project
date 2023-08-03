@@ -5,6 +5,7 @@ import "./SpotForm.css"
 import { createASpot, editSpotThunk } from "../../store/spots";
 
 const SpotForm = ({ spot, formType }) => {
+  // console.log('spot', spot)
 
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
@@ -17,17 +18,19 @@ const SpotForm = ({ spot, formType }) => {
   const [name, setName] = useState(spot?.name);
   const [description, setDescription] = useState(spot?.description);
   const [price, setPrice] = useState(spot?.price);
-  const [previewImage, setPreviewImage] = useState(spot?.previewImage)
-  const [imageOne, setImageOne] = useState('')
-  const [imageTwo, setImageTwo] = useState('')
-  const [imageThree, setImageThree] = useState('')
-  const [imageFour, setImageFour] = useState('')
+  // const [previewImage, setPreviewImage] = useState(spot?.previewImage);
+  // console.log('spot', spot)
+  const imageArr = spot?.SpotImages || [];
+  const init = ['', '', '', '', '']
+  imageArr.forEach((image, index) => init[index] = image.url)
+  // console.log('init', init)
+  const [spotImages, setSpotImages] = useState(init);
   const [errors, setErrors] = useState({});
 
   // useEffect(() => {
-  //   const errorsObj = {};
-  //   if (description.length < 30) errorsObj.description = "Description needs a minimum of 30 characters";
-  //   setErrors(errorsObj);
+  // const errorsObj = {};
+  // if (description.length < 30) errorsObj.description = "Description needs a minimum of 30 characters";
+  // setErrors(errorsObj);
   // }, [description])
 
   if (!sessionUser) return null;
@@ -35,10 +38,13 @@ const SpotForm = ({ spot, formType }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setErrors({})
-    spot = { ...spot, address, city, state, country, name, description, price, previewImage, imageOne, imageTwo, imageThree, imageFour }
+    spot = { ...spot, address, city, state, country, name, description, price}
+
 
     if (formType === 'Create Spot') {
       const newSpot = await dispatch(createASpot(spot))
+      // ! Add Images thunk
+      // const addImages = await dispatch(imageThunk())
       // console.log('newSpot', newSpot)
       // console.log('new error', newSpot?.errors)
 
@@ -160,8 +166,8 @@ const SpotForm = ({ spot, formType }) => {
           >
           </input>
           {errors.name &&
-              <p className="errors">{errors.name}</p>
-              }
+            <p className="errors">{errors.name}</p>
+          }
         </div>
         <div id="price-container">
           <h3>Set a base price for your spot</h3>
@@ -178,53 +184,29 @@ const SpotForm = ({ spot, formType }) => {
             </input>
             {errors.price &&
               <p className="errors">{errors.price}</p>
-              }
+            }
           </label>
         </div>
         <div id="spot-images-container">
           <h3>Liven up your spot with photos</h3>
           <p>Submit a link to at least one photo to publish your spot.</p>
           {/* !!! need to handle errors for images !!! */}
-          <input
-            type="url"
-            value={previewImage}
-            onChange={(e) => setPreviewImage(e.target.value)}
-            placeholder="Preview Image URL"
-            style={{ width: '430px' }}
-          >
-          </input>
-          <input
-            type="url"
-            value={imageOne}
-            onChange={(e) => setImageOne(e.target.value)}
-            placeholder="Image URL"
-            style={{ width: '430px' }}
-          >
-          </input>
-          <input
-            type="url"
-            value={imageTwo}
-            onChange={(e) => setImageTwo(e.target.value)}
-            placeholder="Image URL"
-            style={{ width: '430px' }}
-          >
-          </input>
-          <input
-            type="url"
-            value={imageThree}
-            onChange={(e) => setImageThree(e.target.value)}
-            placeholder="Image URL"
-            style={{ width: '430px' }}
-          >
-          </input>
-          <input
-            type="text"
-            value={imageFour}
-            onChange={(e) => setImageFour(e.target.value)}
-            placeholder="Image URL"
-            style={{ width: '430px' }}
-          >
-          </input>
+          {spotImages.map((image, index) => (
+            <input
+              type="text"
+              value={image}
+              onChange={(e) => {
+                const newSpotImages = [...spotImages]
+                newSpotImages[index] = e.target.value;
+                setSpotImages(newSpotImages);
+              }}
+              placeholder={index === 0 ? "Preview Image URL" : "Image URL"}
+              style={{ width: '430px' }}
+            >
+            </input>
+          ))
+          }
+
         </div>
         <div class="create-spot-button-container">
           <button type="submit">
