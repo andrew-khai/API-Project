@@ -199,8 +199,9 @@ const spotsReducer = (state = initialState, action) => {
       newState.singleSpot = action.spot;
       return newState
     case DELETE_SPOT:
-      newState = { ...state };
-      delete newState[action.spotId];
+      newState = structuredClone(state);
+      newState.singleSpot = {};
+      delete newState.allSpots[action.spotId]
       return newState;
     default:
       return state;

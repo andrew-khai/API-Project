@@ -2,15 +2,18 @@ import { useDispatch } from "react-redux";
 import { deleteSpotThunk } from "../../store/spots";
 import { useModal } from "../../context/Modal";
 import './DeleteModal.css'
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
 
 function DeleteModal({ spot }) {
-  const history = useHistory();
+  // const history = useHistory();
   const dispatch = useDispatch();
+
   const { closeModal } = useModal();
 
   const handleDelete = (e) => {
     e.preventDefault();
+    // console.log('spot', spot)
     dispatch(deleteSpotThunk(spot.id));
     // history.push(`/spots/current`);
     closeModal();
