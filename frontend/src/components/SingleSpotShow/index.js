@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom"
 import { singleSpotThunk } from "../../store/spots";
 import './SingleSpotShow.css'
 import noImage from '../../images/no-picture-available.png'
+import { getAllReviewsThunk } from "../../store/reviews";
+import SingleSpotReview from "../Reviews/SingleSpotReviews";
 
 const SingleSpotShow = () => {
   const { spotId } = useParams();
@@ -11,9 +13,13 @@ const SingleSpotShow = () => {
 
   useEffect(() => {
     dispatch(singleSpotThunk(spotId));
+    dispatch(getAllReviewsThunk(spotId))
   }, [dispatch, spotId])
 
   const spot = useSelector(state => state.spots.singleSpot[spotId]);
+  const spotReviews = useSelector(state => state.reviews.Reviews);
+  const reviews = Object.values(spotReviews);
+
   if (!spot) return null;
   const spotImages = spot.SpotImages;
   // console.log(spotImages)
@@ -32,7 +38,7 @@ const SingleSpotShow = () => {
         <p>{spot.city}, {spot.state}, {spot.country}</p>
       </div>
       <div id="single-spot-images-container">
-          <img id="preview-image" src={spotImages[0]?.url || noImage}></img>
+        <img id="preview-image" src={spotImages[0]?.url || noImage}></img>
         <div id="other-images-container">
           <img className="other-images" src={spotImages[1]?.url || noImage}></img>
           <img className="other-images" src={spotImages[2]?.url || noImage}></img>
@@ -51,7 +57,10 @@ const SingleSpotShow = () => {
             <div>
               <i className="fa-solid fa-star fa-xs"></i>
               {spot.avgStarRating}
-              <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span>
+              {reviews.length ?
+                <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
+                " "
+              }
               {spot.numReviews ?
                 <span>{spot.numReviews} reviews</span> :
                 "New"
@@ -63,7 +72,33 @@ const SingleSpotShow = () => {
           </button>
         </div>
       </div>
-
+      <div id="reviews-container">
+        <div id="review-star-num-container">
+          <h2>
+            <i className="fa-solid fa-star fa-xs"></i>
+          </h2>
+          <h2 style={{ marginRight: '10px' }}>
+            {spot.avgStarRating}
+          </h2>
+          {reviews.length ?
+            <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
+            " "
+          }
+          <h2>
+            {spot.numReviews ?
+              <span>{spot.numReviews} reviews</span> :
+              "New"
+            }
+          </h2>
+        </div>
+        {reviews.map(review => (
+          <SingleSpotReview
+            review={review}
+            key={review.id}
+          />
+        ))
+        }
+      </div>
     </div>
   )
 }
