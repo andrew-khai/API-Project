@@ -4,7 +4,8 @@ export const GET_SPOTS = "GET/api/spots";
 export const GET_SINGLE_SPOT = "GET/api/spots/:spotId";
 export const CREATE_SPOT = "POST/api/spots";
 export const EDIT_SPOT = "PUT/api/:spotId";
-export const GET_USER_SPOTS = "GET/api/current"
+export const GET_USER_SPOTS = "GET/api/current";
+export const DELETE_SPOT = "DELETE/api/:spotId";
 
 //ACTION CREATORS
 
@@ -44,6 +45,14 @@ const editSpot = (spot) => {
   return {
     type: EDIT_SPOT,
     spot
+  }
+}
+
+// Delete a Spot
+const deleteSpot = (spotId) => {
+  return {
+    type: DELETE_SPOT,
+    spotId
   }
 }
 
@@ -141,6 +150,22 @@ export const editSpotThunk = (spot) => async (dispatch) => {
   }
 }
 
+export const deleteSpotThunk = (spotId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  });
+
+  if (res.ok) {
+    dispatch(deleteSpot(spotId))
+  }
+  else {
+    const errors = await res.json();
+    return errors;
+  }
+}
 
 //REDUCER
 const initialState = { allSpots: {}, singleSpot: {} }
@@ -173,6 +198,10 @@ const spotsReducer = (state = initialState, action) => {
       newState = structuredClone(state);
       newState.singleSpot = action.spot;
       return newState
+    case DELETE_SPOT:
+      newState = { ...state };
+      delete newState[action.spotId];
+      return newState;
     default:
       return state;
   }
