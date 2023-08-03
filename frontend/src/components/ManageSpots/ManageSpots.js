@@ -13,10 +13,12 @@ const ManageSpots = () => {
   }, [dispatch])
 
   const userSpots = useSelector(state => state.spots.allSpots);
+  const sessionUser = useSelector(state => state.session.user);
   // console.log('user spots', userSpots);
 
   const spots = Object.values(userSpots);
   // console.log('spots', spots)
+  if (!sessionUser) return (<></>)
 
 
   return (

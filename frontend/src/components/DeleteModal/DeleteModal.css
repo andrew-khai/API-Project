@@ -1,0 +1,31 @@
+#confirm-delete-container {
+  display: flex;
+  flex-direction: column;
+  width: 285px;
+}
+
+#confirm-delete-container > h2 {
+  text-align: center;
+}
+
+#confirm-delete-buttons-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+#confirm-delete-buttons-container > button {
+  height: 40px;
+}
+
+#yes-button {
+  cursor: pointer;
+  background-color: rgb(238, 77, 77);
+  color: white;
+}
+
+#no-button {
+  cursor: pointer;
+  background-color: #565555;
+  color: white;
+}

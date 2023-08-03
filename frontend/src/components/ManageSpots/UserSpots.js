@@ -3,13 +3,25 @@ import { NavLink } from 'react-router-dom';
 import noImage from '../../images/no-picture-available.png'
 import './UserSpots.css'
 import { useHistory } from 'react-router-dom';
+import OpenModalButton from '../OpenModalButton';
+import DeleteModal from '../DeleteModal';
+import { useDispatch } from 'react-redux';
+import { deleteSpotThunk } from '../../store/spots';
 
 const UserSpots = ({ spot }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const update = (e) => {
     e.preventDefault();
     history.push(`/spots/${spot.id}/edit`)
   }
+
+  // const handleDelete = (e) => {
+  //   e.preventDefault();
+  //   dispatch(deleteSpotThunk(spot.id))
+  //   history.push(`/current`)
+  //   closeModal();
+  // }
 
   return (
     <>
@@ -28,9 +40,10 @@ const UserSpots = ({ spot }) => {
           <button
             onClick={update}
           >Update</button>
-          <button
-            //todo onClick={handleDelete}
-          >Delete</button>
+          <OpenModalButton
+            buttonText="Delete"
+            modalComponent={<DeleteModal spot={spot}/>}
+          />
         </div>
       </div>
     </>
