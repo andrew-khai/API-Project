@@ -37,6 +37,9 @@ function App() {
           <Route path='/spots/:spotId/edit'>
             <EditSpotForm />
           </Route>
+          <Route>
+            <h1>Page Not Found</h1>
+          </Route>
         </Switch>}
     </>
   );
