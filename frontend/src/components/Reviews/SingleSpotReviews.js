@@ -2,6 +2,8 @@ import './SingleSpotReviews.css'
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import DeleteReviewModal from '../DeleteReviewModal';
+import OpenModalButton from '../OpenModalButton';
 
 const SingleSpotReview = ({ review }) => {
   const { spotId } = useParams();
@@ -36,7 +38,10 @@ const SingleSpotReview = ({ review }) => {
         <p>{review.createdAt.slice(0, 10)}</p>
         <p>{review.review}</p>
         {sessionUser.id === review.User.id &&
-          <button>Delete</button>
+          <OpenModalButton
+            buttonText="Delete"
+            modalComponent={<DeleteReviewModal review={review} />}
+          />
         }
       </div>
     </>
