@@ -27,18 +27,24 @@ const SpotForm = ({ spot, formType }) => {
   const [spotImages, setSpotImages] = useState(init);
   const [errors, setErrors] = useState({});
 
+  console.log('spotImages over here', spotImages)
+
   // useEffect(() => {
   // const errorsObj = {};
-  // if (description.length < 30) errorsObj.description = "Description needs a minimum of 30 characters";
-  // setErrors(errorsObj);
-  // }, [description])
+  //   if (!spotImages[0]) errors.spotImages[0] = "Preview image is required";
+  //   if (!spotImages[1].endsWith('.png') || !spotImages[1].endsWith('.jpg') || !spotImages[1].endsWith('.jpeg')) errors.spotImages[1] = "Image URL must end in .png, .jpg, or .jpeg";
+  //   if (!spotImages[2].endsWith('.png') || !spotImages[2].endsWith('.jpg') || !spotImages[2].endsWith('.jpeg')) errors.spotImages[2] = "Image URL must end in .png, .jpg, or .jpeg";
+  //   if (!spotImages[3].endsWith('.png') || !spotImages[3].endsWith('.jpg') || !spotImages[3].endsWith('.jpeg')) errors.spotImages[3] = "Image URL must end in .png, .jpg, or .jpeg";
+  //   if (!spotImages[4].endsWith('.png') || !spotImages[4].endsWith('.jpg') || !spotImages[4].endsWith('.jpeg')) errors.spotImages[4] = "Image URL must end in .png, .jpg, or .jpeg";
+  //   setErrors(errorsObj)
+  // }, [spotImages[0], spotImages[1], spotImages[2], spotImages[3], spotImages[4]])
 
   if (!sessionUser) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setErrors({})
-    spot = { ...spot, address, city, state, country, name, description, price}
+    spot = { ...spot, address, city, state, country, name, description, price }
 
 
     if (formType === 'Create Spot') {
@@ -211,9 +217,14 @@ const SpotForm = ({ spot, formType }) => {
 
         </div>
         <div class="create-spot-button-container">
-          <button type="submit">
-            Create Spot
-          </button>
+          {formType === "Create Spot" ?
+            <button type="submit">
+              Create Spot
+            </button> :
+            <button type="submit">
+              Update your Spot
+            </button>
+          }
         </div>
       </form>
     </div>
