@@ -50,7 +50,7 @@ const SpotForm = ({ spot, formType }) => {
     if (formType === 'Create Spot') {
       const newSpot = await dispatch(createASpot(spot))
       // ! Add Images thunk
-      // const addImages = await dispatch(imageThunk())
+      // const addImage = await dispatch(imageThunk(spot.id, image))
       // console.log('newSpot', newSpot)
       // console.log('new error', newSpot?.errors)
 
