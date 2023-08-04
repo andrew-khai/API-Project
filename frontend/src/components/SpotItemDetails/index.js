@@ -9,7 +9,8 @@ const SingleSpotItem = ({ spot }) => {
   // console.log(typeof spot.previewImage)
   // console.log('require', require('../../images/placeholder-picture.png'))
   return (
-    <div className="spots-boxes" key={spot.id}>
+    <div className="spots-boxes tooltip" key={spot.id}>
+      <span className='tooltipText'>{spot.name}</span>
       <NavLink to={`/spots/${spot.id}`}>
         <img className="spots-boxes-image" src={spot.previewImage || noImage} alt={spot.name}></img>
         <div className="spots-boxes-details">
