@@ -39,7 +39,8 @@ const SpotForm = ({ spot, formType }) => {
   //   setErrors(errorsObj)
   // }, [spotImages[0], spotImages[1], spotImages[2], spotImages[3], spotImages[4]])
 
-  if (!sessionUser) return null;
+  if (!sessionUser) return <><h1>Page Not Found</h1></>;
+  if (sessionUser.id !== spot.ownerId) return <><h2>Forbidden</h2></>
 
   const handleSubmit = async (e) => {
     e.preventDefault()
