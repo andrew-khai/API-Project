@@ -33,17 +33,30 @@ const SingleSpotReview = ({ review }) => {
 
   return (
     <>
-      <div className='reviews-container'>
-        <h3>{review.User.firstName}</h3>
-        <p>{review.createdAt.slice(0, 10)}</p>
-        <p>{review.review}</p>
-        {sessionUser.id === review.User.id &&
+      {!sessionUser ?
+        <div className='reviews-container'>
+          <h3>{review.User.firstName}</h3>
+          <p>{review.createdAt.slice(0, 10)}</p>
+          <p>{review.review}</p>
+          {/* {sessionUser.id === review.User.id &&
           <OpenModalButton
             buttonText="Delete"
             modalComponent={<DeleteReviewModal review={review} />}
           />
-        }
-      </div>
+        } */}
+        </div> :
+        <div className='reviews-container'>
+          <h3>{review.User.firstName}</h3>
+          <p>{review.createdAt.slice(0, 10)}</p>
+          <p>{review.review}</p>
+          {sessionUser.id === review.User.id &&
+              <OpenModalButton
+                buttonText="Delete"
+                modalComponent={<DeleteReviewModal review={review} />}
+              />
+            }
+        </div>
+      }
     </>
   )
 
