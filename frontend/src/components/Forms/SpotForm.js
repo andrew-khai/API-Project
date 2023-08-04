@@ -73,7 +73,10 @@ const SpotForm = ({ spot, formType }) => {
     <div id="form-container">
       <form onSubmit={handleSubmit}>
         <div id="location-container">
-          <h2>Create a Spot</h2>
+          {formType === "Create Spot" ?
+            <h2>Create a Spot</h2> :
+            <h2>Update your Spot</h2>
+          }
           <h3>Where's your place located?</h3>
           <p>Guests will only get your exact address once they book a reservation.</p>
           <div id="location-details">

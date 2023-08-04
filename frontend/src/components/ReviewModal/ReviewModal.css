@@ -12,6 +12,14 @@
   cursor: pointer;
 }
 
+#submit-review-button:disabled {
+  width: 300px;
+  padding: 10px;
+  background-color: rgb(242, 149, 149);
+  color: white;
+
+}
+
 #review-stars-container {
   display: flex;
   margin: 10px 0px;
