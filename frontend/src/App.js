@@ -8,6 +8,7 @@ import SingleSpotShow from "./components/SingleSpotShow";
 import CreateASpotForm from "./components/Forms/CreateASpotForm";
 import ManageSpots from "./components/ManageSpots/ManageSpots";
 import EditSpotForm from "./components/Forms/EditSpotForm";
+import ReviewModal from "./components/ReviewModal";
 
 function App() {
   const dispatch = useDispatch();

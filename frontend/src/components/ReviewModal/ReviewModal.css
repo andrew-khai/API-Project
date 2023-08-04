@@ -9,6 +9,7 @@
   padding: 10px;
   background-color: rgb(228, 77, 77);
   color: white;
+  cursor: pointer;
 }
 
 #review-stars-container {
@@ -20,6 +21,11 @@
   cursor: pointer;
 }
 
-.filled {
-  background-color: black;
+#review-stars-container .filled > i{
+  color: red;
+}
+
+
+#review-stars-container .empty  > i{
+  color: black;
 }
