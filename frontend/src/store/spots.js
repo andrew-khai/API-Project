@@ -18,6 +18,7 @@ const getSpots = (spots) => {
   }
 }
 
+// Get Current User Spots
 const userSpots = (spots) => {
   return {
     type: GET_USER_SPOTS,

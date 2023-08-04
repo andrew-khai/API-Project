@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 export const GET_REVIEWS_FOR_SPOT = "GET_REVIEWS_FOR_SPOT";
 export const POST_REVIEW = "POST_REVIEW";
+export const DELETE_REVIEW = "DELETE_REVIEW";
 
 //Action Creators
 
@@ -18,6 +19,14 @@ const postReview = (review) => {
   return {
     type: POST_REVIEW,
     review
+  }
+}
+
+// Delete a Review
+const deleteReview = (reviewId) => {
+  return {
+    type: DELETE_REVIEW,
+    reviewId
   }
 }
 
@@ -59,6 +68,23 @@ export const createReviewThunk = (review) => async (dispatch) => {
   }
 }
 
+// DELETE A REVIEW
+export const deleteReviewThunk = (reviewId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/reviews/${reviewId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  })
+  if (res.ok) {
+    dispatch(deleteReview(reviewId))
+  }
+  else {
+    const errors = await res.json();
+    return errors;
+  }
+}
+
 
 // REDUCER
 const initialState = { Reviews: {} };
@@ -75,6 +101,10 @@ const reviewsReducer = (state = initialState, action) => {
     case POST_REVIEW:
       newState = structuredClone(state);
       newState.Reviews[action.review.id] = action.review;
+      return newState;
+    case DELETE_REVIEW:
+      newState = structuredClone(state);
+      delete newState.Reviews[action.reviewId]
       return newState;
     default:
       return state;
