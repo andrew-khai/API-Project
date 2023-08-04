@@ -14,7 +14,7 @@ function ReviewModal({ singleSpotId }) {
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const [review, setReview] = useState();
+  const [review, setReview] = useState('');
   const [stars, setStars] = useState(0);
   const [errors, setErrors] = useState({});
 
@@ -65,6 +65,7 @@ function ReviewModal({ singleSpotId }) {
       <button
         id="submit-review-button"
         onClick={handleSubmit}
+        disabled={review.length < 4 || stars < 1}
       >Submit Your Review</button>
     </div>
   )
