@@ -10,9 +10,10 @@ const SingleSpotReview = ({ review }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const sessionUser = useSelector(state => state.session.user);
   const spot = useSelector(state => state.spots.singleSpot)
-  // console.log('sessionId', sessionUser)
+  // console.log('sessionId', sessionUser.id)
   // console.log('owner', spot[spotId].ownerId)
-  // console.log('review', review.User.id)
+  // console.log('review', review.User.firstName)
+  // console.log(hasReviewed)
 
   useEffect(() => {
     if (sessionUser) {
@@ -29,11 +30,16 @@ const SingleSpotReview = ({ review }) => {
   // console.log('logged in', isLoggedIn)
 
   return (
-    <div className='reviews-container'>
-      <h3>{review.User.firstName}</h3>
-      <p>{review.createdAt.slice(0, 10)}</p>
-      <p>{review.review}</p>
-    </div>
+    <>
+      <div className='reviews-container'>
+        <h3>{review.User.firstName}</h3>
+        <p>{review.createdAt.slice(0, 10)}</p>
+        <p>{review.review}</p>
+        {sessionUser.id === review.User.id &&
+          <button>Delete</button>
+        }
+      </div>
+    </>
   )
 
 }

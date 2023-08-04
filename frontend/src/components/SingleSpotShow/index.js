@@ -11,6 +11,9 @@ import ReviewModal from "../ReviewModal";
 
 const SingleSpotShow = () => {
   const { spotId } = useParams();
+  const [singleSpotId, setSingleSpotId] = useState(spotId);
+  const [hasReviwed, setHasReviewed] = useState(false);
+  // console.log('hello spotId here', singleSpotId)
   // const [isOwner, setIsOwner] = useState(false);
   const dispatch = useDispatch();
 
@@ -20,10 +23,12 @@ const SingleSpotShow = () => {
   }, [dispatch, spotId])
 
   const sessionUser = useSelector(state => state.session.user)
-  // console.log(sessionUser)
+  // console.log(sessionUser.id)
   const spot = useSelector(state => state.spots.singleSpot[spotId]);
   const spotReviews = useSelector(state => state.reviews.Reviews);
   const reviews = Object.values(spotReviews);
+  // console.log('reviews over here wooooo', reviews)
+  // console.log('reviews has userId', reviews.find(review => review.userId === sessionUser.id))
 
   if (!spot) return null;
   const spotImages = spot.SpotImages;
@@ -102,15 +107,25 @@ const SingleSpotShow = () => {
             </h2>
           }
         </div>
-          {!spot.numReviews && (sessionUser.id !== owner.id) &&
-            <div className="first-to-review-container">
-              <OpenModalButton
-                buttonText="Post Your Review"
-                modalComponent={<ReviewModal />}
-                />
-              <p>Be the first to post a review!</p>
-            </div>
-          }
+        {!spot.numReviews && (sessionUser.id !== owner.id) &&
+          <div className="first-to-review-container">
+            <OpenModalButton
+              buttonText="Post Your Review"
+              modalComponent={<ReviewModal />}
+              singleSpotId={singleSpotId}
+            />
+            <p>Be the first to post a review!</p>
+          </div>
+        }
+        {(!(reviews.find(review => review.User.id === sessionUser.id)) && spot.numReviews && (sessionUser.id !== owner.id)) ?
+          <OpenModalButton
+            buttonText="Post Your Review"
+            modalComponent={<ReviewModal />}
+            singleSpotId={singleSpotId}
+          /> :
+          <></>
+
+        }
         {reviews.map(review => (
           <SingleSpotReview
             review={review}

@@ -38,6 +38,7 @@ export const getAllReviewsThunk = (spotId) => async (dispatch) => {
 //CREATE A REVIEW
 export const createReviewThunk = (review) => async (dispatch) => {
   try {
+    console.log('createReview thunk review', review)
     const res = await csrfFetch(`/api/spots/${review.spotId}/reviews`, {
       method: "POST",
       headers: {
@@ -54,7 +55,7 @@ export const createReviewThunk = (review) => async (dispatch) => {
   }
   catch (error) {
     const errors = await error.json()
-    return errors
+    return errors;
   }
 }
 
