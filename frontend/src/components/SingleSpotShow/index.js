@@ -43,7 +43,101 @@ const SingleSpotShow = () => {
 
   // console.log('spot', spot)
   return (
-    <div id="single-spot-container">
+  <>
+   { !sessionUser ?
+   <div id="single-spot-container">
+      <div id="spot-details-container">
+        <h2>{spot.name}</h2>
+        <p>{spot.city}, {spot.state}, {spot.country}</p>
+      </div>
+      <div id="single-spot-images-container">
+        <img id="preview-image" src={spotImages[0]?.url || noImage}></img>
+        <div id="other-images-container">
+          <img className="other-images" src={spotImages[1]?.url || noImage}></img>
+          <img className="other-images" src={spotImages[2]?.url || noImage}></img>
+          <img className="other-images" src={spotImages[3]?.url || noImage}></img>
+          <img className="other-images" src={spotImages[4]?.url || noImage}></img>
+        </div>
+      </div>
+      <div id="single-spot-details-container">
+        <div id="single-spot-description">
+          <h2>Hosted by {owner.firstName} {owner.lastName}</h2>
+          <p>{spot.description}</p>
+        </div>
+        <div id="single-spot-price-container">
+          <div id="single-spot-price-ratings">
+            <h2>${spot.price}<span style={{ fontSize: '16px', fontWeight: 'normal' }}> day</span></h2>
+            <div>
+              <i className="fa-solid fa-star fa-xs"></i>
+              {spot.avgStarRating}
+              {reviews.length ?
+                <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
+                " "
+              }
+              {spot.numReviews ?
+                <span>{spot.numReviews} reviews</span> :
+                "New"
+              }
+            </div>
+          </div>
+          <button id="reserve-button" onClick={onClick}>
+            Reserve
+          </button>
+        </div>
+      </div>
+      <div id="reviews-section-container">
+        <div id="review-star-num-container">
+          <h2>
+            <i className="fa-solid fa-star fa-xs"></i>
+          </h2>
+          <h2 style={{ marginRight: '10px' }}>
+            {spot.avgStarRating}
+          </h2>
+          {reviews.length ?
+            <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
+            " "
+          }
+          {spot.numReviews ?
+            <h2>
+              {spot.numReviews === 1 ?
+                <span>{spot.numReviews} review</span> :
+                <span>{spot.numReviews} reviews</span>
+              }
+            </h2> :
+            <h2>
+              New
+            </h2>
+          }
+        </div>
+        {/* {!spot.numReviews && (sessionUser.id !== owner.id) &&
+          <div className="first-to-review-container">
+            <OpenModalButton
+              buttonText="Post Your Review"
+              modalComponent={<ReviewModal />}
+              singleSpotId={singleSpotId}
+            />
+            <p>Be the first to post a review!</p>
+          </div>
+        }
+        {(!(reviews.find(review => review.User.id === sessionUser.id)) && spot.numReviews && (sessionUser.id !== owner.id)) ?
+          <OpenModalButton
+            buttonText="Post Your Review"
+            modalComponent={<ReviewModal />}
+            singleSpotId={singleSpotId}
+          /> :
+          <></>
+
+        } */}
+        {reviews.map(review => (
+          <SingleSpotReview
+            review={review}
+            key={review.id}
+          />
+        ))
+        }
+      </div>
+    </div> :
+      <div id="single-spot-container">
       <div id="spot-details-container">
         <h2>{spot.name}</h2>
         <p>{spot.city}, {spot.state}, {spot.country}</p>
@@ -135,6 +229,8 @@ const SingleSpotShow = () => {
         }
       </div>
     </div>
+    }
+  </>
   )
 }
 
