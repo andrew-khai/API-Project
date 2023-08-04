@@ -28,6 +28,7 @@ router.get(
     const user = req.user.id
     // console.log(user)
     const userReviews = await Review.findAll({
+      // order: [["createdAt", "DESC"]],
       include: [
         {
           model: User,

@@ -13,6 +13,8 @@ const SingleSpotShow = () => {
   const { spotId } = useParams();
   const [singleSpotId, setSingleSpotId] = useState(spotId);
   const [hasReviwed, setHasReviewed] = useState(false);
+  const [starRating, setStarRating] = useState(1);
+  const [numReviews, setNumReviews] = useState(1);
   // console.log('hello spotId here', singleSpotId)
   // const [isOwner, setIsOwner] = useState(false);
   const dispatch = useDispatch();
@@ -27,6 +29,7 @@ const SingleSpotShow = () => {
   const spot = useSelector(state => state.spots.singleSpot[spotId]);
   const spotReviews = useSelector(state => state.reviews.Reviews);
   const reviews = Object.values(spotReviews);
+  const descOrderReviews = reviews.reverse();
   // console.log('reviews over here wooooo', reviews)
   // console.log('reviews has userId', reviews.find(review => review.userId === sessionUser.id))
 
@@ -41,196 +44,183 @@ const SingleSpotShow = () => {
     alert('Feature Coming Soon...')
   }
 
+  console.log('session user SingleSPotSHow', sessionUser);
+  console.log('owner SingleSpotShow', owner);
+  console.log('reviews -------', reviews)
+
   // console.log('spot', spot)
   return (
-  <>
-   { !sessionUser ?
-   <div id="single-spot-container">
-      <div id="spot-details-container">
-        <h2>{spot.name}</h2>
-        <p>{spot.city}, {spot.state}, {spot.country}</p>
-      </div>
-      <div id="single-spot-images-container">
-        <img id="preview-image" src={spotImages[0]?.url || noImage}></img>
-        <div id="other-images-container">
-          <img className="other-images" src={spotImages[1]?.url || noImage}></img>
-          <img className="other-images" src={spotImages[2]?.url || noImage}></img>
-          <img className="other-images" src={spotImages[3]?.url || noImage}></img>
-          <img className="other-images" src={spotImages[4]?.url || noImage}></img>
-        </div>
-      </div>
-      <div id="single-spot-details-container">
-        <div id="single-spot-description">
-          <h2>Hosted by {owner.firstName} {owner.lastName}</h2>
-          <p>{spot.description}</p>
-        </div>
-        <div id="single-spot-price-container">
-          <div id="single-spot-price-ratings">
-            <h2>${spot.price}<span style={{ fontSize: '16px', fontWeight: 'normal' }}> day</span></h2>
-            <div>
-              <i className="fa-solid fa-star fa-xs"></i>
-              {spot.avgStarRating}
+    <>
+      {!sessionUser ?
+        <div id="single-spot-container">
+          <div id="spot-details-container">
+            <h2>{spot.name}</h2>
+            <p>{spot.city}, {spot.state}, {spot.country}</p>
+          </div>
+          <div id="single-spot-images-container">
+            <img id="preview-image" src={spotImages[0]?.url || noImage}></img>
+            <div id="other-images-container">
+              <img className="other-images" src={spotImages[1]?.url || noImage}></img>
+              <img className="other-images" src={spotImages[2]?.url || noImage}></img>
+              <img className="other-images" src={spotImages[3]?.url || noImage}></img>
+              <img className="other-images" src={spotImages[4]?.url || noImage}></img>
+            </div>
+          </div>
+          <div id="single-spot-details-container">
+            <div id="single-spot-description">
+              <h2>Hosted by {owner.firstName} {owner.lastName}</h2>
+              <p>{spot.description}</p>
+            </div>
+            <div id="single-spot-price-container">
+              <div id="single-spot-price-ratings">
+                <h2>${spot.price}<span style={{ fontSize: '16px', fontWeight: 'normal' }}> day</span></h2>
+                <div>
+                  <i className="fa-solid fa-star fa-xs"></i>
+                  {spot.avgStarRating}
+                  {reviews.length ?
+                    <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
+                    " "
+                  }
+                  {spot.numReviews ?
+                    <span>{spot.numReviews} reviews</span> :
+                    "New"
+                  }
+                </div>
+              </div>
+              <button id="reserve-button" onClick={onClick}>
+                Reserve
+              </button>
+            </div>
+          </div>
+          <div id="reviews-section-container">
+            <div id="review-star-num-container">
+              <h2>
+                <i className="fa-solid fa-star fa-xs"></i>
+              </h2>
+              <h2 style={{ marginRight: '10px' }}>
+                {spot.avgStarRating}
+              </h2>
               {reviews.length ?
                 <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
                 " "
               }
               {spot.numReviews ?
-                <span>{spot.numReviews} reviews</span> :
-                "New"
+                <h2>
+                  {spot.numReviews === 1 ?
+                    <span>{spot.numReviews} review</span> :
+                    <span>{spot.numReviews} reviews</span>
+                  }
+                </h2> :
+                <h2>
+                  New
+                </h2>
               }
             </div>
+            {descOrderReviews.map(review => (
+              <SingleSpotReview
+                review={review}
+                key={review.id}
+              />
+            ))
+            }
           </div>
-          <button id="reserve-button" onClick={onClick}>
-            Reserve
-          </button>
-        </div>
-      </div>
-      <div id="reviews-section-container">
-        <div id="review-star-num-container">
-          <h2>
-            <i className="fa-solid fa-star fa-xs"></i>
-          </h2>
-          <h2 style={{ marginRight: '10px' }}>
-            {spot.avgStarRating}
-          </h2>
-          {reviews.length ?
-            <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
-            " "
-          }
-          {spot.numReviews ?
-            <h2>
-              {spot.numReviews === 1 ?
-                <span>{spot.numReviews} review</span> :
-                <span>{spot.numReviews} reviews</span>
-              }
-            </h2> :
-            <h2>
-              New
-            </h2>
-          }
-        </div>
-        {/* {!spot.numReviews && (sessionUser.id !== owner.id) &&
-          <div className="first-to-review-container">
-            <OpenModalButton
-              buttonText="Post Your Review"
-              modalComponent={<ReviewModal />}
-              singleSpotId={singleSpotId}
-            />
-            <p>Be the first to post a review!</p>
+        </div> :
+        <div id="single-spot-container">
+          <div id="spot-details-container">
+            <h2>{spot.name}</h2>
+            <p>{spot.city}, {spot.state}, {spot.country}</p>
           </div>
-        }
-        {(!(reviews.find(review => review.User.id === sessionUser.id)) && spot.numReviews && (sessionUser.id !== owner.id)) ?
-          <OpenModalButton
-            buttonText="Post Your Review"
-            modalComponent={<ReviewModal />}
-            singleSpotId={singleSpotId}
-          /> :
-          <></>
-
-        } */}
-        {reviews.map(review => (
-          <SingleSpotReview
-            review={review}
-            key={review.id}
-          />
-        ))
-        }
-      </div>
-    </div> :
-      <div id="single-spot-container">
-      <div id="spot-details-container">
-        <h2>{spot.name}</h2>
-        <p>{spot.city}, {spot.state}, {spot.country}</p>
-      </div>
-      <div id="single-spot-images-container">
-        <img id="preview-image" src={spotImages[0]?.url || noImage}></img>
-        <div id="other-images-container">
-          <img className="other-images" src={spotImages[1]?.url || noImage}></img>
-          <img className="other-images" src={spotImages[2]?.url || noImage}></img>
-          <img className="other-images" src={spotImages[3]?.url || noImage}></img>
-          <img className="other-images" src={spotImages[4]?.url || noImage}></img>
-        </div>
-      </div>
-      <div id="single-spot-details-container">
-        <div id="single-spot-description">
-          <h2>Hosted by {owner.firstName} {owner.lastName}</h2>
-          <p>{spot.description}</p>
-        </div>
-        <div id="single-spot-price-container">
-          <div id="single-spot-price-ratings">
-            <h2>${spot.price}<span style={{ fontSize: '16px', fontWeight: 'normal' }}> day</span></h2>
-            <div>
-              <i className="fa-solid fa-star fa-xs"></i>
-              {spot.avgStarRating}
+          <div id="single-spot-images-container">
+            <img id="preview-image" src={spotImages[0]?.url || noImage}></img>
+            <div id="other-images-container">
+              <img className="other-images" src={spotImages[1]?.url || noImage}></img>
+              <img className="other-images" src={spotImages[2]?.url || noImage}></img>
+              <img className="other-images" src={spotImages[3]?.url || noImage}></img>
+              <img className="other-images" src={spotImages[4]?.url || noImage}></img>
+            </div>
+          </div>
+          <div id="single-spot-details-container">
+            <div id="single-spot-description">
+              <h2>Hosted by {owner.firstName} {owner.lastName}</h2>
+              <p>{spot.description}</p>
+            </div>
+            <div id="single-spot-price-container">
+              <div id="single-spot-price-ratings">
+                <h2>${spot.price}<span style={{ fontSize: '16px', fontWeight: 'normal' }}> day</span></h2>
+                <div>
+                  <i className="fa-solid fa-star fa-xs"></i>
+                  {spot.avgStarRating}
+                  {reviews.length ?
+                    <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
+                    " "
+                  }
+                  {spot.numReviews ?
+                    <span>{spot.numReviews} reviews</span> :
+                    "New"
+                  }
+                </div>
+              </div>
+              <button id="reserve-button" onClick={onClick}>
+                Reserve
+              </button>
+            </div>
+          </div>
+          <div id="reviews-section-container">
+            <div id="review-star-num-container">
+              <h2>
+                <i className="fa-solid fa-star fa-xs"></i>
+              </h2>
+              <h2 style={{ marginRight: '10px' }}>
+                {spot.avgStarRating}
+              </h2>
               {reviews.length ?
                 <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
                 " "
               }
               {spot.numReviews ?
-                <span>{spot.numReviews} reviews</span> :
-                "New"
+                <h2>
+                  {spot.numReviews === 1 ?
+                    <span>{spot.numReviews} review</span> :
+                    <span>{spot.numReviews} reviews</span>
+                  }
+                </h2> :
+                <h2>
+                  New
+                </h2>
               }
             </div>
-          </div>
-          <button id="reserve-button" onClick={onClick}>
-            Reserve
-          </button>
-        </div>
-      </div>
-      <div id="reviews-section-container">
-        <div id="review-star-num-container">
-          <h2>
-            <i className="fa-solid fa-star fa-xs"></i>
-          </h2>
-          <h2 style={{ marginRight: '10px' }}>
-            {spot.avgStarRating}
-          </h2>
-          {reviews.length ?
-            <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
-            " "
-          }
-          {spot.numReviews ?
-            <h2>
-              {spot.numReviews === 1 ?
-                <span>{spot.numReviews} review</span> :
-                <span>{spot.numReviews} reviews</span>
-              }
-            </h2> :
-            <h2>
-              New
-            </h2>
-          }
-        </div>
-        {!spot.numReviews && (sessionUser.id !== owner.id) &&
-          <div className="first-to-review-container">
-            <OpenModalButton
-              buttonText="Post Your Review"
-              modalComponent={<ReviewModal />}
-              singleSpotId={singleSpotId}
-            />
-            <p>Be the first to post a review!</p>
-          </div>
-        }
-        {(!(reviews.find(review => review.User.id === sessionUser.id)) && spot.numReviews && (sessionUser.id !== owner.id)) ?
-          <OpenModalButton
-            buttonText="Post Your Review"
-            modalComponent={<ReviewModal />}
-            singleSpotId={singleSpotId}
-          /> :
-          <></>
+            {!spot.numReviews && sessionUser && owner && (sessionUser?.id !== owner?.id) &&
+              <div className="first-to-review-container">
+                <OpenModalButton
+                  buttonText="Post Your Review"
+                  modalComponent={<ReviewModal />}
+                  singleSpotId={singleSpotId}
+                />
+                <p>Be the first to post a review!</p>
+              </div>
+            }
+            {(!(reviews.find(review => review.userId === sessionUser.id)) && spot.numReviews && (sessionUser.id !== owner.id)) ?
+              <div className="post-your-review-container">
+                <OpenModalButton
+                  buttonText="Post Your Review"
+                  modalComponent={<ReviewModal />}
+                  singleSpotId={singleSpotId}
+                />
+              </div> :
+              <></>
 
-        }
-        {reviews.map(review => (
-          <SingleSpotReview
-            review={review}
-            key={review.id}
-          />
-        ))
-        }
-      </div>
-    </div>
-    }
-  </>
+            }
+            {descOrderReviews.map(review => (
+              <SingleSpotReview
+                review={review}
+                key={review.id}
+              />
+            ))
+            }
+          </div>
+        </div>
+      }
+    </>
   )
 }
 

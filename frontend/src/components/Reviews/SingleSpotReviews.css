@@ -8,3 +8,9 @@
   color: white;
   cursor: pointer;
 }
+
+.reviews-container > button {
+  background-color: #565555;
+  color: white;
+  cursor: pointer;
+}

@@ -35,7 +35,7 @@ const SingleSpotReview = ({ review }) => {
     <>
       {!sessionUser ?
         <div className='reviews-container'>
-          <h3>{review.User.firstName}</h3>
+          <h3>{review?.User.firstName}</h3>
           <p>{review.createdAt.slice(0, 10)}</p>
           <p>{review.review}</p>
           {/* {sessionUser.id === review.User.id &&
@@ -46,7 +46,7 @@ const SingleSpotReview = ({ review }) => {
         } */}
         </div> :
         <div className='reviews-container'>
-          <h3>{review.User.firstName}</h3>
+          <h3>{review?.User.firstName}</h3>
           <p>{review.createdAt.slice(0, 10)}</p>
           <p>{review.review}</p>
           {sessionUser.id === review.User.id &&

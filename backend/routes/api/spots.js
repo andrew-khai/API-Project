@@ -359,6 +359,7 @@ router.get(
   async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId)
     const reviews = await Review.findAll({
+      // order: [["createdAt", "DESC"]],
       include: [
         {
           model: User,

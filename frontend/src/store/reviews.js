@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+import { singleSpotThunk } from "./spots";
 
 export const GET_REVIEWS_FOR_SPOT = "GET_REVIEWS_FOR_SPOT";
 export const POST_REVIEW = "POST_REVIEW";
@@ -58,26 +59,29 @@ export const createReviewThunk = (review) => async (dispatch) => {
 
     if (res.ok) {
       const newReview = await res.json();
-      dispatch(postReview(newReview));
+      dispatch(getAllReviewsThunk(review.spotId))
+      // dispatch(postReview(newReview));
+      dispatch(singleSpotThunk(review.spotId));
       return newReview;
     }
   }
   catch (error) {
-    const errors = await error.json()
-    return errors;
+    // const errors = await error.json()
+    return error;
   }
 }
 
 // DELETE A REVIEW
-export const deleteReviewThunk = (reviewId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/reviews/${reviewId}`, {
+export const deleteReviewThunk = (review) => async (dispatch) => {
+  const res = await csrfFetch(`/api/reviews/${review.id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     }
   })
   if (res.ok) {
-    dispatch(deleteReview(reviewId))
+    dispatch(deleteReview(review.id))
+    dispatch(singleSpotThunk(review.spotId))
   }
   else {
     const errors = await res.json();
