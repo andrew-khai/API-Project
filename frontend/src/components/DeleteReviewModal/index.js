@@ -14,8 +14,10 @@ function DeleteReviewModal({ review }) {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    dispatch(deleteReviewThunk(review.id));
+    dispatch(deleteReviewThunk(review));
     closeModal();
+
+    // history.push(`/spots/${review.spotId}`)
   }
 
   return (

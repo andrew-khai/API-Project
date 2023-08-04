@@ -2,38 +2,55 @@ import { useState } from "react";
 import './ReviewModal.css';
 import StarRatingInput from "./StarRatingInput";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { createReviewThunk } from "../../store/reviews";
+// import { useHistory, useParams } from "react-router-dom";
+import { createReviewThunk, getAllReviewsThunk } from "../../store/reviews";
+import { useModal } from "../../context/Modal";
 
 function ReviewModal({ singleSpotId }) {
 
+  const { closeModal } = useModal();
+
   // console.log('another spotID here at modal', singleSpotId)
   const spot = useSelector(state => state.spots.singleSpot);
-  const spotId = Object.values(spot)[0].id
-  // console.log('use selector spot here', spotId)
+  const spotId = Object.values(spot)[0].id;
+  const ownerFirstName = Object.values(spot)[0].Owner.firstName;
+  // console.log('use selector spot here', ownerFirstName)
 
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
   const [review, setReview] = useState('');
   const [stars, setStars] = useState(0);
   const [errors, setErrors] = useState({});
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({})
     const reviewItem = {
+      firstName: ownerFirstName,
       spotId: spotId,
       review: review,
       stars: stars
     }
-
+    const reviews = await dispatch(getAllReviewsThunk(spotId));
+    // console.log('reviews here look', reviews)
     const newReview = await dispatch(createReviewThunk(reviewItem));
     if (newReview.errors) {
       setErrors(newReview.errors);
       return;
     }
-
-    history.push(`/spots/${spotId}`)
+    // console.log('nre review here look', newReview)
+    if (reviews) {
+      let errorObj = {}
+      reviews.forEach(review => {
+        if (review.userId === newReview.userId) {
+          errorObj.serverError = "User already submitted a review"
+        }
+      })
+      setErrors(errorObj);
+    }
+    // history.push(`/spots/${spotId}`)
+    closeModal();
 
   }
 
@@ -48,6 +65,8 @@ function ReviewModal({ singleSpotId }) {
         <p className="errors">{errors.review}</p>}
       {errors.stars &&
         <p className="errors">{errors.stars}</p>}
+      {errors.serverError &&
+        <p className="errors">{errors.serverError}</p>}
       <label>
         <textarea
           type="textarea"

@@ -35,7 +35,7 @@ function Navigation({ isLoaded }){
   return (
     <ul id='navigation-list'>
       <li className='navigation-bar home-link'>
-        <NavLink exact to="/"><i class="fa-solid fa-basketball fa-2xl" style={{color: 'orange'}}></i>BallBnB</NavLink>
+        <NavLink exact to="/"><i className="fa-solid fa-basketball fa-2xl" style={{color: 'orange'}}></i>BallBnB</NavLink>
       </li>
       {sessionUser && isLoaded ? (
         <div id="user-logged-in-profile">

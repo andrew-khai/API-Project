@@ -40,7 +40,7 @@ const SpotForm = ({ spot, formType }) => {
   // }, [spotImages[0], spotImages[1], spotImages[2], spotImages[3], spotImages[4]])
 
   if (!sessionUser) return <><h1>Page Not Found</h1></>;
-  if (sessionUser.id !== spot.ownerId) return <><h2>Forbidden</h2></>
+  if (sessionUser.id !== spot.ownerId && formType === 'Update Spot') return <><h2>Forbidden</h2></>
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -217,7 +217,7 @@ const SpotForm = ({ spot, formType }) => {
           }
 
         </div>
-        <div class="create-spot-button-container">
+        <div className="create-spot-button-container">
           {formType === "Create Spot" ?
             <button type="submit">
               Create Spot

@@ -9,7 +9,9 @@ const ManageSpots = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserSpots())
+    if (sessionUser) {
+      dispatch(getUserSpots())
+    }
   }, [dispatch])
 
   const userSpots = useSelector(state => state.spots.allSpots);
@@ -18,7 +20,7 @@ const ManageSpots = () => {
 
   const spots = Object.values(userSpots);
   // console.log('spots', spots)
-  if (!sessionUser) return (<></>)
+  if (!sessionUser) return (<><h1>Forbidden</h1></>)
 
 
   return (

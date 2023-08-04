@@ -39,7 +39,7 @@
   height: 100%;
 }
 
-#single-spot-description > h2 {
+#single-spot-description>h2 {
   margin-top: 0px;
 }
 
@@ -67,4 +67,10 @@
 #preview-image {
   width: 450px;
   height: 300px;
+}
+
+.post-your-review-container>button {
+  background-color: #565555;
+  color: white;
+  cursor: pointer;
 }

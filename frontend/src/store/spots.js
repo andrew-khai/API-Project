@@ -137,14 +137,14 @@ export const createASpot = (spot) => async (dispatch) => {
 }
 
 // Add Image Thunk
-// export const addImageThunk = (spotId, images) => async (dispatch) => {
+// export const addImageThunk = (image) => async (dispatch) => {
 //   try {
-//     const res = await csrfFetch(`/api/${spotId}/images`, {
+//     const res = await csrfFetch(`/api/${image.spotId}/images`, {
 //       method: "POST",
 //       headers: {
 //         "Content-Type": "application/json"
 //       },
-//       body: JSON.stringify({ spotId, url, preview })
+//       body: JSON.stringify(image)
 //     })
 
 //     if (res.ok) {
@@ -237,7 +237,7 @@ const spotsReducer = (state = initialState, action) => {
       return newState;
     // case ADD_IMAGE:
     //   newState = structuredClone(state);
-    //   newState.singleSpot[action.spotId][action.image.id] = action.image;
+    //   newState.singleSpot[action.image.spotId][action.image.id] = action.image;
     //   return newState;
     default:
       return state;
