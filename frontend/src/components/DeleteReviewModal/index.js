@@ -26,11 +26,11 @@ function DeleteReviewModal({ review }) {
         <button
         id="yes-button"
         onClick={handleDelete}
-        >Yes (Delete Spot)</button>
+        >Yes (Delete Review)</button>
         <button
         id="no-button"
         onClick={closeModal}
-        >No (Keep Spot)</button>
+        >No (Keep Review)</button>
       </div>
     </div>
   )
