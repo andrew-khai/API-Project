@@ -19,7 +19,7 @@ function ReviewModal({ singleSpotId }) {
   const dispatch = useDispatch();
   // const history = useHistory();
   const [review, setReview] = useState('');
-  const [stars, setStars] = useState(0);
+  const [stars, setStars] = useState(0.0);
   const [errors, setErrors] = useState({});
 
 
@@ -42,7 +42,7 @@ function ReviewModal({ singleSpotId }) {
     // console.log('nre review here look', newReview)
     if (reviews) {
       let errorObj = {}
-      reviews.forEach(review => {
+      Object.values(reviews).forEach(review => {
         if (review.userId === newReview.userId) {
           errorObj.serverError = "User already submitted a review"
         }

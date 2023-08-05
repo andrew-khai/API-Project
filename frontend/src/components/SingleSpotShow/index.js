@@ -44,9 +44,9 @@ const SingleSpotShow = () => {
     alert('Feature Coming Soon...')
   }
 
-  console.log('session user SingleSPotSHow', sessionUser);
-  console.log('owner SingleSpotShow', owner);
-  console.log('reviews -------', reviews)
+  // console.log('session user SingleSPotSHow', sessionUser);
+  // console.log('owner SingleSpotShow', owner);
+  // console.log('reviews -------', reviews)
 
   // console.log('spot', spot)
   return (
@@ -76,14 +76,21 @@ const SingleSpotShow = () => {
                 <h2>${spot.price}<span style={{ fontSize: '16px', fontWeight: 'normal' }}> day</span></h2>
                 <div>
                   <i className="fa-solid fa-star fa-xs"></i>
-                  {spot.avgStarRating}
+                  {spot.avgStarRating?.toFixed(1)}
                   {reviews.length ?
                     <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
                     " "
                   }
-                  {spot.numReviews ?
-                    <span>{spot.numReviews} reviews</span> :
-                    "New"
+                 {spot.numReviews ?
+                    <span>
+                      {spot.numReviews === 1 ?
+                        <span>{spot.numReviews} review</span> :
+                        <span>{spot.numReviews} reviews</span>
+                      }
+                    </span> :
+                    <span>
+                      New
+                    </span>
                   }
                 </div>
               </div>
@@ -98,7 +105,7 @@ const SingleSpotShow = () => {
                 <i className="fa-solid fa-star fa-xs"></i>
               </h2>
               <h2 style={{ marginRight: '10px' }}>
-                {spot.avgStarRating}
+                {spot.avgStarRating?.toFixed(1)}
               </h2>
               {reviews.length ?
                 <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
@@ -149,14 +156,21 @@ const SingleSpotShow = () => {
                 <h2>${spot.price}<span style={{ fontSize: '16px', fontWeight: 'normal' }}> day</span></h2>
                 <div>
                   <i className="fa-solid fa-star fa-xs"></i>
-                  {spot.avgStarRating}
+                  {spot.avgStarRating?.toFixed(1)}
                   {reviews.length ?
                     <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
                     " "
                   }
                   {spot.numReviews ?
-                    <span>{spot.numReviews} reviews</span> :
-                    "New"
+                    <span>
+                      {spot.numReviews === 1 ?
+                        <span>{spot.numReviews} review</span> :
+                        <span>{spot.numReviews} reviews</span>
+                      }
+                    </span> :
+                    <span>
+                      New
+                    </span>
                   }
                 </div>
               </div>
@@ -171,7 +185,7 @@ const SingleSpotShow = () => {
                 <i className="fa-solid fa-star fa-xs"></i>
               </h2>
               <h2 style={{ marginRight: '10px' }}>
-                {spot.avgStarRating}
+                {spot.avgStarRating?.toFixed(1)}
               </h2>
               {reviews.length ?
                 <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
