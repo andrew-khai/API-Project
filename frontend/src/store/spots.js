@@ -6,7 +6,7 @@ export const CREATE_SPOT = "POST/api/spots";
 export const EDIT_SPOT = "PUT/api/:spotId";
 export const GET_USER_SPOTS = "GET/api/current";
 export const DELETE_SPOT = "DELETE/api/:spotId";
-// export const ADD_IMAGE = "POST/addImages";
+export const ADD_IMAGE = "POST/addImages";
 
 //ACTION CREATORS
 
@@ -42,12 +42,16 @@ const createSpot = (spot) => {
   }
 }
 
-// const addImage = (image) => {
-//   return {
-//     type: ADD_IMAGE,
-//     image
-//   }
-// }
+// Add Images
+const addImage = (image, spotId) => {
+  return {
+    type: ADD_IMAGE,
+    payload: {
+      image,
+      spotId
+    }
+  }
+}
 
 // Edit a spot
 const editSpot = (spot) => {
@@ -137,27 +141,45 @@ export const createASpot = (spot) => async (dispatch) => {
 }
 
 // Add Image Thunk
-// export const addImageThunk = (image) => async (dispatch) => {
-//   try {
-//     const res = await csrfFetch(`/api/${image.spotId}/images`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json"
-//       },
-//       body: JSON.stringify(image)
-//     })
+export const addImageThunk = (imageArr, spotId) => async (dispatch) => {
+  try {
+    console.log('imageArr here-------', imageArr, 'spotID here -----', spotId)
+    imageArr.forEach(async imageObj => {
+      const res = await csrfFetch(`/api/spots/${spotId}/images`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(imageObj)
+      })
 
-//     if (res.ok) {
-//       const newImage = await res.json();
-//       dispatch(addImage(newImage));
-//       return newImage;
-//     }
-//   }
-//   catch (error) {
-//   const errors = await error.json();
-//   return errors;
-// }
-// }
+      if (res.ok) {
+        const newImage = await res.json();
+        dispatch(addImage(newImage, spotId))
+      }
+    })
+  }
+    // console.log('image here backend -------', image)
+    // console.log('spot ID backend -----', spotId)
+    // const res = await csrfFetch(`/api/spots/${spotId}/images`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify(image)
+    // })
+    // console.log('response backend----', res)
+    // if (res.ok) {
+    //   console.log('i am running this works res ok')
+    //   const newImages = await res.json();
+    //   dispatch(addImage(newImages, spotId));
+    //   return newImages;
+    // }
+  catch (error) {
+  const errors = await error.json();
+  return errors;
+}
+}
 
 // EDIT SPOT THUNK
 export const editSpotThunk = (spot) => async (dispatch) => {
@@ -182,6 +204,7 @@ export const editSpotThunk = (spot) => async (dispatch) => {
   }
 }
 
+// Delete a Spot
 export const deleteSpotThunk = (spotId) => async (dispatch) => {
   const res = await csrfFetch(`/api/spots/${spotId}`, {
     method: "DELETE",
@@ -235,10 +258,12 @@ const spotsReducer = (state = initialState, action) => {
       newState.singleSpot = {};
       delete newState.allSpots[action.spotId]
       return newState;
-    // case ADD_IMAGE:
-    //   newState = structuredClone(state);
-    //   newState.singleSpot[action.image.spotId][action.image.id] = action.image;
-    //   return newState;
+    case ADD_IMAGE:
+      newState = structuredClone(state);
+      console.log('new state here -----', newState)
+      newState.singleSpot[action.payload.spotId].SpotImages[action.payload.images.id] = action.payload.images;
+      console.log('new state here -----', newState)
+      // return newState;
     default:
       return state;
   }

@@ -19,7 +19,7 @@ function ReviewModal({ singleSpotId }) {
   const dispatch = useDispatch();
   // const history = useHistory();
   const [review, setReview] = useState('');
-  const [stars, setStars] = useState(0);
+  const [stars, setStars] = useState(0.0);
   const [errors, setErrors] = useState({});
 
 

@@ -11,71 +11,71 @@ const StarRatingInput = ({ stars, disabled, onChange }) => {
   return (
     <>
       <div
-        className={activeRating >= 1 ? "filled" : "empty"}
+        className={activeRating >= 1.0 ? "filled" : "empty"}
         onMouseEnter={() => {
-          if (!disabled) setActiveRating(1);
+          if (!disabled) setActiveRating(1.0);
         }}
         onMouseLeave={() => {
           if (!disabled) setActiveRating(stars);
         }}
         onClick={() => {
-          if (!disabled) onChange(1);
+          if (!disabled) onChange(1.0);
         }}
       >
         <i className="fa-regular fa-star" ></i>
       </div>
       <div
-        className={activeRating >= 2 ? "filled" : "empty"}
+        className={activeRating >= 2.0 ? "filled" : "empty"}
         onMouseEnter={() => {
-          if (!disabled) setActiveRating(2);
+          if (!disabled) setActiveRating(2.0);
         }}
         onMouseLeave={() => {
           if (!disabled) setActiveRating(stars);
         }}
         onClick={() => {
-          if (!disabled) onChange(2);
+          if (!disabled) onChange(2.0);
         }}
       >
         <i className="fa-regular fa-star" ></i>
       </div>
       <div
-        className={activeRating >= 3 ? "filled" : "empty"}
+        className={activeRating >= 3.0 ? "filled" : "empty"}
         onMouseEnter={() => {
-          if (!disabled) setActiveRating(3);
+          if (!disabled) setActiveRating(3.0);
         }}
         onMouseLeave={() => {
           if (!disabled) setActiveRating(stars);
         }}
         onClick={() => {
-          if (!disabled) onChange(3);
+          if (!disabled) onChange(3.0);
         }}
       >
         <i className="fa-regular fa-star" ></i>
       </div>
       <div
-        className={activeRating >= 4 ? "filled" : "empty"}
+        className={activeRating >= 4.0 ? "filled" : "empty"}
         onMouseEnter={() => {
-          if (!disabled) setActiveRating(4);
+          if (!disabled) setActiveRating(4.0);
         }}
         onMouseLeave={() => {
           if (!disabled) setActiveRating(stars);
         }}
         onClick={() => {
-          if (!disabled) onChange(4);
+          if (!disabled) onChange(4.0);
         }}
       >
         <i className="fa-regular fa-star" ></i>
       </div>
       <div
-        className={activeRating >= 5 ? "filled" : "empty"}
+        className={activeRating >= 5.0 ? "filled" : "empty"}
         onMouseEnter={() => {
-          if (!disabled) setActiveRating(5);
+          if (!disabled) setActiveRating(5.0);
         }}
         onMouseLeave={() => {
           if (!disabled) setActiveRating(stars);
         }}
         onClick={() => {
-          if (!disabled) onChange(5);
+          if (!disabled) onChange(5.0);
         }}
       >
         <i className="fa-regular fa-star" ></i>
