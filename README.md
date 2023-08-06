@@ -1,4 +1,15 @@
 # AirBnB Clone
+Welcome to my AirBnb clone project, BallBnB.
+This project required me to use both backend and frontend knowledge to deploy a full stack application.
+Technologies Used:
+* Express
+* Sequelize
+* React/Redux
+* Javascript
+* HTML
+* CSS
+
+![Screenshot 2023-08-05 at 10 00 35 PM](https://github.com/andrew-khai/BallBnB/assets/127797007/ca769d56-fb06-4380-a4c2-2e9584b181ad)
 
 ## Database Schema Design
 
