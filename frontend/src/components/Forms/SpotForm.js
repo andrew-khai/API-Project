@@ -32,16 +32,24 @@ const SpotForm = ({ spot, formType }) => {
   const [imageTwo, setImageTwo] = useState('');
   const [imageThree, setImageThree] = useState('');
   const [imageFour, setImageFour] = useState('');
+  const [errors, setErrors] = useState({});
+  // const [submitted, setSubmitted] = useState(false);
+
+  // console.log('submitted here wooo======', submitted)
 
   // useEffect(() => {
-  //   if (formType === "Update Spot") {
-  //     if (previewImage) setPreviewImage(spot?.SpotImages[0].url || '');
-  //     if (imageOne) setImageOne(spot?.SpotImages[1].url);
-  //     if (imageTwo) setImageTwo(spot?.SpotImages[2].url);
-  //     if (imageThree) setImageThree(spot?.SpotImages[3].url);
-  //     if (imageFour) setImageFour(spot?.SpotImages[4].url);
+  //   const errorsObj = {}
+  //   if (submitted) {
+  //     if (!previewImage) errorsObj.previewImage = "Preview image is required";
+  //     // if (!previewImage.startsWith('http' || 'https'))
+  //       if (!imageOne.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageOne = "Must end with .png, .jpg, or .jpeg";
+  //     if (!imageTwo.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageTwo = "Must end with .png, .jpg, or .jpeg";
+  //     if (!imageThree.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageThree = "Must end with .png, .jpg, or .jpeg";
+  //     if (!imageFour.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageFour = "Must end with .png, .jpg, or .jpeg";
+  //     setErrors(errorsObj);
   //   }
-  // }, [previewImage, imageOne, imageTwo, imageThree, imageFour])
+  //   setSubmitted(false);
+  // }, [previewImage, imageOne, imageTwo, imageThree, imageFour, submitted])
 
   const imageArray = [
     { url: previewImage, preview: true },
@@ -52,12 +60,11 @@ const SpotForm = ({ spot, formType }) => {
   ]
 
   // console.log('spot', spot)
-  const imageArr = spot?.SpotImages || [];
-  const init = ['', '', '', '', '']
-  imageArr.forEach((image, index) => init[index] = image.url)
+  // const imageArr = spot?.SpotImages || [];
+  // const init = ['', '', '', '', '']
+  // imageArr.forEach((image, index) => init[index] = image.url)
   // console.log('init', init)
-  const [spotImages, setSpotImages] = useState(init);
-  const [errors, setErrors] = useState({});
+  // const [spotImages, setSpotImages] = useState(init);
 
   // console.log('spotImages over here', spotImages)
   // console.log('preview image here ------', previewImage)
@@ -85,6 +92,7 @@ const SpotForm = ({ spot, formType }) => {
     spot = { ...spot, address, city, state, country, name, description, price }
 
 
+
     if (formType === 'Create Spot') {
       const newSpot = await dispatch(createASpot(spot))
       // ! Add Images thunk
@@ -109,6 +117,7 @@ const SpotForm = ({ spot, formType }) => {
 
       const addImage = await dispatch(addImageThunk(imageArray, newSpot.id));
       console.log('added image here ----', addImage)
+
 
       if (newSpot.errors) {
         // console.log('form errors', newSpot.errors)
@@ -266,9 +275,10 @@ const SpotForm = ({ spot, formType }) => {
               onChange={(e) => setPreviewImage(e.target.value)}
               placeholder="Preview Image URL"
               style={{ width: '430px' }}
-              required
             >
             </input>
+            {errors.previewImage &&
+              <p className="errors">{errors.previewImage}</p>}
             <input
               type="url"
               value={imageOne}
@@ -277,6 +287,8 @@ const SpotForm = ({ spot, formType }) => {
               style={{ width: '430px' }}
             >
             </input>
+            {errors.imageOne &&
+              <p className="errors">{errors.imageOne}</p>}
             <input
               type="url"
               value={imageTwo}
@@ -285,6 +297,8 @@ const SpotForm = ({ spot, formType }) => {
               style={{ width: '430px' }}
             >
             </input>
+            {errors.imageTwo &&
+              <p className="errors">{errors.imageTwo}</p>}
             <input
               type="url"
               value={imageThree}
@@ -293,6 +307,8 @@ const SpotForm = ({ spot, formType }) => {
               style={{ width: '430px' }}
             >
             </input>
+            {errors.imageThree &&
+              <p className="errors">{errors.imageThree}</p>}
             <input
               type="url"
               value={imageFour}
@@ -301,8 +317,10 @@ const SpotForm = ({ spot, formType }) => {
               style={{ width: '430px' }}
             >
             </input>
+            {errors.imageFour &&
+              <p className="errors">{errors.imageFour}</p>}
           </div>
-          }
+        }
 
         {/* <h3>Liven up your spot with photos</h3>
           <p>Submit a link to at least one photo to publish your spot.</p> */}
