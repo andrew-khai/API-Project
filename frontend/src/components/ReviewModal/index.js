@@ -72,7 +72,7 @@ function ReviewModal({ singleSpotId }) {
           type="textarea"
           value={review}
           onChange={(e) => setReview(e.target.value)}
-          placeholder="Just a quick review"
+          placeholder="Leave your review here..."
           style={{ width: '300px', height: '100px' }}
         >
         </textarea>
@@ -84,7 +84,7 @@ function ReviewModal({ singleSpotId }) {
       <button
         id="submit-review-button"
         onClick={handleSubmit}
-        disabled={review.length < 4 || stars < 1}
+        disabled={review.length < 10 || stars < 1}
       >Submit Your Review</button>
     </div>
   )
