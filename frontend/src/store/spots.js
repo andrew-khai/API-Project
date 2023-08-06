@@ -145,18 +145,20 @@ export const addImageThunk = (imageArr, spotId) => async (dispatch) => {
   try {
     console.log('imageArr here-------', imageArr, 'spotID here -----', spotId)
     imageArr.forEach(async imageObj => {
-      const res = await csrfFetch(`/api/spots/${spotId}/images`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(imageObj)
-      })
-
-      if (res.ok) {
-        const newImage = await res.json();
-        dispatch(addImage(newImage, spotId))
+      if (imageObj.url !== '') {
+        const res = await csrfFetch(`/api/spots/${spotId}/images`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(imageObj)
+        })
+        if (res.ok) {
+          const newImage = await res.json();
+          dispatch(addImage(newImage, spotId))
+        }
       }
+
     })
   }
     // console.log('image here backend -------', image)
@@ -260,8 +262,10 @@ const spotsReducer = (state = initialState, action) => {
       return newState;
     case ADD_IMAGE:
       newState = structuredClone(state);
+      // newState = {...state, singleSpot: {...state.singleSpot, SpotImages: {}}}
       console.log('new state here -----', newState)
-      newState.singleSpot[action.payload.spotId].SpotImages[action.payload.images.id] = action.payload.images;
+      console.log('action over here ------', action, 'action payload over here ----', action.payload)
+      newState.singleSpot[action.payload.spotId].SpotImages[action.payload.image.id] = action.payload.image;
       console.log('new state here -----', newState)
       // return newState;
     default:
