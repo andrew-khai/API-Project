@@ -263,10 +263,10 @@ const spotsReducer = (state = initialState, action) => {
     case ADD_IMAGE:
       newState = structuredClone(state);
       // newState = {...state, singleSpot: {...state.singleSpot, SpotImages: {}}}
-      console.log('new state here -----', newState)
-      console.log('action over here ------', action, 'action payload over here ----', action.payload)
+      // console.log('new state here -----', newState)
+      // console.log('action over here ------', action, 'action payload over here ----', action.payload)
       newState.singleSpot[action.payload.spotId].SpotImages[action.payload.image.id] = action.payload.image;
-      console.log('new state here -----', newState)
+      // console.log('new state here -----', newState)
       // return newState;
     default:
       return state;
