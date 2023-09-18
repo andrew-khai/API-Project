@@ -37,19 +37,16 @@ const SpotForm = ({ spot, formType }) => {
 
   // console.log('submitted here wooo======', submitted)
 
-  // useEffect(() => {
-  //   const errorsObj = {}
-  //   if (submitted) {
-  //     if (!previewImage) errorsObj.previewImage = "Preview image is required";
-  //     // if (!previewImage.startsWith('http' || 'https'))
-  //       if (!imageOne.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageOne = "Must end with .png, .jpg, or .jpeg";
-  //     if (!imageTwo.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageTwo = "Must end with .png, .jpg, or .jpeg";
-  //     if (!imageThree.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageThree = "Must end with .png, .jpg, or .jpeg";
-  //     if (!imageFour.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageFour = "Must end with .png, .jpg, or .jpeg";
-  //     setErrors(errorsObj);
-  //   }
-  //   setSubmitted(false);
-  // }, [previewImage, imageOne, imageTwo, imageThree, imageFour, submitted])
+  useEffect(() => {
+    const errorsObj = {}
+      if (!previewImage) errorsObj.previewImage = "Preview image is required";
+      // if (!previewImage.startsWith('http' || 'https'))
+        if (!imageOne.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageOne = "Must end with .png, .jpg, or .jpeg";
+      if (!imageTwo.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageTwo = "Must end with .png, .jpg, or .jpeg";
+      if (!imageThree.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageThree = "Must end with .png, .jpg, or .jpeg";
+      if (!imageFour.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageFour = "Must end with .png, .jpg, or .jpeg";
+      setErrors(errorsObj);
+  }, [previewImage, imageOne, imageTwo, imageThree, imageFour])
 
   const imageArray = [
     { url: previewImage, preview: true },
@@ -91,7 +88,9 @@ const SpotForm = ({ spot, formType }) => {
     setErrors({})
     spot = { ...spot, address, city, state, country, name, description, price }
 
+    // let errorsObj: = {}
 
+    // setErrors(errorsObj)
 
     if (formType === 'Create Spot') {
       const newSpot = await dispatch(createASpot(spot))
@@ -116,7 +115,7 @@ const SpotForm = ({ spot, formType }) => {
       // }
 
       const addImage = await dispatch(addImageThunk(imageArray, newSpot.id));
-      console.log('added image here ----', addImage)
+      // console.log('added image here ----', addImage)
 
 
       if (newSpot.errors) {

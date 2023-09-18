@@ -26,14 +26,15 @@ const SingleSpotShow = () => {
 
   const sessionUser = useSelector(state => state.session.user)
   // console.log(sessionUser.id)
-  const spot = useSelector(state => state.spots.singleSpot[spotId]);
+  const spot = useSelector(state => state.spots.singleSpot);
+  console.log('spot', spot)
   const spotReviews = useSelector(state => state.reviews.Reviews);
   const reviews = Object.values(spotReviews);
   const descOrderReviews = reviews.reverse();
   // console.log('reviews over here wooooo', reviews)
   // console.log('reviews has userId', reviews.find(review => review.userId === sessionUser.id))
 
-  if (!spot) return null;
+  if (!spot || !spot.id) return null;
   const spotImages = spot.SpotImages;
   // console.log(spotImages)
   const owner = spot.Owner;

@@ -1,21 +1,28 @@
 #spots-container {
   display: grid;
-  grid-template-columns: repeat(3, 280px);
+  grid-template-columns: repeat(4, 280px);
   grid-template-rows: 280px;
   width: 100%;
   column-gap: 30px;
   row-gap: 70px;
   justify-content: center;
+  border-radius: 15px;
 }
 
 .spots-boxes {
-  width: 100%;
-  height: 100%;
+  width: 280px;
+  /* width: 100%; */
+  height: 360px;
+  /* height: 100%; */
+  border-radius: 15px;
 }
 
 .spots-boxes-image {
-  width: 100%;
-  height: 100%;
+  /* width: 100%; */
+  /* height: 100%; */
+  width: 280px;
+  height: 280px;
+  border-radius: 15px;
 }
 
 .spots-boxes > a {
@@ -49,7 +56,7 @@ div.spots-boxes-price {
 .tooltip {
   /* position: relative; */
   display: inline-block;
-  border-bottom: 1px dotted black;
+  /* border-bottom: 1px dotted black; */
 }
 
 .tooltip .tooltipText {

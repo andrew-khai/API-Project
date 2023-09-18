@@ -22,7 +22,7 @@ const SingleSpotReview = ({ review }) => {
       setIsLoggedIn(true);
     }
     if (sessionUser) {
-      if (sessionUser.id === spot[spotId].ownerId) setIsOwner(true)
+      if (sessionUser.id === spot.ownerId) setIsOwner(true)
       if (sessionUser.id === review.User.id) setHasReviewed(true);
     }
   }, [spotId, sessionUser, isLoggedIn])
