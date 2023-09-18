@@ -5,6 +5,7 @@ const { Op } = require('sequelize');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, Review, SpotImage, ReviewImage, Booking } = require('../../db/models');
+const { multipleFilesUpload, multipleMulterUpload, retrievePrivateFile } = require("../../awsS3");
 
 const { check, query } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -33,14 +34,18 @@ const validateSpot = [
   check('price')
     .isInt({ min: 1 })
     .withMessage(`Price per day is required`),
-  // check('lat')
-  //   .optional()
-  //   .isFloat({ min: -90, max: 90 })
-  //   .withMessage(`Latitude is not valid`),
-  // check('lng')
-  //   .optional()
-  //   .isFloat({ min: -180, max: 180 })
-  //   .withMessage(`Longitude is not valid`),
+  check('lat')
+    .optional({
+      nullable: true
+    })
+    .isFloat({ min: -90, max: 90 })
+    .withMessage(`Latitude is not valid`),
+  check('lng')
+    .optional({
+      nullable: true
+    })
+    .isFloat({ min: -180, max: 180 })
+    .withMessage(`Longitude is not valid`),
   check('name')
     .exists({ checkFalsy: true })
     .withMessage('Name is required'),
@@ -305,6 +310,7 @@ router.get(
 router.post(
   '/:spotId/images',
   requireAuth,
+  multipleMulterUpload("images"),
   async (req, res) => {
     const ownerId = req.user.id
     if (!ownerId) {

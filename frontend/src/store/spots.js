@@ -106,6 +106,7 @@ export const singleSpotThunk = (spotId) => async (dispatch) => {
   if (res.ok) {
     const singleSpot = await res.json();
     dispatch(getSingleSpot(singleSpot));
+    console.log('single spot thunk', singleSpot)
     return singleSpot;
   }
   else {
@@ -144,7 +145,7 @@ export const createASpot = (spot) => async (dispatch) => {
 export const addImageThunk = (imageArr, spotId) => async (dispatch) => {
   try {
     console.log('imageArr here-------', imageArr, 'spotID here -----', spotId)
-    imageArr.forEach(async imageObj => {
+    imageArr.forEach(async (imageObj) => {
       if (imageObj.url !== '') {
         const res = await csrfFetch(`/api/spots/${spotId}/images`, {
           method: "POST",
@@ -244,8 +245,9 @@ const spotsReducer = (state = initialState, action) => {
       })
       return newState;
     case GET_SINGLE_SPOT:
-      newState = { ...state, singleSpot: {} };
-      newState.singleSpot[action.spot.id] = action.spot
+      newState = { ...state};
+      console.log('get sigle spot', action.spot)
+      newState.singleSpot = action.spot
       return newState;
     case CREATE_SPOT:
       newState = structuredClone(state);
@@ -261,13 +263,20 @@ const spotsReducer = (state = initialState, action) => {
       delete newState.allSpots[action.spotId]
       return newState;
     case ADD_IMAGE:
-      newState = structuredClone(state);
-      // newState = {...state, singleSpot: {...state.singleSpot, SpotImages: {}}}
+      // newState = structuredClone(state);
+      newState = structuredClone(state)
+      console.log('new state here -----', newState)
+      console.log('action over here ------', action, 'action payload over here ----', action.payload)
+      // newState.singleSpot.SpotImages[action.payload.image.id] = action.payload.image;
+      if (state.singleSpot?.SpotImages) {
+        newState.singleSpot.SpotImages = [...state.singleSpot.SpotImages]
+      }
+      else {
+        newState.singleSpot.SpotImages = []
+      }
+      newState.singleSpot.SpotImages.push(action.payload.image)
       // console.log('new state here -----', newState)
-      // console.log('action over here ------', action, 'action payload over here ----', action.payload)
-      newState.singleSpot[action.payload.spotId].SpotImages[action.payload.image.id] = action.payload.image;
-      // console.log('new state here -----', newState)
-      // return newState;
+      return newState;
     default:
       return state;
   }
