@@ -18,6 +18,7 @@ const SpotForm = ({ spot, formType }) => {
   // const [url1, setUrl1]
   // const [url2, setUrl2]
   // const array = [{url:url1, preview: true}, {url:url2, preview:false}...}
+  console.log(spot.SpotImages)
 
   const history = useHistory();
   const [address, setAddress] = useState(spot?.address);
@@ -27,26 +28,28 @@ const SpotForm = ({ spot, formType }) => {
   const [name, setName] = useState(spot?.name);
   const [description, setDescription] = useState(spot?.description);
   const [price, setPrice] = useState(spot?.price);
-  const [previewImage, setPreviewImage] = useState(spot?.SpotImages[0] || '');
-  const [imageOne, setImageOne] = useState('');
-  const [imageTwo, setImageTwo] = useState('');
-  const [imageThree, setImageThree] = useState('');
-  const [imageFour, setImageFour] = useState('');
+  const [previewImage, setPreviewImage] = useState(spot.SpotImages? spot.SpotImages[0]? spot.SpotImages[0].url : '' : '');
+  const [imageOne, setImageOne] = useState(spot.SpotImages? spot.SpotImages[1]? spot.SpotImages[1].url : '' : '');
+  const [imageTwo, setImageTwo] = useState(spot.SpotImages? spot.SpotImages[2]? spot.SpotImages[2].url : '' : '');
+  const [imageThree, setImageThree] = useState(spot.SpotImages? spot.SpotImages[3]? spot.SpotImages[3].url : '' : '');
+  const [imageFour, setImageFour] = useState(spot.SpotImages? spot.SpotImages[4]? spot.SpotImages[4].url : '' : '');
   const [errors, setErrors] = useState({});
   // const [submitted, setSubmitted] = useState(false);
 
   // console.log('submitted here wooo======', submitted)
 
-  useEffect(() => {
-    const errorsObj = {}
-      if (!previewImage) errorsObj.previewImage = "Preview image is required";
-      // if (!previewImage.startsWith('http' || 'https'))
-        if (!imageOne.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageOne = "Must end with .png, .jpg, or .jpeg";
-      if (!imageTwo.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageTwo = "Must end with .png, .jpg, or .jpeg";
-      if (!imageThree.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageThree = "Must end with .png, .jpg, or .jpeg";
-      if (!imageFour.endsWith('.png' || '.jpeg' || '.jpg')) errorsObj.imageFour = "Must end with .png, .jpg, or .jpeg";
-      setErrors(errorsObj);
-  }, [previewImage, imageOne, imageTwo, imageThree, imageFour])
+  // console.log('preview image here', previewImage)
+
+  // useEffect(() => {
+  //   const errorsObj = {}
+  //   if (!previewImage) errorsObj.previewImage = "Preview image is required";
+  //   // if (!previewImage.startsWith('http' || 'https'))
+  //   if (!imageOne.endsWith('.png' || '.jpeg' || '.jpg' || '.webp')) errorsObj.imageOne = "Must end with .png, .jpg, or .jpeg";
+  //   if (!imageTwo.endsWith('.png' || '.jpeg' || '.jpg' || '.webp')) errorsObj.imageTwo = "Must end with .png, .jpg, or .jpeg";
+  //   if (!imageThree.endsWith('.png' || '.jpeg' || '.jpg' || '.webp')) errorsObj.imageThree = "Must end with .png, .jpg, or .jpeg";
+  //   if (!imageFour.endsWith('.png' || '.jpeg' || '.jpg' || '.webp')) errorsObj.imageFour = "Must end with .png, .jpg, or .jpeg";
+  //   setErrors(errorsObj);
+  // }, [previewImage, imageOne, imageTwo, imageThree, imageFour])
 
   const imageArray = [
     { url: previewImage, preview: true },
@@ -55,6 +58,9 @@ const SpotForm = ({ spot, formType }) => {
     { url: imageThree, preview: false },
     { url: imageFour, preview: false },
   ]
+  // if (formType === "Update Spot") {
+  //   console.log('i am here in the form from  edit')
+  // }
 
   // console.log('spot', spot)
   // const imageArr = spot?.SpotImages || [];
@@ -133,12 +139,17 @@ const SpotForm = ({ spot, formType }) => {
     }
 
     if (formType === 'Update Spot') {
+      console.log('in the update spot if block')
       const updatedSpot = await dispatch(editSpotThunk(spot));
+      console.log('updated spot here --------', updatedSpot)
 
       if (updatedSpot.errors) {
+        console.log('in this updated spot errors if block')
         setErrors(updatedSpot.errors);
         return
       }
+
+      // const addImage = await dispatch(addImageThunk(imageArray, updatedSpot.id));
 
       history.push(`/spots/${updatedSpot.id}`)
     }
@@ -264,63 +275,61 @@ const SpotForm = ({ spot, formType }) => {
             }
           </label>
         </div>
-        {formType !== "Update Spot" &&
-          <div id="spot-images-container">
-            <h3>Liven up your spot with photos</h3>
-            <p>Submit a link to at least one photo to publish your spot</p>
-            <input
-              type="url"
-              value={previewImage}
-              onChange={(e) => setPreviewImage(e.target.value)}
-              placeholder="Preview Image URL"
-              style={{ width: '430px' }}
-            >
-            </input>
-            {errors.previewImage &&
-              <p className="errors">{errors.previewImage}</p>}
-            <input
-              type="url"
-              value={imageOne}
-              onChange={(e) => setImageOne(e.target.value)}
-              placeholder="Image URL"
-              style={{ width: '430px' }}
-            >
-            </input>
-            {errors.imageOne &&
-              <p className="errors">{errors.imageOne}</p>}
-            <input
-              type="url"
-              value={imageTwo}
-              onChange={(e) => setImageTwo(e.target.value)}
-              placeholder="Image URL"
-              style={{ width: '430px' }}
-            >
-            </input>
-            {errors.imageTwo &&
-              <p className="errors">{errors.imageTwo}</p>}
-            <input
-              type="url"
-              value={imageThree}
-              onChange={(e) => setImageThree(e.target.value)}
-              placeholder="Image URL"
-              style={{ width: '430px' }}
-            >
-            </input>
-            {errors.imageThree &&
-              <p className="errors">{errors.imageThree}</p>}
-            <input
-              type="url"
-              value={imageFour}
-              onChange={(e) => setImageFour(e.target.value)}
-              placeholder="Image URL"
-              style={{ width: '430px' }}
-            >
-            </input>
-            {errors.imageFour &&
-              <p className="errors">{errors.imageFour}</p>}
-          </div>
-        }
-
+        <div id="spot-images-container">
+          <h3>Liven up your spot with photos</h3>
+          <p>Submit a link to at least one photo to publish your spot</p>
+          <input
+            type="url"
+            value={previewImage}
+            onChange={(e) => setPreviewImage(e.target.value)}
+            placeholder="Preview Image URL"
+            style={{ width: '430px' }}
+            required
+          >
+          </input>
+          {errors.previewImage &&
+            <p className="errors">{errors.previewImage}</p>}
+          <input
+            type="url"
+            value={imageOne}
+            onChange={(e) => setImageOne(e.target.value)}
+            placeholder="Image URL"
+            style={{ width: '430px' }}
+          >
+          </input>
+          {errors.imageOne &&
+            <p className="errors">{errors.imageOne}</p>}
+          <input
+            type="url"
+            value={imageTwo}
+            onChange={(e) => setImageTwo(e.target.value)}
+            placeholder="Image URL"
+            style={{ width: '430px' }}
+          >
+          </input>
+          {errors.imageTwo &&
+            <p className="errors">{errors.imageTwo}</p>}
+          <input
+            type="url"
+            value={imageThree}
+            onChange={(e) => setImageThree(e.target.value)}
+            placeholder="Image URL"
+            style={{ width: '430px' }}
+          >
+          </input>
+          {errors.imageThree &&
+            <p className="errors">{errors.imageThree}</p>}
+          <input
+            type="url"
+            value={imageFour}
+            onChange={(e) => setImageFour(e.target.value)}
+            placeholder="Image URL"
+            style={{ width: '430px' }}
+          >
+          </input>
+          {errors.imageFour &&
+            <p className="errors">{errors.imageFour}</p>}
+        </div>
         {/* <h3>Liven up your spot with photos</h3>
           <p>Submit a link to at least one photo to publish your spot.</p> */}
         {/* !!! need to handle errors for images !!!

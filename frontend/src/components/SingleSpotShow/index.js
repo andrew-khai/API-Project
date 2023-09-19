@@ -69,7 +69,7 @@ const SingleSpotShow = () => {
           </div>
           <div id="single-spot-details-container">
             <div id="single-spot-description">
-              <h2>Hosted by {owner.firstName} {owner.lastName}</h2>
+              <h2>Hosted by {owner?.firstName} {owner?.lastName}</h2>
               <p>{spot.description}</p>
             </div>
             <div id="single-spot-price-container">
@@ -139,17 +139,17 @@ const SingleSpotShow = () => {
             <p>{spot.city}, {spot.state}, {spot.country}</p>
           </div>
           <div id="single-spot-images-container">
-            <img id="preview-image" src={spotImages[0]?.url || noImage}></img>
+            <img id="preview-image" src={spotImages? spotImages[0] ? spotImages[0].url : noImage : noImage}></img>
             <div id="other-images-container">
-              <img className="other-images" src={spotImages[1]?.url || noImage}></img>
-              <img className="other-images" src={spotImages[2]?.url || noImage}></img>
-              <img className="other-images" src={spotImages[3]?.url || noImage}></img>
-              <img className="other-images" src={spotImages[4]?.url || noImage}></img>
+              <img className="other-images" src={spotImages? spotImages[1] ? spotImages[1].url : noImage : noImage}></img>
+              <img className="other-images" src={spotImages? spotImages[2] ? spotImages[2].url : noImage : noImage}></img>
+              <img className="other-images" src={spotImages? spotImages[3] ? spotImages[3].url : noImage : noImage}></img>
+              <img className="other-images" src={spotImages? spotImages[4] ? spotImages[4].url : noImage : noImage}></img>
             </div>
           </div>
           <div id="single-spot-details-container">
             <div id="single-spot-description">
-              <h2>Hosted by {owner.firstName} {owner.lastName}</h2>
+              <h2>Hosted by {owner?.firstName} {owner?.lastName}</h2>
               <p>{spot.description}</p>
             </div>
             <div id="single-spot-price-container">

@@ -1,6 +1,6 @@
 #single-spot-container {
-  margin-right: 40px;
-  margin-left: 40px;
+  margin: auto;
+  max-width: 1200px;
 }
 
 #single-spot-details-container {
@@ -23,15 +23,17 @@
 #single-spot-images-container {
   display: flex;
   margin-top: 15px;
+  width: 100%;
 }
 
 #other-images-container {
   display: grid;
-  grid-template-columns: 233px 233px;
-  grid-row: auto auto;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 160px 160px;
   grid-column-gap: 5px;
   grid-row-gap: 5px;
   margin-left: 5px;
+  width: 50%;
 }
 
 .other-images {
@@ -47,6 +49,9 @@
   margin-top: 15px;
   border-bottom: 1px solid black;
   padding-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #single-spot-price-ratings {
@@ -65,12 +70,16 @@
 }
 
 #preview-image {
-  width: 450px;
-  height: 300px;
+  width: 50%;
+  height: 325px;
 }
 
 .post-your-review-container>button {
   background-color: #565555;
   color: white;
   cursor: pointer;
+}
+
+.single-spot-description {
+  width: 600px;
 }

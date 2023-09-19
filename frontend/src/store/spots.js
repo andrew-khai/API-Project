@@ -106,7 +106,7 @@ export const singleSpotThunk = (spotId) => async (dispatch) => {
   if (res.ok) {
     const singleSpot = await res.json();
     dispatch(getSingleSpot(singleSpot));
-    console.log('single spot thunk', singleSpot)
+    // console.log('single spot thunk', singleSpot)
     return singleSpot;
   }
   else {
@@ -186,7 +186,7 @@ export const addImageThunk = (imageArr, spotId) => async (dispatch) => {
 
 // EDIT SPOT THUNK
 export const editSpotThunk = (spot) => async (dispatch) => {
-  try {
+  // try {
     const res = await csrfFetch(`/api/spots/${spot.id}`, {
       method: "PUT",
       headers: {
@@ -196,15 +196,17 @@ export const editSpotThunk = (spot) => async (dispatch) => {
     })
 
     if (res.ok) {
+      console.log('log in the res ok if block')
       const updatedSpot = await res.json();
       dispatch(editSpot(updatedSpot));
-      return updatedSpot
+      return updatedSpot;
     }
-  }
-  catch (error) {
-    const errors = await error.json();
-    return errors;
-  }
+  // }
+  // catch (error) {
+  //   console.log('errors in edit spot thunk', error)
+  //   const errors = await error.json();
+  //   return error;
+  // }
 }
 
 // Delete a Spot
@@ -246,7 +248,7 @@ const spotsReducer = (state = initialState, action) => {
       return newState;
     case GET_SINGLE_SPOT:
       newState = { ...state};
-      console.log('get sigle spot', action.spot)
+      // console.log('get sigle spot', action.spot)
       newState.singleSpot = action.spot
       return newState;
     case CREATE_SPOT:
