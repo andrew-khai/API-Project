@@ -21,11 +21,21 @@
 #yes-button {
   cursor: pointer;
   background-color: rgb(238, 77, 77);
+  border: none;
   color: white;
+}
+
+#yes-button:hover {
+  background-color: rgb(176, 58, 58);
 }
 
 #no-button {
   cursor: pointer;
   background-color: #565555;
   color: white;
+  border: none;
+}
+
+#no-button:hover {
+  background-color: #403f3f;
 }

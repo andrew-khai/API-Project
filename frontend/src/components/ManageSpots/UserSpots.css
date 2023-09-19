@@ -38,3 +38,7 @@
   border: none;
   padding: 10px 5px;
 }
+
+#update-delete-container > button:hover {
+  background-color: #403f3f;
+}

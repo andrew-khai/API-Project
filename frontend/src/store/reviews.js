@@ -4,6 +4,8 @@ import { singleSpotThunk } from "./spots";
 export const GET_REVIEWS_FOR_SPOT = "GET_REVIEWS_FOR_SPOT";
 export const POST_REVIEW = "POST_REVIEW";
 export const DELETE_REVIEW = "DELETE_REVIEW";
+export const CURRENT_REVIEWS = "CURRENT_REVIEWS"
+export const DELETE_CURRENT_REVIEW = "DELETE_CURRENT"
 
 //Action Creators
 
@@ -11,6 +13,14 @@ export const DELETE_REVIEW = "DELETE_REVIEW";
 const getReviews = (reviews) => {
   return {
     type: GET_REVIEWS_FOR_SPOT,
+    reviews
+  }
+}
+
+// GET REVIEWS FOR CURRENT USER
+const getCurrentReviews = (reviews) => {
+  return {
+    type: CURRENT_REVIEWS,
     reviews
   }
 }
@@ -31,6 +41,13 @@ const deleteReview = (reviewId) => {
   }
 }
 
+const deleteReviewCurrent = (reviewId) => {
+  return {
+    type: DELETE_CURRENT_REVIEW,
+    reviewId
+  }
+}
+
 
 //THUNK ACTION CREATORS
 
@@ -41,6 +58,16 @@ export const getAllReviewsThunk = (spotId) => async (dispatch) => {
   if (res.ok) {
     const reviews = await res.json();
     dispatch(getReviews(reviews));
+    return reviews
+  }
+}
+
+// GET CURRENT USER REVIEWS
+export const getCurrentReviewsThunk = () => async (dispatch) => {
+  const res = await csrfFetch(`/api/reviews/current`)
+  if (res.ok) {
+    const reviews = await res.json();
+    dispatch(getCurrentReviews(reviews));
     return reviews
   }
 }
@@ -82,8 +109,10 @@ export const deleteReviewThunk = (review) => async (dispatch) => {
     }
   })
   if (res.ok) {
-    dispatch(deleteReview(review.id))
-    dispatch(singleSpotThunk(review.spotId))
+    await dispatch(deleteReview(review.id))
+    // await dispatch(getCurrentReviews())
+    await dispatch(deleteReviewCurrent(review.id))
+    await dispatch(singleSpotThunk(review.spotId))
   }
   else {
     const errors = await res.json();
@@ -93,7 +122,7 @@ export const deleteReviewThunk = (review) => async (dispatch) => {
 
 
 // REDUCER
-const initialState = { Reviews: {} };
+const initialState = { Reviews: {}, currentReviews: {} };
 
 const reviewsReducer = (state = initialState, action) => {
   let newState;
@@ -104,6 +133,18 @@ const reviewsReducer = (state = initialState, action) => {
         newState.Reviews[review.id] = review;
       });
       return newState;
+    case CURRENT_REVIEWS: {
+      newState = {...state};
+      action.reviews.Reviews.forEach(review => {
+        newState.currentReviews[review.id] = review;
+      });
+      return newState;
+    }
+    case DELETE_CURRENT_REVIEW: {
+      newState = {...state};
+      delete newState.currentReviews[action.reviewId];
+      return newState;
+    }
     case POST_REVIEW:
       newState = structuredClone(state);
       newState.Reviews[action.review.id] = action.review;

@@ -67,6 +67,16 @@
   background-color: rgb(228, 77, 77);
   color: white;
   padding: 10px;
+  border: none;
+}
+
+#reserve-button:hover {
+  background-color: rgb(176, 58, 58);
+}
+
+#reserve-button:disabled {
+  cursor: not-allowed;
+  background-color: rgb(167, 101, 101);
 }
 
 #preview-image {

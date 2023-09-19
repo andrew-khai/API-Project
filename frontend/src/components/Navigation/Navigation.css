@@ -51,6 +51,7 @@ ul.profile-dropdown {
   align-items: center;
   border-radius: 15px;
   padding: 10px 20px;
+  width: 230px;
 }
 
 .dropdown-list-container-user {
@@ -106,6 +107,8 @@ li#logout-button > button:hover {
 
 .user-information-container {
   border-bottom: 1px solid black;
+  width: 230px;
+  padding: 5px;
 }
 
 .user-information-container > li{
@@ -115,7 +118,7 @@ li#logout-button > button:hover {
 
 .manage-spots-link {
   border-bottom: 1px solid black;
-  width: 100%;
+  width: 230px;
   text-align: center;
   padding-bottom: 10px;
 }
@@ -123,6 +126,10 @@ li#logout-button > button:hover {
 .manage-spots-link > a {
   text-decoration: none;
   color: black;
+}
+
+.manage-spots-link > a:hover {
+  color: orange;
 }
 
 .create-new-spot-link {

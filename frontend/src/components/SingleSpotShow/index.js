@@ -15,6 +15,7 @@ const SingleSpotShow = () => {
   const [hasReviwed, setHasReviewed] = useState(false);
   const [starRating, setStarRating] = useState(1);
   const [numReviews, setNumReviews] = useState(1);
+  // const [isOwner, setIsOwner] = useState(false)
   // console.log('hello spotId here', singleSpotId)
   // const [isOwner, setIsOwner] = useState(false);
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const SingleSpotShow = () => {
   }, [dispatch, spotId])
 
   const sessionUser = useSelector(state => state.session.user)
-  // console.log(sessionUser.id)
+  console.log(sessionUser.id)
   const spot = useSelector(state => state.spots.singleSpot);
   // console.log('spot', spot)
   const spotReviews = useSelector(state => state.reviews.Reviews);
@@ -50,6 +51,20 @@ const SingleSpotShow = () => {
   // console.log('reviews -------', reviews)
 
   // console.log('spot', spot)
+  const ownerCheck = () => {
+    // console.log('in owner check')
+    if (sessionUser) {
+      if (sessionUser?.id === owner?.id) {
+        return true
+      }
+      else return false;
+    }
+    return;
+    // else setIsOwner(false)
+  }
+
+  // console.log(isOwner)
+
   return (
     <>
       {!sessionUser ?
@@ -82,7 +97,7 @@ const SingleSpotShow = () => {
                     <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '10px' }}>•</span> :
                     " "
                   }
-                 {spot.numReviews ?
+                  {spot.numReviews ?
                     <span>
                       {spot.numReviews === 1 ?
                         <span>{spot.numReviews} review</span> :
@@ -139,12 +154,12 @@ const SingleSpotShow = () => {
             <p>{spot.city}, {spot.state}, {spot.country}</p>
           </div>
           <div id="single-spot-images-container">
-            <img id="preview-image" src={spotImages? spotImages[0] ? spotImages[0].url : noImage : noImage}></img>
+            <img id="preview-image" src={spotImages ? spotImages[0] ? spotImages[0].url : noImage : noImage}></img>
             <div id="other-images-container">
-              <img className="other-images" src={spotImages? spotImages[1] ? spotImages[1].url : noImage : noImage}></img>
-              <img className="other-images" src={spotImages? spotImages[2] ? spotImages[2].url : noImage : noImage}></img>
-              <img className="other-images" src={spotImages? spotImages[3] ? spotImages[3].url : noImage : noImage}></img>
-              <img className="other-images" src={spotImages? spotImages[4] ? spotImages[4].url : noImage : noImage}></img>
+              <img className="other-images" src={spotImages ? spotImages[1] ? spotImages[1].url : noImage : noImage}></img>
+              <img className="other-images" src={spotImages ? spotImages[2] ? spotImages[2].url : noImage : noImage}></img>
+              <img className="other-images" src={spotImages ? spotImages[3] ? spotImages[3].url : noImage : noImage}></img>
+              <img className="other-images" src={spotImages ? spotImages[4] ? spotImages[4].url : noImage : noImage}></img>
             </div>
           </div>
           <div id="single-spot-details-container">
@@ -175,7 +190,7 @@ const SingleSpotShow = () => {
                   }
                 </div>
               </div>
-              <button id="reserve-button" onClick={onClick}>
+              <button id="reserve-button" disabled={ownerCheck() || !sessionUser} onClick={onClick}>
                 Reserve
               </button>
             </div>

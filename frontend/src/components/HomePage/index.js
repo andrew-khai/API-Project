@@ -15,7 +15,7 @@ const HomePage = () => {
   const allSpots = useSelector(state => state.spots.allSpots);
 
   // type Array
-  const spots = Object.values(allSpots);
+  const spots = Object.values(allSpots).reverse();
 
   return (
     <>

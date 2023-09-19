@@ -62,6 +62,12 @@ function ProfileButton({ user }) {
               <div className="manage-spots-link">
                 <Link to="/spots/current" onClick={closeMenu}>Manage Spots</Link>
               </div>
+              <div className="manage-spots-link">
+                <Link to="/reviews/current" onClick={closeMenu}>Manage Reviews</Link>
+              </div>
+              <div className="manage-spots-link">
+                <Link to="/bookings/current" onClick={closeMenu}>Manage Bookings</Link>
+              </div>
               {/* li item for Manage Spots */}
               <li id="logout-button">
                 <button onClick={logout}>Log Out</button>

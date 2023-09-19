@@ -18,7 +18,7 @@ const ManageSpots = () => {
   const sessionUser = useSelector(state => state.session.user);
   // console.log('user spots', userSpots);
 
-  const spots = Object.values(userSpots);
+  const spots = Object.values(userSpots).reverse();
   // console.log('spots', spots)
   if (!sessionUser) return (<><h1>Forbidden</h1></>)
 
