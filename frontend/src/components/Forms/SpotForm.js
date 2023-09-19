@@ -18,7 +18,7 @@ const SpotForm = ({ spot, formType }) => {
   // const [url1, setUrl1]
   // const [url2, setUrl2]
   // const array = [{url:url1, preview: true}, {url:url2, preview:false}...}
-  console.log(spot.SpotImages)
+  // console.log(spot.SpotImages)
 
   const history = useHistory();
   const [address, setAddress] = useState(spot?.address);
@@ -101,24 +101,6 @@ const SpotForm = ({ spot, formType }) => {
     if (formType === 'Create Spot') {
       const newSpot = await dispatch(createASpot(spot))
       // ! Add Images thunk
-      // const addImage = await dispatch(imageThunk(spot.id, image))
-      // console.log('newSpot ------', newSpot)
-      // console.log('new error', newSpot?.errors)
-      // console.log('spotImages here -------- front end', spotImages)
-      // const addImages = await dispatch(addImageThunk(spotImages, newSpot.id))
-
-      // for (const [index, imageUrl] in spotImages.entries()) {
-      //   const image = {
-      //     url: imageUrl,
-      //     spotId: spot.id,
-      //     preview: index === 0
-      //   }
-      // }
-      // if ()
-      // let newImage = {
-      //   url: spotImages[0],
-      //   preview: true
-      // }
 
       const addImage = await dispatch(addImageThunk(imageArray, newSpot.id));
       // console.log('added image here ----', addImage)
@@ -139,12 +121,13 @@ const SpotForm = ({ spot, formType }) => {
     }
 
     if (formType === 'Update Spot') {
-      console.log('in the update spot if block')
+      // console.log('in the update spot if block')
       const updatedSpot = await dispatch(editSpotThunk(spot));
-      console.log('updated spot here --------', updatedSpot)
+      const addImages = await dispatch(addImageThunk(imageArray, updatedSpot.id))
+      // console.log('updated spot here --------', updatedSpot)
 
       if (updatedSpot.errors) {
-        console.log('in this updated spot errors if block')
+        // console.log('in this updated spot errors if block')
         setErrors(updatedSpot.errors);
         return
       }
