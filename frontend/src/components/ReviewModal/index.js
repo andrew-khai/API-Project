@@ -5,16 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 // import { useHistory, useParams } from "react-router-dom";
 import { createReviewThunk, getAllReviewsThunk } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
+import { useParams } from "react-router-dom";
 
 function ReviewModal({ singleSpotId }) {
 
   const { closeModal } = useModal();
+  const { spotId } = useParams()
 
   // console.log('another spotID here at modal', singleSpotId)
   const spot = useSelector(state => state.spots.singleSpot);
-  const spotId = Object.values(spot)[0].id;
-  const ownerFirstName = Object.values(spot)[0].Owner.firstName;
-  // console.log('use selector spot here', ownerFirstName)
+  // const spotId = Object.values(spot)[0].id;
+  const sessionUser = useSelector(state => state.session.user);
+  const firstName = sessionUser.firstName;
+  console.log('use selector spot here', spot.id)
 
   const dispatch = useDispatch();
   // const history = useHistory();
@@ -27,28 +30,28 @@ function ReviewModal({ singleSpotId }) {
     e.preventDefault();
     setErrors({})
     const reviewItem = {
-      firstName: ownerFirstName,
-      spotId: spotId,
+      firstName: firstName,
+      spotId: spot.id,
       review: review,
       stars: stars
     }
-    const reviews = await dispatch(getAllReviewsThunk(spotId));
+    // const reviews = await dispatch(getAllReviewsThunk(spotId));
     // console.log('reviews here look', reviews)
     const newReview = await dispatch(createReviewThunk(reviewItem));
     if (newReview.errors) {
       setErrors(newReview.errors);
       return;
     }
-    // console.log('nre review here look', newReview)
-    if (reviews) {
-      let errorObj = {}
-      Object.values(reviews).forEach(review => {
-        if (review.userId === newReview.userId) {
-          errorObj.serverError = "User already submitted a review"
-        }
-      })
-      setErrors(errorObj);
-    }
+    console.log('nre review here look', newReview)
+    // if (reviews) {
+    //   let errorObj = {}
+    //   Object.values(reviews).forEach(review => {
+    //     if (review.userId === newReview.userId) {
+    //       errorObj.serverError = "User already submitted a review"
+    //     }
+    //   })
+    //   setErrors(errorObj);
+    // }
     // history.push(`/spots/${spotId}`)
     closeModal();
 
@@ -72,7 +75,7 @@ function ReviewModal({ singleSpotId }) {
           type="textarea"
           value={review}
           onChange={(e) => setReview(e.target.value)}
-          placeholder="Leave your review here..."
+          placeholder="Leave your review here (min 10 characters)..."
           style={{ width: '300px', height: '100px' }}
         >
         </textarea>

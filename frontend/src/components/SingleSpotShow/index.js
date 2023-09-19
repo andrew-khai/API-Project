@@ -27,7 +27,7 @@ const SingleSpotShow = () => {
   const sessionUser = useSelector(state => state.session.user)
   // console.log(sessionUser.id)
   const spot = useSelector(state => state.spots.singleSpot);
-  console.log('spot', spot)
+  // console.log('spot', spot)
   const spotReviews = useSelector(state => state.reviews.Reviews);
   const reviews = Object.values(spotReviews);
   const descOrderReviews = reviews.reverse();

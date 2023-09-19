@@ -35,5 +35,5 @@
 
 
 #review-stars-container .empty  > i{
-  color: black;
+  color: red;
 }

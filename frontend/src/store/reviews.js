@@ -58,16 +58,18 @@ export const createReviewThunk = (review) => async (dispatch) => {
     })
 
     if (res.ok) {
+      console.log('in this res ok create review')
       const newReview = await res.json();
       dispatch(getAllReviewsThunk(review.spotId))
-      // dispatch(postReview(newReview));
+      dispatch(postReview(newReview));
       dispatch(singleSpotThunk(review.spotId));
       return newReview;
     }
   }
   catch (error) {
-    // const errors = await error.json()
-    return error;
+    console.log('in this create review error block')
+    const errors = await error.json()
+    return errors;
   }
 }
 
