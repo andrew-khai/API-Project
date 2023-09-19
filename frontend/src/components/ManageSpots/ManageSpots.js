@@ -26,10 +26,12 @@ const ManageSpots = () => {
   return (
     <>
       <div id='manage-spots-container'>
-        <h2>Manage Your Spots</h2>
-        <NavLink to="/spots/new">
-          <button id='create-new-spot-button'>Create a New Spot</button>
-        </NavLink>
+        <h2 style={{textAlign: "center"}}>Manage Your Spots</h2>
+        {spots.length === 0 &&
+          <NavLink to="/spots/new">
+            <button id='create-new-spot-button'>Create a New Spot</button>
+          </NavLink>
+        }
       </div>
       <div id="user-spots-container">
         {spots.map(spot => (

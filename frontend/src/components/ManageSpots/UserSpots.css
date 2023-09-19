@@ -17,8 +17,8 @@
 
 #user-spots-container {
   display: grid;
-  grid-template-columns: repeat(3, 280px);
-  grid-template-rows: 280px;
+  grid-template-columns: repeat(3, 282px);
+  grid-template-rows: 315px;
   width: 100%;
   column-gap: 30px;
   row-gap: 95px;
@@ -35,4 +35,6 @@
   background-color: #565555;
   color: white;
   cursor: pointer;
+  border: none;
+  padding: 10px 5px;
 }

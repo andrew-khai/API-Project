@@ -12,10 +12,11 @@ const EditSpotForm = () => {
     dispatch(singleSpotThunk(spotId))
   }, [dispatch, spotId])
 
-  const spot = useSelector(state => state.spots.singleSpot[spotId]);
+  const spot = useSelector(state => state.spots.singleSpot);
 
 
   if (!spot) return(<></>)
+  // console.log('spot here------', spot)
 
   return (
     Object.keys(spot).length > 1 && (
