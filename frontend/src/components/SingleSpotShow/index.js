@@ -8,16 +8,24 @@ import { getAllReviewsThunk } from "../../store/reviews";
 import SingleSpotReview from "../Reviews/SingleSpotReviews";
 import OpenModalButton from "../OpenModalButton";
 import ReviewModal from "../ReviewModal";
+import { createBookingThunk } from "../../store/bookings";
 
 const SingleSpotShow = () => {
   const { spotId } = useParams();
+
+  const today = new Date();
+
+  const fiveDaysLater = new Date();
+  fiveDaysLater.setDate(today.getDate() + 5);
+
+  const initialStartDate = today.toISOString().split('T')[0];
+  const initialEndDate = fiveDaysLater.toISOString().split('T')[0];
+
   const [singleSpotId, setSingleSpotId] = useState(spotId);
-  const [hasReviwed, setHasReviewed] = useState(false);
-  const [starRating, setStarRating] = useState(1);
-  const [numReviews, setNumReviews] = useState(1);
-  // const [isOwner, setIsOwner] = useState(false)
-  // console.log('hello spotId here', singleSpotId)
-  // const [isOwner, setIsOwner] = useState(false);
+  const [startDate, setStartDate] = useState(initialStartDate);
+  const [endDate, setEndDate] = useState(initialEndDate);
+  const [errors, setErrors] = useState({});
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -61,6 +69,22 @@ const SingleSpotShow = () => {
     }
     return;
     // else setIsOwner(false)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const booking = {
+      spotId: spot.id,
+      userId: sessionUser.id,
+      startDate,
+      endDate
+    }
+
+    const newBooking = await dispatch(createBookingThunk(booking))
+    if (newBooking.errors) {
+      setErrors(newBooking.errors)
+    }
   }
 
   // console.log(isOwner)
@@ -110,9 +134,37 @@ const SingleSpotShow = () => {
                   }
                 </div>
               </div>
-              <button id="reserve-button" onClick={onClick}>
-                Reserve
-              </button>
+              <div>
+                <form id="reserve-form" onSubmit={handleSubmit}>
+                  <div style={{ display: "flex" }}>
+                    <label className="reserve-form-labels">
+                      Check-In
+                      <input
+                        className="reserve-form-dates"
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                        required
+                      >
+                      </input>
+                    </label>
+                    <label className="reserve-form-labels">
+                      Checkout
+                      <input
+                        className="reserve-form-dates"
+                        type="date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                        required
+                      >
+                      </input>
+                    </label>
+                  </div>
+                  <button type="submit" id="reserve-button" disabled={ownerCheck() || !sessionUser}>
+                    Reserve
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
           <div id="reviews-section-container">
@@ -190,9 +242,37 @@ const SingleSpotShow = () => {
                   }
                 </div>
               </div>
-              <button id="reserve-button" disabled={ownerCheck() || !sessionUser} onClick={onClick}>
-                Reserve
-              </button>
+              <div>
+                <form id="reserve-form" onSubmit={handleSubmit}>
+                  <div style={{ display: "flex" }}>
+                    <label className="reserve-form-labels">
+                      Check-In
+                      <input
+                        className="reserve-form-dates"
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                        required
+                      >
+                      </input>
+                    </label>
+                    <label className="reserve-form-labels">
+                      Checkout
+                      <input
+                        className="reserve-form-dates"
+                        type="date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                        required
+                      >
+                      </input>
+                    </label>
+                  </div>
+                  <button type="submit" id="reserve-button" disabled={ownerCheck() || !sessionUser}>
+                    Reserve
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
           <div id="reviews-section-container">

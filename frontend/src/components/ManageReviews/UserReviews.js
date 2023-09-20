@@ -4,7 +4,7 @@ import DeleteModal from "../DeleteModal";
 import DeleteReviewModal from "../DeleteReviewModal";
 
 const UserReviews = ({ review }) => {
-  console.log(review)
+  // console.log(review)
   return (
     <>
       <div className="user-review-container">

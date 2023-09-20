@@ -297,12 +297,13 @@ router.get(
       res.json({
         Spots: allSpots
       })
-    } else {
-      res.status(404);
-      return res.json({
-        message: `No spots owned`
-      })
     }
+    // else {
+    //   res.status(404);
+    //   return res.json({
+    //     message: `No spots owned`
+    //   })
+    // }
   }
 )
 
