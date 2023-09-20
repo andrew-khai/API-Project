@@ -1,4 +1,4 @@
-#no-reviews-container a{
+#no-reviews-container a {
   /* color: white; */
   text-align: center;
   text-decoration: none;
@@ -14,4 +14,46 @@
   border-radius: 8px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.user-booking-container {
+  width: 970px;
+  margin: auto;
+  display: flex;
+  column-gap: 25px;
+}
+
+#users-bookings-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+}
+
+.booking-information {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.booking-info-times {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.booking-button-container {
+  margin-top: 15px;
+  display: flex;
+  column-gap: 15px;
+}
+
+.booking-button-container button {
+  background-color: #565555;
+  color: white;
+  cursor: pointer;
+  border: none;
+  padding: 10px 5px;
+  margin-top: 38px;
+  border-radius: 10px;
+  width: 65px;
 }
