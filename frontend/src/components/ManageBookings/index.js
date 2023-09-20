@@ -14,6 +14,12 @@ const ManageBookings = () => {
   }, [dispatch])
 
   const bookings = useSelector(state => Object.values(state.bookings.currentBookings))
+  bookings.sort((a, b) => {
+    const dateA = new Date(a.startDate);
+    const dateB = new Date(b.startDate);
+
+    return dateA - dateB;
+  })
   // console.log(bookings)
   return (
     <>
