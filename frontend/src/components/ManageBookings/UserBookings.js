@@ -5,7 +5,7 @@ const UserBookings = ({ booking }) => {
     <>
       <div className="user-booking-container">
         <div>
-          <NavLink to={`/projects/${booking.spotId}`}>
+          <NavLink to={`/spots/${booking.spotId}`}>
             <img style={{ width: "300px", height: "200px", borderRadius: "10px" }} src={booking.Spot.previewImage} />
           </NavLink>
         </div>

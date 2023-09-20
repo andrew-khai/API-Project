@@ -9,7 +9,7 @@ const UserReviews = ({ review }) => {
     <>
       <div className="user-review-container">
         <div>
-          <NavLink to={`/projects/${review.spotId}`}>
+          <NavLink to={`/spots/${review.spotId}`}>
             <img style={{ width: "300px", height: "200px", borderRadius: "10px" }} src={review.Spot.previewImage} />
           </NavLink>
         </div>
