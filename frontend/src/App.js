@@ -10,6 +10,7 @@ import ManageSpots from "./components/ManageSpots/ManageSpots";
 import EditSpotForm from "./components/Forms/EditSpotForm";
 import ReviewModal from "./components/ReviewModal";
 import ManageReviews from "./components/ManageReviews";
+import ManageBookings from "./components/ManageBookings";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,9 @@ function App() {
           </Route>
           <Route exact path="/reviews/current">
             <ManageReviews />
+          </Route>
+          <Route exact path="/bookings/current">
+            <ManageBookings />
           </Route>
           <Route path="/spots/:spotId" exact>
             <SingleSpotShow />
