@@ -180,8 +180,11 @@ export const addImageThunk = (imageArr, spotId) => async (dispatch) => {
       const data = await response.json();
       dispatch(addImage(data, spotId))
     }
-    return response;
-
+    // return response;
+    else {
+      const errors = await response.json();
+      return errors;
+    }
     // imageArr.forEach(async (imageObj) => {
     //   if (imageObj.url !== '') {
     //     const res = await csrfFetch(`/api/spots/${spotId}/images`, {
@@ -223,7 +226,7 @@ export const addImageThunk = (imageArr, spotId) => async (dispatch) => {
 
 // EDIT SPOT THUNK
 export const editSpotThunk = (spot) => async (dispatch) => {
-  // try {
+  try {
     const res = await csrfFetch(`/api/spots/${spot.id}`, {
       method: "PUT",
       headers: {
@@ -233,17 +236,20 @@ export const editSpotThunk = (spot) => async (dispatch) => {
     })
 
     if (res.ok) {
-      console.log('log in the res ok if block')
+      // console.log('log in the res ok if block')
       const updatedSpot = await res.json();
       dispatch(editSpot(updatedSpot));
       return updatedSpot;
+    } else {
+      const errors = await res.json();
+      return errors;
     }
-  // }
-  // catch (error) {
-  //   console.log('errors in edit spot thunk', error)
-  //   const errors = await error.json();
-  //   return error;
-  // }
+  }
+  catch (error) {
+    // console.log('errors in edit spot thunk', error)
+    const errors = await error.json();
+    return errors;
+  }
 }
 
 // Delete a Spot
@@ -308,8 +314,8 @@ const spotsReducer = (state = initialState, action) => {
     case ADD_IMAGE:
       // newState = structuredClone(state);
       newState = structuredClone(state)
-      console.log('new state here -----', newState)
-      console.log('action over here ------', action, 'action payload over here ----', action.payload)
+      // console.log('new state here -----', newState)
+      // console.log('action over here ------', action, 'action payload over here ----', action.payload)
       // newState.singleSpot.SpotImages[action.payload.image.id] = action.payload.image;
       if (state.singleSpot?.SpotImages) {
         newState.singleSpot.SpotImages = [...state.singleSpot.SpotImages]

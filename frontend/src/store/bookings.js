@@ -86,7 +86,7 @@ export const updateBookingThunk = (booking) => async (dispatch) => {
   if (res.ok) {
     const updatedBooking = await res.json();
     await dispatch(updateBooking(updatedBooking));
-    await dispatch(getCurrentBookings())
+    await dispatch(getCurrentBookingsThunk())
     return updatedBooking;
   }
   else {
@@ -102,7 +102,7 @@ const bookingsReducer = (state = initialState, action) => {
   switch (action.type) {
     case CURRENT_BOOKINGS:
       newState = {...state};
-      action.bookings.Bookings.forEach(booking => {
+      action.bookings?.Bookings.forEach(booking => {
         newState.currentBookings[booking.id] = booking;
       })
       return newState;

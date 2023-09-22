@@ -75,7 +75,7 @@ export const getCurrentReviewsThunk = () => async (dispatch) => {
 //CREATE A REVIEW
 export const createReviewThunk = (review) => async (dispatch) => {
   try {
-    console.log('createReview thunk review', review)
+    // console.log('createReview thunk review', review)
     const res = await csrfFetch(`/api/spots/${review.spotId}/reviews`, {
       method: "POST",
       headers: {
@@ -85,7 +85,7 @@ export const createReviewThunk = (review) => async (dispatch) => {
     })
 
     if (res.ok) {
-      console.log('in this res ok create review')
+      // console.log('in this res ok create review')
       const newReview = await res.json();
       dispatch(getAllReviewsThunk(review.spotId))
       dispatch(postReview(newReview));
@@ -94,7 +94,7 @@ export const createReviewThunk = (review) => async (dispatch) => {
     }
   }
   catch (error) {
-    console.log('in this create review error block')
+    // console.log('in this create review error block')
     const errors = await error.json()
     return errors;
   }

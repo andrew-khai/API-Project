@@ -3,14 +3,29 @@
   align-items: center;
 }
 
-.first-to-review-container > button {
+.first-to-review-container>button,
+.post-your-review-container>button {
   background-color: #565555;
   color: white;
   cursor: pointer;
+  margin: 5px 0px;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
 }
 
-.reviews-container > button {
+.reviews-container>button {
   background-color: #565555;
   color: white;
   cursor: pointer;
+  margin: 5px 0px;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.first-to-review-container>button:hover,
+.reviews-container>button:hover,
+.post-your-review-container>button:hover {
+  background-color: #403f3f;
 }

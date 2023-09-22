@@ -11,6 +11,7 @@ import EditSpotForm from "./components/Forms/EditSpotForm";
 import ReviewModal from "./components/ReviewModal";
 import ManageReviews from "./components/ManageReviews";
 import ManageBookings from "./components/ManageBookings";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,34 +22,37 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
-      {isLoaded &&
-        <Switch>
-          <Route path="/" exact>
-            <HomePage />
-          </Route>
-          <Route path='/spots/new'>
-            <CreateASpotForm />
-          </Route>
-          <Route path="/spots/current" exact>
-            <ManageSpots />
-          </Route>
-          <Route exact path="/reviews/current">
-            <ManageReviews />
-          </Route>
-          <Route exact path="/bookings/current">
-            <ManageBookings />
-          </Route>
-          <Route path="/spots/:spotId" exact>
-            <SingleSpotShow />
-          </Route>
-          <Route path='/spots/:spotId/edit'>
-            <EditSpotForm />
-          </Route>
-          <Route>
-            <h1>Page Not Found</h1>
-          </Route>
-        </Switch>}
+      <div id="main-body-container">
+        <Navigation isLoaded={isLoaded} />
+        {isLoaded &&
+          <Switch>
+            <Route path="/" exact>
+              <HomePage />
+            </Route>
+            <Route path='/spots/new'>
+              <CreateASpotForm />
+            </Route>
+            <Route path="/spots/current" exact>
+              <ManageSpots />
+            </Route>
+            <Route exact path="/reviews/current">
+              <ManageReviews />
+            </Route>
+            <Route exact path="/bookings/current">
+              <ManageBookings />
+            </Route>
+            <Route path="/spots/:spotId" exact>
+              <SingleSpotShow />
+            </Route>
+            <Route path='/spots/:spotId/edit'>
+              <EditSpotForm />
+            </Route>
+            <Route>
+              <h1>Page Not Found</h1>
+            </Route>
+          </Switch>}
+      </div>
+      <Footer />
     </>
   );
 }
