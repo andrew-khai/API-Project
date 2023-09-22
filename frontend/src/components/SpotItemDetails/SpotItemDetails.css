@@ -1,12 +1,13 @@
 #spots-container {
   display: grid;
   grid-template-columns: repeat(4, 280px);
-  grid-template-rows: 280px;
+  grid-auto-rows: 280px;
   width: 100%;
   column-gap: 30px;
   row-gap: 70px;
   justify-content: center;
   border-radius: 15px;
+  margin-bottom: 90px;
 }
 
 .spots-boxes {
