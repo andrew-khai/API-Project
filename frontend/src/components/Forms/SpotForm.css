@@ -90,6 +90,13 @@ form {
   cursor: pointer;
   background-color: red;
   color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.create-spot-button-container > button:hover {
+  background-color: rgb(176, 58, 58);
 }
 
 /* ERRORS */

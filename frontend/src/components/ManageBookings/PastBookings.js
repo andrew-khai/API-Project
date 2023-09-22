@@ -6,18 +6,14 @@ import DeleteBookingModal from "../DeleteBookingModal";
 import UpdateBookingModal from "../UpdateBookingModal";
 import { updateBookingThunk } from "../../store/bookings";
 
-const UserBookings = ({ booking }) => {
+const PastBookings = ({ booking }) => {
+  console.log(booking)
   const dispatch = useDispatch();
 
   // const handleDelete = async (e) => {
   //   e.preventDefault();
   //   await dispatch(deleteBookingThunk(booking.id))
   // }
-  const handleUpdate = async (updatedBookingData) => {
-    // console.log('making it into this call', updatedBookingData)
-    await dispatch(updateBookingThunk(updatedBookingData));
-
-  }
 
   return (
     <>
@@ -32,23 +28,18 @@ const UserBookings = ({ booking }) => {
           <div>{booking.Spot.city}, {booking.Spot.state}, {booking.Spot.country}</div>
           <div className="booking-info-times">
             <div>
-              <div style={{fontWeight: "bold"}}>Check-in Date:</div>
+              <div style={{ fontWeight: "bold" }}>Check-in Date:</div>
               <div>{booking.startDate.slice(0, 10)}</div>
             </div>
             <div>
-              <div style={{fontWeight: "bold"}}>Checkout Date:</div>
+              <div style={{ fontWeight: "bold" }}>Checkout Date:</div>
               <div>{booking.endDate.slice(0, 10)}</div>
             </div>
           </div>
           <div className="booking-button-container">
-            <OpenModalButton
-            buttonText="Update"
-            modalComponent={<UpdateBookingModal booking={booking} onUpdate={handleUpdate} />}
-            />
-            <OpenModalButton
-            buttonText="Delete"
-            modalComponent={<DeleteBookingModal booking={booking} />}
-            />
+            <NavLink to={`/spots/${booking.spotId}`}>
+              <button style={{width: "97px", marginTop: "18px"}}>Book Again!</button>
+            </NavLink>
           </div>
         </div>
       </div>
@@ -56,4 +47,4 @@ const UserBookings = ({ booking }) => {
   )
 }
 
-export default UserBookings;
+export default PastBookings;

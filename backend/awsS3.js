@@ -17,7 +17,7 @@ const singleFileUpload = async ({ file, public = false }) => {
     Body: buffer
   };
 
-  console.log('s3-----------', s3)
+  // console.log('s3-----------', s3)
   const result = await s3.upload(uploadParams).promise();
 
   // Return the link if public. If private, return the name of the file in your

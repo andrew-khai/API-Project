@@ -113,10 +113,11 @@ const SpotForm = ({ spot, formType }) => {
       // console.log('added image here ----', addImage)
 
 
-      if (newSpot.errors) {
+      if (newSpot.errors || addImage.errors) {
         console.log('form errors', newSpot.errors)
         setErrors(newSpot.errors);
         setIsLoading(false)
+        // console.log(errors)
         return;
       }
 
@@ -131,14 +132,15 @@ const SpotForm = ({ spot, formType }) => {
     if (formType === 'Update Spot') {
       // console.log('in the update spot if block')
       const updatedSpot = await dispatch(editSpotThunk(spot));
-      const addImages = await dispatch(addImageThunk(imageArray, updatedSpot.id))
+      // const addImages = await dispatch(addImageThunk(imageArray, updatedSpot.id))
       // console.log('updated spot here --------', updatedSpot)
 
       if (updatedSpot.errors) {
-        // console.log('in this updated spot errors if block')
+        // console.log('in this updated spot errors if block');
         setErrors(updatedSpot.errors);
-        setIsLoading(false)
-        return
+        // console.log(errors);
+        setIsLoading(false);
+        return;
       }
 
       // const addImage = await dispatch(addImageThunk(imageArray, updatedSpot.id));
@@ -228,32 +230,32 @@ const SpotForm = ({ spot, formType }) => {
               <label>
                 Latitude
                 <br></br>
+                {errors.lat &&
+                  <span className="errors">{errors.lat}</span>
+                }
+                <br></br>
                 <input
-                  style={{ width: "123%" }}
+                  style={{ width: "170px" }}
                   type='number'
                   placeholder='Latitude'
                   value={lat}
                   onChange={(e) => setLat(e.target.value)}
-                  required
                 />
-                {errors.lat &&
-                  <span className="errors">{errors.lat}</span>
-                }
               </label>
-              <label style={{marginRight: "30px"}}>
+              <label style={{ marginRight: "30px" }}>
                 Longitude
                 <br></br>
+                {errors.lng &&
+                  <span className="errors">{errors.lng}</span>
+                }
+                <br></br>
                 <input
-                  style={{ width: "123%" }}
+                  style={{ width: "170px" }}
                   type='number'
                   placeholder='Longitude'
                   value={lng}
                   onChange={(e) => setLng(e.target.value)}
-                  required
                 />
-                {errors.lng &&
-                  <span className="errors">{errors.lng}</span>
-                }
               </label>
             </div>
           </div>
@@ -300,21 +302,22 @@ const SpotForm = ({ spot, formType }) => {
               style={{ width: '415px', marginLeft: '5px' }}
             >
             </input>
+          </label>
             {errors.price &&
               <p className="errors">{errors.price}</p>
             }
-          </label>
         </div>
         {formType === "Create Spot" &&
           <div id="spot-images-container">
             <h3>Liven up your spot with photos</h3>
             <p>Upload at least one photo to publish your spot</p>
-            <label>
+            <label style={{display: "flex", flexDirection: "column", rowGap: "10px"}}>
               Images to Upload
               <input
                 type="file"
                 accept=".jpg, .jpeg, .png"
                 multiple
+                // required
                 onChange={updateFiles} />
             </label>
 

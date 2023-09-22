@@ -2,3 +2,8 @@
 * {
   font-family: 'Inclusive Sans', sans-serif;
 }
+
+#main-body-container {
+  min-height: 100vh;
+
+}
