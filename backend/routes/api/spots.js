@@ -39,13 +39,13 @@ const validateSpot = [
       nullable: true
     })
     .isFloat({ min: -90, max: 90 })
-    .withMessage(`Latitude is not valid`),
+    .withMessage(`Latitude must be between -90 and 90 degrees`),
   check('lng')
     .optional({
       nullable: true
     })
     .isFloat({ min: -180, max: 180 })
-    .withMessage(`Longitude is not valid`),
+    .withMessage(`Longitude must be between -180 and 180 degrees`),
   check('name')
     .exists({ checkFalsy: true })
     .withMessage('Name is required'),

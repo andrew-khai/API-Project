@@ -9,6 +9,7 @@ import SingleSpotReview from "../Reviews/SingleSpotReviews";
 import OpenModalButton from "../OpenModalButton";
 import ReviewModal from "../ReviewModal";
 import { createBookingThunk } from "../../store/bookings";
+import MapContainer from "../Maps";
 
 const SingleSpotShow = () => {
   const { spotId } = useParams();
@@ -35,7 +36,7 @@ const SingleSpotShow = () => {
   }, [dispatch, spotId])
 
   const sessionUser = useSelector(state => state.session.user)
-  console.log(sessionUser.id)
+  // console.log(sessionUser.id)
   const spot = useSelector(state => state.spots.singleSpot);
   // console.log('spot', spot)
   const spotReviews = useSelector(state => state.reviews.Reviews);
@@ -117,7 +118,7 @@ const SingleSpotShow = () => {
           <div id="single-spot-details-container">
             <div id="single-spot-description">
               <h2>Hosted by {owner?.firstName} {owner?.lastName}</h2>
-              <p>{spot.description}</p>
+              <p style={{ wordBreak: "break-word" }}>{spot.description}</p>
             </div>
             <div id="single-spot-price-container">
               <div id="single-spot-price-ratings">
@@ -179,6 +180,10 @@ const SingleSpotShow = () => {
                 </form>
               </div>
             </div>
+          </div>
+          <div style={{ marginTop: "10px" }}>
+            <div style={{margin: "10px 0px", fontSize: "1.5rem"}}>Where you'll be.</div>
+            <MapContainer spot={spot}/>
           </div>
           <div id="reviews-section-container">
             <div id="review-star-num-container">
@@ -230,7 +235,7 @@ const SingleSpotShow = () => {
           <div id="single-spot-details-container">
             <div id="single-spot-description">
               <h2>Hosted by {owner?.firstName} {owner?.lastName}</h2>
-              <p>{spot.description}</p>
+              <p style={{ wordBreak: "break-word" }}>{spot.description}</p>
             </div>
             <div id="single-spot-price-container">
               <div id="single-spot-price-ratings">
@@ -292,6 +297,10 @@ const SingleSpotShow = () => {
                 </form>
               </div>
             </div>
+          </div>
+          <div style={{ marginTop: "10px" }}>
+            <div style={{margin: "10px 0px", fontSize: "1.5rem"}}>Where you'll be.</div>
+            <MapContainer spot={spot} />
           </div>
           <div id="reviews-section-container">
             <div id="review-star-num-container">
