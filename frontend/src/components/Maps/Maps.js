@@ -35,7 +35,7 @@ const Maps = ({ apiKey, spot }) => {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={10}
+          zoom={14}
         >
           <Marker position={center} />
         </GoogleMap>
