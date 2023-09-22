@@ -7,6 +7,7 @@ export const EDIT_SPOT = "PUT/api/:spotId";
 export const GET_USER_SPOTS = "GET/api/current";
 export const DELETE_SPOT = "DELETE/api/:spotId";
 export const ADD_IMAGE = "POST/addImages";
+export const UNLOAD_SINGLESPOT = "UNLOAD_SINGLESPOT"
 
 //ACTION CREATORS
 
@@ -31,6 +32,12 @@ const getSingleSpot = (spot) => {
   return {
     type: GET_SINGLE_SPOT,
     spot
+  }
+}
+
+const unloadSingleSpot = () => {
+  return {
+    type: UNLOAD_SINGLESPOT
   }
 }
 
@@ -113,6 +120,11 @@ export const singleSpotThunk = (spotId) => async (dispatch) => {
     const errors = await res.json();
     return errors;
   }
+}
+
+// CLEARS SINGLE SPOT STATE
+export const unloadSingleSpotThunk = () => async (dispatch) => {
+  dispatch(unloadSingleSpot())
 }
 
 // Create a Spot
@@ -275,6 +287,10 @@ const spotsReducer = (state = initialState, action) => {
       newState = { ...state};
       // console.log('get sigle spot', action.spot)
       newState.singleSpot = action.spot
+      return newState;
+    case UNLOAD_SINGLESPOT:
+      newState = {...state};
+      newState.singleSpot = {};
       return newState;
     case CREATE_SPOT:
       newState = structuredClone(state);

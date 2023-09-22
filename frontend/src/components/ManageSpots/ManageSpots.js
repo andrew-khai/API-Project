@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { getUserSpots } from "../../store/spots";
+import { getUserSpots, unloadSingleSpotThunk } from "../../store/spots";
 import SingleSpotItem from "../SpotItemDetails";
 import UserSpots from "./UserSpots";
 import { NavLink } from "react-router-dom";
@@ -10,6 +10,7 @@ const ManageSpots = () => {
 
   useEffect(() => {
 
+    dispatch(unloadSingleSpotThunk())
     if (sessionUser) {
       dispatch(getUserSpots())
     }
