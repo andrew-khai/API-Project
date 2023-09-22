@@ -113,8 +113,8 @@ const SpotForm = ({ spot, formType }) => {
       // console.log('added image here ----', addImage)
 
 
-      if (newSpot.errors || addImage.errors) {
-        console.log('form errors', newSpot.errors)
+      if (newSpot.errors) {
+        // console.log('form errors', newSpot.errors)
         setErrors(newSpot.errors);
         setIsLoading(false)
         // console.log(errors)
