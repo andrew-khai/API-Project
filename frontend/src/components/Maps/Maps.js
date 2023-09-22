@@ -23,9 +23,11 @@ const Maps = ({ apiKey, spot }) => {
   const { lat, lng } = spot
 
   const center = {
-    lat,
-    lng
+    lat: +lat,
+    lng: +lng
   }
+
+  // console.log('center', center)
 
   return (
     <>

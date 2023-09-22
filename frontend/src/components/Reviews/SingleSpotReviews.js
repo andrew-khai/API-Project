@@ -16,7 +16,7 @@ const SingleSpotReview = ({ review }) => {
   // console.log('owner', spot[spotId].ownerId)
   // console.log('review', review.User.firstName)
   // console.log(hasReviewed)
-  console.log('the review ishere', review)
+  // console.log('the review ishere', review)
 
   useEffect(() => {
     if (sessionUser) {
