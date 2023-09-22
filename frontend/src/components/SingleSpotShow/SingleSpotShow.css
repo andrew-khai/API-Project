@@ -4,9 +4,12 @@
 }
 
 #single-spot-details-container {
+  margin-top: 15px;
+  border-bottom: 1px solid black;
+  padding-bottom: 25px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 
 #single-spot-price-container {
@@ -41,18 +44,15 @@
   height: 100%;
 }
 
+#single-spot-description {
+  width: 50%;
+}
+
 #single-spot-description>h2 {
   margin-top: 0px;
 }
 
-#single-spot-details-container {
-  margin-top: 15px;
-  border-bottom: 1px solid black;
-  padding-bottom: 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 
 #single-spot-price-ratings {
   display: flex;

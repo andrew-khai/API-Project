@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./SpotForm.css"
 import { addImageThunk, createASpot, editSpotThunk } from "../../store/spots";
+import LoadingModal from "../LoadingModal";
 
 const SpotForm = ({ spot, formType }) => {
   // console.log('spot', spot)
@@ -21,10 +22,13 @@ const SpotForm = ({ spot, formType }) => {
   // console.log(spot.SpotImages)
 
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
   const [address, setAddress] = useState(spot?.address);
   const [city, setCity] = useState(spot?.city);
   const [state, setState] = useState(spot?.state);
   const [country, setCountry] = useState(spot?.country);
+  const [lat, setLat] = useState(spot?.lat);
+  const [lng, setLng] = useState(spot?.lng);
   const [name, setName] = useState(spot?.name);
   const [description, setDescription] = useState(spot?.description);
   const [price, setPrice] = useState(spot?.price);
@@ -40,7 +44,7 @@ const SpotForm = ({ spot, formType }) => {
   // console.log('submitted here wooo======', submitted)
 
   // console.log('preview image here', previewImage)
-  console.log('images', images)
+  // console.log('images', images)
 
   // useEffect(() => {
   //   const errorsObj = {}
@@ -94,7 +98,8 @@ const SpotForm = ({ spot, formType }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setErrors({})
-    spot = { ...spot, address, city, state, country, name, description, price }
+    setIsLoading(true);
+    spot = { ...spot, address, city, state, country, name, description, price, lat, lng }
 
     // let errorsObj: = {}
 
@@ -109,8 +114,9 @@ const SpotForm = ({ spot, formType }) => {
 
 
       if (newSpot.errors) {
-        // console.log('form errors', newSpot.errors)
+        console.log('form errors', newSpot.errors)
         setErrors(newSpot.errors);
+        setIsLoading(false)
         return;
       }
 
@@ -131,11 +137,12 @@ const SpotForm = ({ spot, formType }) => {
       if (updatedSpot.errors) {
         // console.log('in this updated spot errors if block')
         setErrors(updatedSpot.errors);
+        setIsLoading(false)
         return
       }
 
       // const addImage = await dispatch(addImageThunk(imageArray, updatedSpot.id));
-
+      setIsLoading(false)
       history.push(`/spots/${updatedSpot.id}`)
     }
   }
@@ -147,6 +154,7 @@ const SpotForm = ({ spot, formType }) => {
 
   return (
     <div id="form-container">
+      {isLoading && <LoadingModal />}
       <form onSubmit={handleSubmit}>
         <div id="location-container">
           {formType === "Create Spot" ?
@@ -216,6 +224,38 @@ const SpotForm = ({ spot, formType }) => {
               >
               </input>
             </label>
+            <div className="lat-lng-container">
+              <label>
+                Latitude
+                <br></br>
+                <input
+                  style={{ width: "123%" }}
+                  type='number'
+                  placeholder='Latitude'
+                  value={lat}
+                  onChange={(e) => setLat(e.target.value)}
+                  required
+                />
+                {errors.lat &&
+                  <span className="errors">{errors.lat}</span>
+                }
+              </label>
+              <label style={{marginRight: "30px"}}>
+                Longitude
+                <br></br>
+                <input
+                  style={{ width: "123%" }}
+                  type='number'
+                  placeholder='Longitude'
+                  value={lng}
+                  onChange={(e) => setLng(e.target.value)}
+                  required
+                />
+                {errors.lng &&
+                  <span className="errors">{errors.lng}</span>
+                }
+              </label>
+            </div>
           </div>
         </div>
         <div id="description-container">

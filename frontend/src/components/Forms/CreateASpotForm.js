@@ -9,6 +9,8 @@ const CreateASpotForm = () => {
     name: '',
     description: '',
     price: '',
+    lat: '',
+    lng: '',
     SpotImages: []
   }
 

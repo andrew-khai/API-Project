@@ -59,6 +59,11 @@ form {
   border-bottom: 1px solid black;
 }
 
+.lat-lng-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 #spot-images-container {
   display: flex;
   flex-direction: column;
