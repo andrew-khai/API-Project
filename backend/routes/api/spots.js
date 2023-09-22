@@ -5,7 +5,7 @@ const { Op } = require('sequelize');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, Review, SpotImage, ReviewImage, Booking } = require('../../db/models');
-const { multipleFilesUpload, multipleMulterUpload, retrievePrivateFile } = require("../../awsS3");
+const { multipleFilesUpload, multipleMulterUpload, retrievePrivateFile, singleMulterUpload, singleFileUpload } = require("../../awsS3");
 
 const { check, query } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -29,7 +29,7 @@ const validateSpot = [
     .exists({ checkFalsy: true })
     .withMessage(`Description is required`),
   check('description')
-    .isLength({min: 30})
+    .isLength({ min: 30 })
     .withMessage('Description needs a minimum of 30 characters'),
   check('price')
     .isInt({ min: 1 })
@@ -307,12 +307,23 @@ router.get(
   }
 )
 
+// Get Images for a Spot
+router.get(
+  '/:spotId/images',
+  async (req, res) => {
+    const images = await SpotImage.findAll({ where: { spotId: req.params["spotId"] } })
+    const imageUrls = images.map(image => retrievePrivateFile(image.key));
+    return res.json(imageUrls);
+  }
+)
+
 //Add an Image to a Spot
 router.post(
   '/:spotId/images',
   requireAuth,
   multipleMulterUpload("images"),
   async (req, res) => {
+    const { spotId } = req.params;
     const ownerId = req.user.id
     if (!ownerId) {
       res.status(401);
@@ -320,7 +331,6 @@ router.post(
         message: "Authentication required"
       })
     }
-    const { url, preview } = req.body;
     let spot = await Spot.findByPk(req.params.spotId, {
       include: [
         {
@@ -342,20 +352,69 @@ router.post(
         message: "Forbidden"
       })
     }
-    if (ownerId === spot.ownerId) {
-      // console.log(spot.ownerId)
-      let spotId = spot.id;
-      let image = await SpotImage.create({ spotId, url, preview });
-      // console.log(image.spotId)
-      const newImage = {
-        id: image.id,
-        spotId: spot.id,
-        url: image.url,
-        preview: image.preview
+    const urls = req.files ? await multipleFilesUpload({files: req.files, public: true}) : null;
+    console.log('urls in route', urls)
+    const { preview } = req.body;
+    const images = urls.map((url, i) => {
+      return { spotId, url, preview: i === 0  }
+    })
+    console.log('images in route', images)
+    if (preview) {
+      const previewImage = spot.SpotImages.find(spotImage => spotImage.preview === true)
+      if (previewImage) {
+        previewImage.preview = false;
+        await previewImage.save();
       }
-
-      res.json(newImage)
     }
+    const newSpotImages = await Promise.all(
+      images.map(image => SpotImage.create(image))
+    )
+    res.json(newSpotImages)
+
+
+    // const ownerId = req.user.id
+    // if (!ownerId) {
+    //   res.status(401);
+    //   return res.json({
+    //     message: "Authentication required"
+    //   })
+    // }
+    // const { url, preview } = req.body;
+    // let spot = await Spot.findByPk(req.params.spotId, {
+    //   include: [
+    //     {
+    //       model: SpotImage
+    //     }
+    //   ]
+    // });
+    // // console.log('spot', spot)
+    // if (!spot) {
+    //   res.status(404)
+    //   return res.json({
+    //     message: "Spot couldn't be found"
+    //   })
+    // }
+    // // console.log('owner', spot.ownerId)
+    // if (ownerId !== spot.ownerId) {
+    //   res.status(403);
+    //   return res.json({
+    //     message: "Forbidden"
+    //   })
+    // }
+    // if (ownerId === spot.ownerId) {
+    //   // console.log(spot.ownerId)
+    //   let spotId = spot.id;
+    //   let image = await SpotImage.create({ spotId, url, preview });
+    //   // console.log(image.spotId)
+    //   const newImage = {
+    //     id: image.id,
+    //     spotId: spot.id,
+    //     url: image.url,
+    //     preview: image.preview
+    //   }
+
+    //   res.json(newImage)
+    // }
     // console.log(spot.SpotImages)
   }
 )

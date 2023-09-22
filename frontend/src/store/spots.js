@@ -141,27 +141,52 @@ export const createASpot = (spot) => async (dispatch) => {
   }
 }
 
+// export const uploadImages = (images, spotId) => async dispatch => {
+//   const formData = new FormData();
+//   Array.from(images).forEach(image => formData.append("images", image));
+//   const response = await csrfFetch(`/api/images/${spotId}`, {
+//     method: "POST",
+//     body: formData
+//   });
+//   if (response.ok) {
+//     const data = await response.json();
+//     dispatch(receiveImages(data));
+//   }
+//   return response;
+// };
+
 // Add Image Thunk
 export const addImageThunk = (imageArr, spotId) => async (dispatch) => {
-  try {
     console.log('imageArr here-------', imageArr, 'spotID here -----', spotId)
-    imageArr.forEach(async (imageObj) => {
-      if (imageObj.url !== '') {
-        const res = await csrfFetch(`/api/spots/${spotId}/images`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(imageObj)
-        })
-        if (res.ok) {
-          const newImage = await res.json();
-          dispatch(addImage(newImage, spotId))
-        }
-      }
+    const formData = new FormData();
+    Array.from(imageArr).forEach(image => formData.append("images", image));
+    const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+      method: "POST",
+      body: formData
+    });
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(addImage(data, spotId))
+    }
+    return response;
 
-    })
-  }
+    // imageArr.forEach(async (imageObj) => {
+    //   if (imageObj.url !== '') {
+    //     const res = await csrfFetch(`/api/spots/${spotId}/images`, {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json"
+    //       },
+    //       body: JSON.stringify(imageObj)
+    //     })
+    //     if (res.ok) {
+    //       const newImage = await res.json();
+    //       dispatch(addImage(newImage, spotId))
+    //     }
+    //   }
+
+    // })
+
     // console.log('image here backend -------', image)
     // console.log('spot ID backend -----', spotId)
     // const res = await csrfFetch(`/api/spots/${spotId}/images`, {
@@ -178,10 +203,10 @@ export const addImageThunk = (imageArr, spotId) => async (dispatch) => {
     //   dispatch(addImage(newImages, spotId));
     //   return newImages;
     // }
-  catch (error) {
-  const errors = await error.json();
-  return errors;
-}
+  // catch (error) {
+  // const errors = await error.json();
+  // return errors;
+// }
 }
 
 // EDIT SPOT THUNK

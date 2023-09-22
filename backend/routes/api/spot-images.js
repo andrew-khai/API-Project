@@ -8,7 +8,11 @@ const { User, Spot, Review, SpotImage, ReviewImage, Booking } = require('../../d
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
+const { multipleFilesUpload, multipleMulterUpload, retrievePrivateFile } = require("../../awsS3");
+
 const router = express.Router();
+
+// GET IMAGES
 
 //Delete Spot Image by ID
 router.delete(

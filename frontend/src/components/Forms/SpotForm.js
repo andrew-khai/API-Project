@@ -28,17 +28,19 @@ const SpotForm = ({ spot, formType }) => {
   const [name, setName] = useState(spot?.name);
   const [description, setDescription] = useState(spot?.description);
   const [price, setPrice] = useState(spot?.price);
-  const [previewImage, setPreviewImage] = useState(spot.SpotImages? spot.SpotImages[0]? spot.SpotImages[0].url : '' : '');
-  const [imageOne, setImageOne] = useState(spot.SpotImages? spot.SpotImages[1]? spot.SpotImages[1].url : '' : '');
-  const [imageTwo, setImageTwo] = useState(spot.SpotImages? spot.SpotImages[2]? spot.SpotImages[2].url : '' : '');
-  const [imageThree, setImageThree] = useState(spot.SpotImages? spot.SpotImages[3]? spot.SpotImages[3].url : '' : '');
-  const [imageFour, setImageFour] = useState(spot.SpotImages? spot.SpotImages[4]? spot.SpotImages[4].url : '' : '');
+  const [previewImage, setPreviewImage] = useState(spot.SpotImages ? spot.SpotImages[0] ? spot.SpotImages[0].url : '' : '');
+  const [imageOne, setImageOne] = useState(spot.SpotImages ? spot.SpotImages[1] ? spot.SpotImages[1].url : '' : '');
+  const [imageTwo, setImageTwo] = useState(spot.SpotImages ? spot.SpotImages[2] ? spot.SpotImages[2].url : '' : '');
+  const [imageThree, setImageThree] = useState(spot.SpotImages ? spot.SpotImages[3] ? spot.SpotImages[3].url : '' : '');
+  const [imageFour, setImageFour] = useState(spot.SpotImages ? spot.SpotImages[4] ? spot.SpotImages[4].url : '' : '');
   const [errors, setErrors] = useState({});
+  const [images, setImages] = useState(null);
   // const [submitted, setSubmitted] = useState(false);
 
   // console.log('submitted here wooo======', submitted)
 
   // console.log('preview image here', previewImage)
+  console.log('images', images)
 
   // useEffect(() => {
   //   const errorsObj = {}
@@ -102,7 +104,7 @@ const SpotForm = ({ spot, formType }) => {
       const newSpot = await dispatch(createASpot(spot))
       // ! Add Images thunk
 
-      const addImage = await dispatch(addImageThunk(imageArray, newSpot.id));
+      const addImage = await dispatch(addImageThunk(images, newSpot.id));
       // console.log('added image here ----', addImage)
 
 
@@ -137,6 +139,11 @@ const SpotForm = ({ spot, formType }) => {
       history.push(`/spots/${updatedSpot.id}`)
     }
   }
+
+  const updateFiles = e => {
+    const files = e.target.files;
+    setImages(files);
+  };
 
   return (
     <div id="form-container">
@@ -243,7 +250,7 @@ const SpotForm = ({ spot, formType }) => {
         <div id="price-container">
           <h3>Set a base price for your spot</h3>
           <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
-          <label>
+          <label style={{ display: "flex" }}>
             $
             <input
               type="text"
@@ -258,10 +265,22 @@ const SpotForm = ({ spot, formType }) => {
             }
           </label>
         </div>
-        <div id="spot-images-container">
-          <h3>Liven up your spot with photos</h3>
-          <p>Submit a link to at least one photo to publish your spot</p>
-          <input
+        {formType === "Create Spot" &&
+          <div id="spot-images-container">
+            <h3>Liven up your spot with photos</h3>
+            <p>Upload at least one photo to publish your spot</p>
+            <label>
+              Images to Upload
+              <input
+                type="file"
+                accept=".jpg, .jpeg, .png"
+                multiple
+                onChange={updateFiles} />
+            </label>
+
+          </div>
+        }
+        {/* <input
             type="url"
             value={previewImage}
             onChange={(e) => setPreviewImage(e.target.value)}
@@ -311,8 +330,8 @@ const SpotForm = ({ spot, formType }) => {
           >
           </input>
           {errors.imageFour &&
-            <p className="errors">{errors.imageFour}</p>}
-        </div>
+            <p className="errors">{errors.imageFour}</p>} */}
+
         {/* <h3>Liven up your spot with photos</h3>
           <p>Submit a link to at least one photo to publish your spot.</p> */}
         {/* !!! need to handle errors for images !!!

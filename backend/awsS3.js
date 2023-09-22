@@ -3,6 +3,7 @@ const multer = require("multer");
 const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 const NAME_OF_BUCKET = "ballbnb-project";
 
+
 const singleFileUpload = async ({ file, public = false }) => {
   const { originalname, buffer } = file;
   const path = require("path");
@@ -15,6 +16,8 @@ const singleFileUpload = async ({ file, public = false }) => {
     Key: public ? `public/${Key}` : Key,
     Body: buffer
   };
+
+  console.log('s3-----------', s3)
   const result = await s3.upload(uploadParams).promise();
 
   // Return the link if public. If private, return the name of the file in your

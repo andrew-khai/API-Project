@@ -20,15 +20,23 @@ const ManageBookings = () => {
 
     return dateA - dateB;
   })
+
+  const currentDate = new Date();
+
+  const upcoming = bookings.filter(booking => {
+    const startDate = new Date(booking.startDate);
+
+    return startDate > currentDate;
+  })
   // console.log(bookings)
   return (
     <>
       <div id="manage-reviews-container">
         <h2 style={{ textAlign: "center" }}>Manage Your Bookings</h2>
       </div>
-      {bookings && bookings.length > 0 ?
+      {upcoming && upcoming.length > 0 ?
       <div id="users-bookings-container">
-        {bookings.map(booking => (
+        {upcoming.map(booking => (
           <UserBookings
           booking={booking}
           key={booking.id}

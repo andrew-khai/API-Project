@@ -24,6 +24,7 @@ const SingleSpotShow = () => {
   const [singleSpotId, setSingleSpotId] = useState(spotId);
   const [startDate, setStartDate] = useState(initialStartDate);
   const [endDate, setEndDate] = useState(initialEndDate);
+  const [bookingMessage, setBookingMessage] = useState('');
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
@@ -85,6 +86,13 @@ const SingleSpotShow = () => {
     if (newBooking.errors) {
       setErrors(newBooking.errors)
     }
+
+    setBookingMessage('Spot has been booked! We look forward to hosting you, manage your booking in your "Manage Bookings" tab');
+
+    // Clear the message after 5 seconds
+    setTimeout(() => {
+      setBookingMessage('');
+    }, 3000);
   }
 
   // console.log(isOwner)
@@ -160,6 +168,11 @@ const SingleSpotShow = () => {
                       </input>
                     </label>
                   </div>
+                  {bookingMessage && (
+                    <div className="booking-success-message">
+                      {bookingMessage}
+                    </div>
+                  )}
                   <button type="submit" id="reserve-button" disabled={ownerCheck() || !sessionUser}>
                     Reserve
                   </button>
@@ -268,6 +281,11 @@ const SingleSpotShow = () => {
                       </input>
                     </label>
                   </div>
+                  {bookingMessage && (
+                    <div className="booking-success-message">
+                      {bookingMessage}
+                    </div>
+                  )}
                   <button type="submit" id="reserve-button" disabled={ownerCheck() || !sessionUser}>
                     Reserve
                   </button>
