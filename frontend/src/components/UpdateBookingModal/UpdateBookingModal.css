@@ -1,0 +1,19 @@
+#confirm-booking-container {
+  padding: 40px 10px;
+}
+
+#update-booking-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.submit-update-button {
+  background-color: #565555;
+  color: white;
+  cursor: pointer;
+  width: 85px;
+  padding: 10px;
+  border: none;
+  margin: 0px auto;
+  margin-top: 10px;
+}

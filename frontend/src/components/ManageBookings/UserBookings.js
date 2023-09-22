@@ -1,12 +1,30 @@
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+// import { deleteBookingThunk } from "../../store/bookings";
+import OpenModalButton from "../OpenModalButton";
+import DeleteBookingModal from "../DeleteBookingModal";
+import UpdateBookingModal from "../UpdateBookingModal";
+import { updateBookingThunk } from "../../store/bookings";
 
 const UserBookings = ({ booking }) => {
+  const dispatch = useDispatch();
+
+  // const handleDelete = async (e) => {
+  //   e.preventDefault();
+  //   await dispatch(deleteBookingThunk(booking.id))
+  // }
+  const handleUpdate = async (updatedBookingData) => {
+    console.log('making it into this call', updatedBookingData)
+    await dispatch(updateBookingThunk(updatedBookingData));
+
+  }
+
   return (
     <>
       <div className="user-booking-container">
         <div>
           <NavLink to={`/spots/${booking.spotId}`}>
-            <img style={{ width: "300px", height: "200px", borderRadius: "10px" }} src={booking.Spot.previewImage} />
+            <img style={{ width: "300px", height: "200px", borderRadius: "10px" }} src={booking.Spot?.previewImage} />
           </NavLink>
         </div>
         <div className="booking-information">
@@ -23,8 +41,14 @@ const UserBookings = ({ booking }) => {
             </div>
           </div>
           <div className="booking-button-container">
-            <button>Update</button>
-            <button>Delete</button>
+            <OpenModalButton
+            buttonText="Update"
+            modalComponent={<UpdateBookingModal booking={booking} onUpdate={handleUpdate} />}
+            />
+            <OpenModalButton
+            buttonText="Delete"
+            modalComponent={<DeleteBookingModal booking={booking} />}
+            />
           </div>
         </div>
       </div>
