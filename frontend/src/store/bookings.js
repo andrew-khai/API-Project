@@ -44,22 +44,26 @@ export const getCurrentBookingsThunk = () => async (dispatch) => {
 }
 
 export const createBookingThunk = (booking) => async (dispatch) => {
-  const res = await csrfFetch(`/api/spots/${booking.spotId}/bookings`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(booking)
-  })
+  try{
+    const res = await csrfFetch(`/api/spots/${booking.spotId}/bookings`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(booking)
+    })
 
-  if (res.ok) {
-    const newBooking = await res.json();
-    dispatch(createBooking(newBooking));
-    return newBooking;
+    if (res.ok) {
+      const newBooking = await res.json();
+      dispatch(createBooking(newBooking));
+      return newBooking;
+    }
   }
-  else {
-    const errors = await res.json();
-    return errors
+  catch (error) {
+    console.log('in else statement')
+    const errors = await error.json();
+    console.log('errors in thunk', errors)
+    return errors;
   }
 }
 
@@ -76,21 +80,23 @@ export const deleteBookingThunk = (bookingId) => async (dispatch) => {
 }
 
 export const updateBookingThunk = (booking) => async (dispatch) => {
-  const res = await csrfFetch(`/api/bookings/${booking.id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(booking)
-  });
-  if (res.ok) {
-    const updatedBooking = await res.json();
-    await dispatch(updateBooking(updatedBooking));
-    await dispatch(getCurrentBookingsThunk())
-    return updatedBooking;
+  try {
+    const res = await csrfFetch(`/api/bookings/${booking.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(booking)
+    });
+    if (res.ok) {
+      const updatedBooking = await res.json();
+      await dispatch(updateBooking(updatedBooking));
+      await dispatch(getCurrentBookingsThunk())
+      return updatedBooking;
+    }
   }
-  else {
-    const errors = await res.json();
+  catch (error) {
+    const errors = await error.json();
     return errors
   }
 }

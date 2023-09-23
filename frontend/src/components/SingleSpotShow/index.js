@@ -10,6 +10,7 @@ import OpenModalButton from "../OpenModalButton";
 import ReviewModal from "../ReviewModal";
 import { createBookingThunk } from "../../store/bookings";
 import MapContainer from "../Maps";
+import LoadingModal from "../LoadingModal";
 
 const SingleSpotShow = () => {
   const { spotId } = useParams();
@@ -27,6 +28,7 @@ const SingleSpotShow = () => {
   const [endDate, setEndDate] = useState(initialEndDate);
   const [bookingMessage, setBookingMessage] = useState('');
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -75,6 +77,8 @@ const SingleSpotShow = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({});
+    // setIsLoading(true);
 
     const booking = {
       spotId: spot.id,
@@ -84,8 +88,11 @@ const SingleSpotShow = () => {
     }
 
     const newBooking = await dispatch(createBookingThunk(booking))
-    if (newBooking.errors) {
-      setErrors(newBooking.errors)
+    console.log('errors in submit', newBooking)
+    if (newBooking.message) {
+      setErrors(newBooking)
+      // setIsLoading(false);
+      return;
     }
 
     setBookingMessage('Spot has been booked! We look forward to hosting you, manage your booking in your "Manage Bookings" tab');
@@ -102,6 +109,7 @@ const SingleSpotShow = () => {
     <>
       {!sessionUser ?
         <div id="single-spot-container">
+          {/* {isLoading && <LoadingModal />} */}
           <div id="spot-details-container">
             <h2>{spot.name}</h2>
             <p>{spot.city}, {spot.state}, {spot.country}</p>
@@ -110,9 +118,9 @@ const SingleSpotShow = () => {
             <img id="preview-image" src={spotImages[0]?.url || noImage}></img>
             <div id="other-images-container">
               <img className="other-images" src={spotImages[1]?.url || noImage}></img>
-              <img className="other-images" src={spotImages[2]?.url || noImage}></img>
+              <img className="other-images toprightradius" src={spotImages[2]?.url || noImage}></img>
               <img className="other-images" src={spotImages[3]?.url || noImage}></img>
-              <img className="other-images" src={spotImages[4]?.url || noImage}></img>
+              <img className="other-images bottomrightradius" src={spotImages[4]?.url || noImage}></img>
             </div>
           </div>
           <div id="single-spot-details-container">
@@ -169,6 +177,9 @@ const SingleSpotShow = () => {
                       </input>
                     </label>
                   </div>
+                  {errors.message &&
+                  <p className="errors">{errors.message}</p>
+                  }
                   {bookingMessage && (
                     <div className="booking-success-message">
                       {bookingMessage}
@@ -227,9 +238,9 @@ const SingleSpotShow = () => {
             <img id="preview-image" src={spotImages ? spotImages[0] ? spotImages[0].url : noImage : noImage}></img>
             <div id="other-images-container">
               <img className="other-images" src={spotImages ? spotImages[1] ? spotImages[1].url : noImage : noImage}></img>
-              <img className="other-images" src={spotImages ? spotImages[2] ? spotImages[2].url : noImage : noImage}></img>
+              <img className="other-images toprightradius" src={spotImages ? spotImages[2] ? spotImages[2].url : noImage : noImage}></img>
               <img className="other-images" src={spotImages ? spotImages[3] ? spotImages[3].url : noImage : noImage}></img>
-              <img className="other-images" src={spotImages ? spotImages[4] ? spotImages[4].url : noImage : noImage}></img>
+              <img className="other-images bottomrightradius" src={spotImages ? spotImages[4] ? spotImages[4].url : noImage : noImage}></img>
             </div>
           </div>
           <div id="single-spot-details-container">
@@ -286,6 +297,9 @@ const SingleSpotShow = () => {
                       </input>
                     </label>
                   </div>
+                  {errors.message &&
+                  <p className="errors">{errors.message}</p>
+                  }
                   {bookingMessage && (
                     <div className="booking-success-message">
                       {bookingMessage}

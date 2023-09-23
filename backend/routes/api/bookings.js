@@ -101,7 +101,7 @@ router.put(
     if (startDateObj >= endDateObj) {
       res.status(400);
       return res.json({
-        message: "endDate cannot come before startdate"
+        message: "Checkout cannot come before Check-In"
       })
     }
     if (userBooking.startDate.getTime() < new Date().getTime()) {

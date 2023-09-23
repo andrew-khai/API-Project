@@ -4,20 +4,27 @@ import { NavLink } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeleteBookingModal from "../DeleteBookingModal";
 import UpdateBookingModal from "../UpdateBookingModal";
-import { updateBookingThunk } from "../../store/bookings";
+// import { updateBookingThunk } from "../../store/bookings";
+import { useState } from "react";
 
 const UserBookings = ({ booking }) => {
   const dispatch = useDispatch();
+  const [errors, setErrors] = useState({});
 
   // const handleDelete = async (e) => {
   //   e.preventDefault();
   //   await dispatch(deleteBookingThunk(booking.id))
   // }
-  const handleUpdate = async (updatedBookingData) => {
-    // console.log('making it into this call', updatedBookingData)
-    await dispatch(updateBookingThunk(updatedBookingData));
+  // const handleUpdate = async (updatedBookingData) => {
+  //   setErrors({})
+  //   // console.log('making it into this call', updatedBookingData)
+  //   const updatedBooking = await dispatch(updateBookingThunk(updatedBookingData));
+  //   if (updatedBooking.message) {
+  //     setErrors(updatedBooking);
+  //     return;
+  //   }
 
-  }
+  // }
 
   return (
     <>
@@ -43,7 +50,7 @@ const UserBookings = ({ booking }) => {
           <div className="booking-button-container">
             <OpenModalButton
             buttonText="Update"
-            modalComponent={<UpdateBookingModal booking={booking} onUpdate={handleUpdate} />}
+            modalComponent={<UpdateBookingModal booking={booking}/>}
             />
             <OpenModalButton
             buttonText="Delete"
