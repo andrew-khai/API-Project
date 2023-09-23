@@ -600,13 +600,13 @@ router.post(
     if (startDateObj >= endDateObj) {
       res.status(400);
       return res.json({
-        message: "endDate cannot be on or before startdate"
+        message: "Checkout cannot be on or before Check-In"
       })
     }
     if (startDateObj < new Date().getTime() || endDateObj < new Date().getTime()) {
       res.status(403);
       return res.json({
-        message: "Start or End date cannot be before current day"
+        message: "Checkout or Check-In date cannot be before current day"
       })
     }
     // console.log('bookings', spot.Bookings);

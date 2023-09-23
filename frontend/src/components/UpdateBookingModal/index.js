@@ -2,22 +2,31 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useState } from "react";
 import "./UpdateBookingModal.css"
+import { updateBookingThunk } from "../../store/bookings";
 
 function UpdateBookingModal({ booking, onUpdate }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
+  const [errors, setErrors] = useState({});
   const [startDate, setStartDate] = useState(booking?.startDate);
   const [endDate, setEndDate] = useState(booking?.endDate);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({});
+
     let updatedBooking = {
       id: booking.id,
       startDate,
       endDate
     }
 
-    onUpdate(updatedBooking)
+    const newBooking = await dispatch(updateBookingThunk(updatedBooking))
+
+    if (newBooking.message) {
+      setErrors(newBooking);
+      return;
+    }
 
     closeModal()
   }
@@ -50,6 +59,9 @@ function UpdateBookingModal({ booking, onUpdate }) {
             </input>
           </label>
         </div>
+        {errors.message &&
+        <p style={{textAlign: "center", marginBottom: "10px"}} className="errors">{errors.message}</p>
+        }
         <button className="submit-update-button" type="submit">Update</button>
       </form>
     </div>

@@ -83,6 +83,16 @@
 #preview-image {
   width: 50%;
   height: 325px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.toprightradius {
+  border-top-right-radius: 5px;
+}
+
+.bottomrightradius {
+  border-bottom-right-radius: 5px;
 }
 
 #reviews-section-container {
