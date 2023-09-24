@@ -10,6 +10,14 @@ function UpdateBookingModal({ booking, onUpdate }) {
   const [errors, setErrors] = useState({});
   const [startDate, setStartDate] = useState(booking?.startDate);
   const [endDate, setEndDate] = useState(booking?.endDate);
+  const today = new Date()
+
+  const getDateTime = (date) => {
+    const dateString = new Date(date).toDateString()
+    const dateObj = new Date(dateString).getTime()
+
+    return dateObj;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +49,7 @@ function UpdateBookingModal({ booking, onUpdate }) {
             <input
               className="reserve-form-dates"
               type="date"
-              value={startDate.slice(0,10)}
+              value={startDate.slice(0, 10)}
               onChange={(e) => setStartDate(e.target.value)}
               required
             >
@@ -52,7 +60,7 @@ function UpdateBookingModal({ booking, onUpdate }) {
             <input
               className="reserve-form-dates"
               type="date"
-              value={endDate.slice(0,10)}
+              value={endDate.slice(0, 10)}
               onChange={(e) => setEndDate(e.target.value)}
               required
             >
@@ -60,9 +68,17 @@ function UpdateBookingModal({ booking, onUpdate }) {
           </label>
         </div>
         {errors.message &&
-        <p style={{textAlign: "center", marginBottom: "10px"}} className="errors">{errors.message}</p>
+          <p style={{ textAlign: "center", marginBottom: "10px" }} className="errors">{errors.message}</p>
         }
-        <button className="submit-update-button" type="submit">Update</button>
+        <button className="submit-update-button" type="submit"
+          // disabled={!startDate ||
+          //   !endDate ||
+          //   getDateTime(startDate) > getDateTime(endDate) ||
+          //   getDateTime(endDate) - getDateTime(startDate) < 7 * 24 * 60 * 60 * 1000 ||
+          //   getDateTime(startDate) < getDateTime(today) ||
+          //   getDateTime(endDate) < getDateTime(today)
+          // }
+        >Update</button>
       </form>
     </div>
   )

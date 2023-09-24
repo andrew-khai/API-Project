@@ -16,4 +16,9 @@
   border: none;
   margin: 0px auto;
   margin-top: 10px;
+  border-radius: 5px;
+}
+
+.submit-update-button:disabled {
+  background-color: #aaaaaa;
 }

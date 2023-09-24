@@ -98,6 +98,13 @@ router.put(
     const endDateObj = new Date(endDateString).getTime()
     // console.log('end obj', endDateObj)
 
+    if (startDateObj < new Date().getTime() || endDateObj < new Date().getTime()) {
+      res.status(403);
+      return res.json({
+        message: "Checkout or Check-In date cannot be before current day"
+      })
+    }
+
     if (startDateObj >= endDateObj) {
       res.status(400);
       return res.json({
