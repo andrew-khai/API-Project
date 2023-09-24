@@ -6,7 +6,7 @@
   list-style-type: none;
 }
 
-.navigation-bar > a {
+.navigation-bar>a {
   text-decoration: none;
   color: orange;
   font-weight: bold;
@@ -16,9 +16,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 10px;
-  padding-bottom: 20px;
   border-bottom: 1px solid lightgray;
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  height: 86px;
+  contain-intrinsic-height: 80px;
+  z-index: 10;
+  contain: size style layout;
+  will-change: height;
+  background-color: white;
+  padding-bottom: 5px;
 }
 
 .profile-button {
@@ -65,12 +73,12 @@ ul.profile-dropdown {
   border-radius: 15px;
 }
 
-.dropdown-list-container > li {
+.dropdown-list-container>li {
   list-style-type: none;
   cursor: pointer;
 }
 
-li.login-signup-modal > button {
+li.login-signup-modal>button {
   cursor: pointer;
   border-radius: 5px;
   border: 0.5px solid black;
@@ -80,7 +88,7 @@ li.login-signup-modal > button {
   color: orange;
 }
 
-li.login-signup-modal > button:hover {
+li.login-signup-modal>button:hover {
   background-color: orange;
   color: white;
 }
@@ -89,7 +97,7 @@ li#logout-button {
   list-style-type: none;
 }
 
-li#logout-button > button {
+li#logout-button>button {
   cursor: pointer;
   border-radius: 20px;
   border: 0.5px solid black;
@@ -100,7 +108,7 @@ li#logout-button > button {
   margin-bottom: 10px;
 }
 
-li#logout-button > button:hover {
+li#logout-button>button:hover {
   background-color: orange;
   color: white;
 }
@@ -111,7 +119,7 @@ li#logout-button > button:hover {
   padding: 5px;
 }
 
-.user-information-container > li{
+.user-information-container>li {
   list-style-type: none;
   padding: 5px 20px;
 }
@@ -123,12 +131,12 @@ li#logout-button > button:hover {
   padding-bottom: 10px;
 }
 
-.manage-spots-link > a {
+.manage-spots-link>a {
   text-decoration: none;
   color: black;
 }
 
-.manage-spots-link > a:hover {
+.manage-spots-link>a:hover {
   color: orange;
 }
 
@@ -136,14 +144,14 @@ li#logout-button > button:hover {
   list-style-type: none;
 }
 
-.create-new-spot-link > a {
+.create-new-spot-link>a {
   text-decoration: none;
   color: black;
   text-align: right;
   font-size: 16px;
 }
 
-.create-new-spot-link > a:hover {
+.create-new-spot-link>a:hover {
   color: orange;
   /* padding-left: 10px;
   padding-right: 10px;
