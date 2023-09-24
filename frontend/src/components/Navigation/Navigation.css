@@ -156,3 +156,38 @@ li#logout-button > button:hover {
   align-items: center;
   gap: 10px;
 }
+
+#searchbar-container {
+  display: flex;
+  padding: 10px;
+  border: 1px solid lightgray;
+  border-radius: 45px;
+  align-items: center;
+}
+
+.searchbar-inputs {
+  height: 25px;
+  width: 150px;
+  border: none;
+  background-color: white;
+}
+
+.searchbar-inputs::placeholder {
+  text-align: center;
+}
+
+#searchbar-button {
+  background-color: orange;
+  padding: 8px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+}
+
+.navi-line {
+  margin: 0px;
+}
+
+.city-input::placeholder {
+  font-weight: bold;
+}
