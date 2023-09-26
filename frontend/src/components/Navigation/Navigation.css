@@ -26,7 +26,8 @@
   contain: size style layout;
   will-change: height;
   background-color: white;
-  padding-bottom: 5px;
+  /* padding-bottom: 5px; */
+  padding: 0px 30px;
 }
 
 .profile-button {
