@@ -182,6 +182,17 @@ li#logout-button>button:hover {
   text-align: center;
 }
 
+@media screen and (max-width: 950px) {
+    #searchbar-container {
+      padding: 5px;
+    }
+
+    .searchbar-inputs {
+      height: 20px;
+      width: 120px;
+    }
+}
+
 .searchbar-inputs:focus {
   outline: none;
 }
