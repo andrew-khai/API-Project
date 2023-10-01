@@ -4,11 +4,12 @@ const { Op } = require('sequelize');
 
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, Review, SpotImage, ReviewImage, Booking } = require('../../db/models');
+const { User, Spot, Review, SpotImage, ReviewImage, Booking, sequelize } = require('../../db/models');
 const { multipleFilesUpload, multipleMulterUpload, retrievePrivateFile, singleMulterUpload, singleFileUpload } = require("../../awsS3");
 
 const { check, query } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+// const { login } = require('../../../frontend/src/store/session');
 
 const router = express.Router();
 
@@ -128,8 +129,31 @@ const getFloatMinMaxClause = (min, max) => {
 
 const generateWhereObj = (query) => {
   const where = {};
-
   if (!query) return where;
+  if (query.city) {
+    console.log('in the city block')
+    where.city = sequelize.where(
+      sequelize.fn('lower', sequelize.col('city')),
+      'LIKE',
+      `%${query.city.toLowerCase()}%`
+    );
+  }
+  if (query.state) {
+    console.log('in the state block')
+    where.state = sequelize.where(
+      sequelize.fn('lower', sequelize.col('state')),
+      'LIKE',
+      `%${query.state.toLowerCase()}%`
+    );
+  }
+  if (query.country) {
+    console.log('in the country block')
+    where.country = sequelize.where(
+      sequelize.fn('lower', sequelize.col('country')),
+      'LIKE',
+      `%${query.country.toLowerCase()}%`
+    );
+  }
   if (query.minLat || query.maxLat) {
     where.lat = getFloatMinMaxClause(query.minLat, query.maxLat);
   }
@@ -148,9 +172,12 @@ router.get(
   validateQuery,
   async (req, res) => {
     let pagination = { limit: 20, offset: 0 };
-    let { page, size
+    let { page, size, city, state, country
       // , minLat, maxLat, minLng, maxLng, minPrice, maxPrice
     } = req.query;
+    // console.log('in get all spots route')
+    console.log('query-----', req.query)
+    console.log('im in this all spots block')
 
     page = parseInt(page);
     size = parseInt(size);
@@ -159,7 +186,7 @@ router.get(
 
     const where = generateWhereObj(req.query);
 
-    console.log(where)
+    console.log('where------', where)
 
 
     // console.log('size', typeof size)
