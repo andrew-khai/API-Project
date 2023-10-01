@@ -54,7 +54,13 @@ function Navigation({ isLoaded }) {
   return (
     <ul id='navigation-list'>
       <li className='navigation-bar home-link'>
-        <NavLink exact to="/"><i className="fa-solid fa-basketball fa-2xl" style={{ color: 'orange' }}></i>BallBnB</NavLink>
+        <NavLink exact to="/">
+          <div className='logo-and-icon'>
+            <i className="fa-solid fa-basketball fa-2xl" style={{ color: 'orange' }}>
+            </i>
+            <div className='site-title'>BallBnB</div>
+          </div>
+        </NavLink>
       </li>
       <div id='searchbar-container'>
         <input
@@ -84,7 +90,7 @@ function Navigation({ isLoaded }) {
             e.target.placeholder = 'State';
           }}
           onChange={(e) => setState(e.target.value)}
-          // disabled={true}
+        // disabled={true}
         />
         <h2 className="navi-line">|</h2>
         <input
@@ -99,19 +105,20 @@ function Navigation({ isLoaded }) {
             e.target.placeholder = 'Country';
           }}
           onChange={(e) => setCountry(e.target.value)}
-          // disabled={true}
+        // disabled={true}
         />
         <button id="searchbar-button"
-        disabled={!city && !state && !country}
-        onClick={handleSearch}
+          disabled={!city && !state && !country}
+          onClick={handleSearch}
         >
-          <i class="fa-solid fa-magnifying-glass" style={{color: "#ffffff"}}></i>
-          </button>
+          <i class="fa-solid fa-magnifying-glass" style={{ color: "#ffffff" }}></i>
+        </button>
       </div>
       {sessionUser && isLoaded ? (
         <div id="user-logged-in-profile">
           <li className='create-new-spot-link'>
-            <NavLink to='/spots/new'>Create a New Spot</NavLink>
+            <NavLink to='/spots/new'>
+            </NavLink>
           </li>
           <li className='navigation-bar'>
             <ProfileButton user={sessionUser} />
