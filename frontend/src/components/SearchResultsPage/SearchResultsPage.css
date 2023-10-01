@@ -1,0 +1,16 @@
+#results-header {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  column-gap: 10px;
+  width: 600px;
+  margin: 0px auto;
+}
+
+.boxed-results {
+  color: #282828;
+  font-size: 18px;
+  padding: 12px;
+  margin: 0px 5px;
+  box-shadow: 2px 0 6px 0 #b4b4b4;
+}

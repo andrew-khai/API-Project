@@ -7,7 +7,8 @@ export const EDIT_SPOT = "PUT/api/:spotId";
 export const GET_USER_SPOTS = "GET/api/current";
 export const DELETE_SPOT = "DELETE/api/:spotId";
 export const ADD_IMAGE = "POST/addImages";
-export const UNLOAD_SINGLESPOT = "UNLOAD_SINGLESPOT"
+export const UNLOAD_SINGLESPOT = "UNLOAD_SINGLESPOT";
+export const UNLOAD_ALL = "UNLOAD_ALL"
 
 //ACTION CREATORS
 
@@ -32,6 +33,12 @@ const getSingleSpot = (spot) => {
   return {
     type: GET_SINGLE_SPOT,
     spot
+  }
+}
+
+const unloadAllSpots = () => {
+  return {
+    type: UNLOAD_ALL
   }
 }
 
@@ -79,8 +86,19 @@ const deleteSpot = (spotId) => {
 //THUNK ACTION CREATORS
 
 //GET ALL SPOTS
-export const getAllSpots = () => async (dispatch) => {
-  const res = await csrfFetch('/api/spots');
+export const getAllSpots = (search = '') => async (dispatch) => {
+  console.log('search----', search)
+  let url;
+  // const url = `/api/spots${search ? `?search${encodeURIComponent(search)}` : ""}`;
+  // const url = `/api/spots${search ? `?search=${encodeURIComponent(search)}` : ""}`;
+  if (search !== '') {
+    url = `/api/spots${search}`
+  }
+  else {
+    url = '/api/spots'
+  }
+
+  const res = await csrfFetch(url);
 
   if (res.ok) {
     const spots = await res.json();
@@ -120,6 +138,11 @@ export const singleSpotThunk = (spotId) => async (dispatch) => {
     const errors = await res.json();
     return errors;
   }
+}
+
+// ClEARS ALL SPOTS STATE
+export const unloadAllSpotsThunk = () => async (dispatch) => {
+  dispatch(unloadAllSpots())
 }
 
 // CLEARS SINGLE SPOT STATE
@@ -293,6 +316,10 @@ const spotsReducer = (state = initialState, action) => {
       newState = { ...state};
       // console.log('get sigle spot', action.spot)
       newState.singleSpot = action.spot
+      return newState;
+    case UNLOAD_ALL:
+      newState = {...state};
+      newState.allSpots = {};
       return newState;
     case UNLOAD_SINGLESPOT:
       newState = {...state};

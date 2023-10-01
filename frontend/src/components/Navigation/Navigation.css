@@ -179,10 +179,16 @@ li#logout-button>button:hover {
   width: 150px;
   border: none;
   background-color: white;
+  text-align: center;
+}
+
+.searchbar-inputs:focus {
+  outline: none;
 }
 
 .searchbar-inputs::placeholder {
   text-align: center;
+  font-weight: bold;
 }
 
 #searchbar-button {
@@ -193,10 +199,10 @@ li#logout-button>button:hover {
   cursor: pointer;
 }
 
-.navi-line {
-  margin: 0px;
+#searchbar-button:disabled {
+  background-color: rgb(244, 203, 127);
 }
 
-.city-input::placeholder {
-  font-weight: bold;
+.navi-line {
+  margin: 0px;
 }

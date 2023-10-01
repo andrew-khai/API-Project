@@ -12,6 +12,7 @@ import ReviewModal from "./components/ReviewModal";
 import ManageReviews from "./components/ManageReviews";
 import ManageBookings from "./components/ManageBookings";
 import Footer from "./components/Footer";
+import SearchResultsPage from "./components/SearchResultsPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,6 +47,9 @@ function App() {
             </Route>
             <Route path='/spots/:spotId/edit'>
               <EditSpotForm />
+            </Route>
+            <Route exact path="/search">
+              <SearchResultsPage />
             </Route>
             <Route>
               <h1>Page Not Found</h1>
