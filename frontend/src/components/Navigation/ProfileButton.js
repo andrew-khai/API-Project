@@ -48,7 +48,7 @@ function ProfileButton({ user }) {
       <button className="profile-button" onClick={openMenu}>
         <div id="profile-button-details">
           <i className="fa-solid fa-bars"></i>
-          <i className="fa-regular fa-user fa-lg" style={{ color: 'orange' }}></i>
+          <i className="fa-regular fa-user fa-lg" style={{ color: '#f68d56' }}></i>
         </div>
       </button>
       <ul className={ulClassName} ref={ulRef}>
