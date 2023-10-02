@@ -64,6 +64,7 @@ function LoginFormModal() {
         type="submit"
         disabled={credential.length < 4 || password.length < 6}
         >Log In</button>
+        <div className="separator">or</div>
         <button
         id="demo-login-button"
         onClick={loginDemo}

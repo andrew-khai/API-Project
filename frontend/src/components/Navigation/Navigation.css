@@ -8,7 +8,7 @@
 
 .navigation-bar>a {
   text-decoration: none;
-  color: orange;
+  color: #f68d56;
   font-weight: bold;
 }
 
@@ -116,19 +116,23 @@ ul.profile-dropdown {
   cursor: pointer;
 }
 
-li.login-signup-modal>button {
-  cursor: pointer;
+li.login-signup-modal button {
+  background-color: #fff;
+  color: #333;
+  border: none;
   border-radius: 5px;
-  border: 0.5px solid black;
-  background-color: white;
-  padding: 5px;
-  width: 100%;
-  color: orange;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  width: 228px;
 }
 
-li.login-signup-modal>button:hover {
-  background-color: orange;
-  color: white;
+li.login-signup-modal button:hover {
+  /* background-color: orange;
+  color: white; */
+  background-color: #f68d56;
+  color: #fff;
 }
 
 li#logout-button {
@@ -138,16 +142,16 @@ li#logout-button {
 li#logout-button>button {
   cursor: pointer;
   border-radius: 20px;
-  border: 0.5px solid black;
+  border: none;
   background-color: white;
   padding: 10px;
   width: 100%;
-  color: orange;
+  color: #f68d56;
   margin-bottom: 10px;
 }
 
 li#logout-button>button:hover {
-  background-color: orange;
+  background-color: #f68d56;
   color: white;
 }
 
@@ -175,7 +179,7 @@ li#logout-button>button:hover {
 }
 
 .manage-spots-link>a:hover {
-  color: orange;
+  color: #f68d56;
 }
 
 .create-new-spot-link {
@@ -190,7 +194,7 @@ li#logout-button>button:hover {
 }
 
 .create-new-spot-link>a:hover {
-  color: orange;
+  color: #f68d56;
   /* padding-left: 10px;
   padding-right: 10px;
   background-color: rgb(247, 247, 247);
@@ -240,7 +244,7 @@ li#logout-button>button:hover {
 }
 
 #searchbar-button {
-  background-color: orange;
+  background-color: #f68d56;
   padding: 8px;
   border-radius: 25px;
   border: none;

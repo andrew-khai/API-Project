@@ -56,7 +56,7 @@ function Navigation({ isLoaded }) {
       <li className='navigation-bar home-link'>
         <NavLink exact to="/">
           <div className='logo-and-icon'>
-            <i className="fa-solid fa-basketball fa-2xl" style={{ color: 'orange' }}>
+            <i className="fa-solid fa-basketball fa-2xl" style={{ color: '#f68d56' }}>
             </i>
             <div className='site-title'>BallBnB</div>
           </div>

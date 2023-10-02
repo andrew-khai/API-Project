@@ -14,6 +14,12 @@ const Footer = () => {
         <a style={{textDecoration: "none", color: "black", fontSize: "1.4rem"}} href="https://github.com/andrew-khai">
           <div><i class="fa-brands fa-github"></i></div>
         </a>
+        <a style={{textDecoration: "none", color: "black", fontSize: "1.4rem"}} href="https://wellfound.com/u/andrew-chan-69">
+          <div><i class="fa-brands fa-angellist"></i></div>
+        </a>
+        <a style={{textDecoration: "none", color: "black", fontSize: "1.4rem"}} href="https://andrew-khai.github.io/">
+          <div><i class="fa-solid fa-suitcase"></i></div>
+        </a>
       </div>
     </footer>
   )

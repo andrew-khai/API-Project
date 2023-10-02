@@ -47,7 +47,7 @@ const SearchResultsPage = () => {
           ))}
         </div>
         :
-        <h2 style={{ textAlign: "center" }}>No spots found. Search again or go to <a style={{color: "orange", textDecoration: "none"}} href="/">homepage</a></h2>
+        <h2 style={{ textAlign: "center" }}>No spots found. Search again or go to <a style={{color: "#f68d56", textDecoration: "none"}} href="/">homepage</a></h2>
       }
     </div>
   )
