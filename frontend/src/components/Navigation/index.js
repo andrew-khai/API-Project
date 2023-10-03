@@ -8,6 +8,7 @@ import SignupFormModal from '../SignupFormModal';
 import OpenModalButton from '../OpenModalButton';
 import { getAllSpots } from '../../store/spots';
 import { useHistory } from 'react-router-dom';
+import { useModal } from '../../context/Modal';
 
 function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
@@ -16,6 +17,8 @@ function Navigation({ isLoaded }) {
   const [city, setCity] = useState('')
   const [state, setState] = useState('')
   const [country, setCountry] = useState('')
+  const {isModalOpen} = useModal();
+
 
   const handleSearch = () => {
     // Construct the search query based on user input
@@ -52,7 +55,10 @@ function Navigation({ isLoaded }) {
   }
 
   return (
-    <ul id='navigation-list'>
+    <ul
+    id='navigation-list'
+    className={isModalOpen ? 'not-sticky' : ''}
+    >
       <li className='navigation-bar home-link'>
         <NavLink exact to="/">
           <div className='logo-and-icon'>

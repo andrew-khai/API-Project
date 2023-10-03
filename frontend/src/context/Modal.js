@@ -9,8 +9,15 @@ export function ModalProvider({ children }) {
   const [modalContent, setModalContent] = useState(null);
   // callback function that will be called when modal is closing
   const [onModalClose, setOnModalClose] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Add a function to open the modal
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
   const closeModal = () => {
+    setIsModalOpen(false);
     setModalContent(null); // clear the modal contents
     // If callback function is truthy, call the callback function and reset it
     // to null:
@@ -26,6 +33,7 @@ export function ModalProvider({ children }) {
     setModalContent, // function to set the React component to render inside modal
     setOnModalClose, // function to set the callback function called when modal is closing
     closeModal, // function to close the modal
+    isModalOpen,
   };
 
   return (
