@@ -8,16 +8,16 @@ const Footer = () => {
         <div style={{fontSize: "1.1rem"}}>
           BallBnB © 2023
         </div>
-        <a style={{textDecoration: "none", color: "black", fontSize: "1.4rem"}} href="https://www.linkedin.com/in/andrew-chan-970844275/">
+        <a style={{textDecoration: "none", color: "black", fontSize: "1.4rem"}} target="_blank" href="https://www.linkedin.com/in/andrew-chan-970844275/">
           <div><i class="fa-brands fa-linkedin"></i></div>
         </a>
-        <a style={{textDecoration: "none", color: "black", fontSize: "1.4rem"}} href="https://github.com/andrew-khai">
+        <a style={{textDecoration: "none", color: "black", fontSize: "1.4rem"}} target="_blank" href="https://github.com/andrew-khai">
           <div><i class="fa-brands fa-github"></i></div>
         </a>
-        <a style={{textDecoration: "none", color: "black", fontSize: "1.4rem"}} href="https://wellfound.com/u/andrew-chan-69">
+        <a style={{textDecoration: "none", color: "black", fontSize: "1.4rem"}} target="_blank" href="https://wellfound.com/u/andrew-chan-69">
           <div><i class="fa-brands fa-angellist"></i></div>
         </a>
-        <a style={{textDecoration: "none", color: "black", fontSize: "1.4rem"}} href="https://andrew-khai.github.io/">
+        <a style={{textDecoration: "none", color: "black", fontSize: "1.4rem"}} target="_blank" href="https://andrew-khai.github.io/">
           <div><i class="fa-solid fa-suitcase"></i></div>
         </a>
       </div>
