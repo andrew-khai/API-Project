@@ -18,7 +18,7 @@
 #user-spots-container {
   display: grid;
   grid-template-columns: repeat(3, 282px);
-  grid-template-rows: 315px;
+  grid-auto-rows: 315px;
   width: 100%;
   column-gap: 30px;
   row-gap: 95px;
