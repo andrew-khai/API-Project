@@ -8,8 +8,49 @@ Technologies Used:
 * Javascript
 * HTML
 * CSS
+* AWS S3
+* Google Maps API
 
-![Screenshot 2023-08-05 at 10 00 35 PM](https://github.com/andrew-khai/BallBnB/assets/127797007/ca769d56-fb06-4380-a4c2-2e9584b181ad)
+## Homepage
+
+![balbnbhome](https://github.com/andrew-khai/BallBnB/assets/127797007/97b3c7a4-1e51-40e1-adf1-c68eb70b2401)
+
+## Spot Details Page
+
+![ballbnbspotdetails](https://github.com/andrew-khai/BallBnB/assets/127797007/7e743b3d-1b61-403f-8ee7-e4d6f8989c59)
+
+
+## Spots
+
+Logged in users are able to create spots
+
+![ballbnbcreate](https://github.com/andrew-khai/BallBnB/assets/127797007/3e802546-4bbb-44ac-97f3-c8b145214210)
+
+
+However, if they make a mistake they are also able to update their spots
+
+![ballbnbupdate](https://github.com/andrew-khai/BallBnB/assets/127797007/44c081ec-589d-42fa-9216-a8e8ccb24d78)
+
+
+Users are able to search for spots by City, State, and or Country
+
+![ballbnbsearch](https://github.com/andrew-khai/BallBnB/assets/127797007/9528536b-72b0-42ad-8174-a445845af83f)
+
+
+
+## Managing
+
+Users are able to manage their spots, reviews, and bookings
+
+
+![ballbnbmanage](https://github.com/andrew-khai/BallBnB/assets/127797007/9d290cde-314c-4bac-b005-67081ab1c2b8)
+
+
+## Future Features
+* Updating images on spots
+* Weather API
+* Add Images to Reviews
+
 
 ## Database Schema Design
 
