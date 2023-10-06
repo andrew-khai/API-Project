@@ -7,7 +7,7 @@ import UpdateBookingModal from "../UpdateBookingModal";
 import { updateBookingThunk } from "../../store/bookings";
 
 const PastBookings = ({ booking }) => {
-  console.log(booking)
+  // console.log(booking)
   const dispatch = useDispatch();
 
   // const handleDelete = async (e) => {

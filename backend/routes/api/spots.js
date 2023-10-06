@@ -131,7 +131,7 @@ const generateWhereObj = (query) => {
   const where = {};
   if (!query) return where;
   if (query.city) {
-    console.log('in the city block')
+    // console.log('in the city block')
     where.city = sequelize.where(
       sequelize.fn('lower', sequelize.col('city')),
       'LIKE',
@@ -139,7 +139,7 @@ const generateWhereObj = (query) => {
     );
   }
   if (query.state) {
-    console.log('in the state block')
+    // console.log('in the state block')
     where.state = sequelize.where(
       sequelize.fn('lower', sequelize.col('state')),
       'LIKE',
@@ -147,7 +147,7 @@ const generateWhereObj = (query) => {
     );
   }
   if (query.country) {
-    console.log('in the country block')
+    // console.log('in the country block')
     where.country = sequelize.where(
       sequelize.fn('lower', sequelize.col('country')),
       'LIKE',
@@ -176,8 +176,8 @@ router.get(
       // , minLat, maxLat, minLng, maxLng, minPrice, maxPrice
     } = req.query;
     // console.log('in get all spots route')
-    console.log('query-----', req.query)
-    console.log('im in this all spots block')
+    // console.log('query-----', req.query)
+    // console.log('im in this all spots block')
 
     page = parseInt(page);
     size = parseInt(size);
@@ -186,7 +186,7 @@ router.get(
 
     const where = generateWhereObj(req.query);
 
-    console.log('where------', where)
+    // console.log('where------', where)
 
 
     // console.log('size', typeof size)
@@ -380,12 +380,12 @@ router.post(
       })
     }
     const urls = req.files ? await multipleFilesUpload({files: req.files, public: true}) : null;
-    console.log('urls in route', urls)
+    // console.log('urls in route', urls)
     const { preview } = req.body;
     const images = urls.map((url, i) => {
       return { spotId, url, preview: i === 0  }
     })
-    console.log('images in route', images)
+    // console.log('images in route', images)
     if (preview) {
       const previewImage = spot.SpotImages.find(spotImage => spotImage.preview === true)
       if (previewImage) {

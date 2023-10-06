@@ -60,9 +60,9 @@ export const createBookingThunk = (booking) => async (dispatch) => {
     }
   }
   catch (error) {
-    console.log('in else statement')
+    // console.log('in else statement')
     const errors = await error.json();
-    console.log('errors in thunk', errors)
+    // console.log('errors in thunk', errors)
     return errors;
   }
 }

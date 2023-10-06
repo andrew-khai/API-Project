@@ -192,7 +192,7 @@ export const createASpot = (spot) => async (dispatch) => {
 
 // Add Image Thunk
 export const addImageThunk = (imageArr, spotId) => async (dispatch) => {
-    console.log('imageArr here-------', imageArr, 'spotID here -----', spotId)
+    // console.log('imageArr here-------', imageArr, 'spotID here -----', spotId)
     const formData = new FormData();
     Array.from(imageArr).forEach(image => formData.append("images", image));
     const response = await csrfFetch(`/api/spots/${spotId}/images`, {

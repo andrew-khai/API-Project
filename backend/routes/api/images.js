@@ -22,7 +22,7 @@ router.post(
   async (req, res) => {
     const { spotId } = req.params;
     const keys = await multipleFilesUpload({ files: req.files });
-    console.log('keys', keys)
+    // console.log('keys', keys)
     // const images = await Promise.all(
     //   keys.map(key => SpotImage.create({ key, spotId }))
     // );
