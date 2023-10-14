@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentBookingsThunk } from "../../store/bookings";
 import UserBookings from "./UserBookings";
@@ -9,6 +9,8 @@ import PastBookings from "./PastBookings";
 const ManageBookings = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
+  // const [showUpcoming, setShowUpcoming] = useState(true);
+  // const [showPast, setShowPast] = useState(false);
 
   useEffect(() => {
     dispatch(getCurrentBookingsThunk())
@@ -78,6 +80,41 @@ const ManageBookings = () => {
       }
 
     </>
+
+    // dropdown version
+    // <>
+    //   <div id="manage-reviews-container">
+    //     <h2 style={{ textAlign: "center" }}>Manage Your Bookings</h2>
+    //   </div>
+
+    //   <div style={{ textAlign: "center", marginTop: "20px" }}>
+    //     <button onClick={() => setShowUpcoming(!showUpcoming)}>
+    //       {showUpcoming ? 'Hide Upcoming Bookings' : 'Show Upcoming Bookings'}
+    //     </button>
+    //   </div>
+
+    //   {showUpcoming && upcoming && upcoming.length > 0 ? (
+    //     <div id="users-bookings-container">
+    //       {upcoming.map((booking) => (
+    //         <UserBookings booking={booking} key={booking.id} />
+    //       ))}
+    //     </div>
+    //   ) : null}
+
+    //   <div style={{ textAlign: "center", marginTop: "20px" }}>
+    //     <button onClick={() => setShowPast(!showPast)}>
+    //       {showPast ? 'Hide Past Bookings' : 'Show Past Bookings'}
+    //     </button>
+    //   </div>
+
+    //   {showPast && past && past.length > 0 ? (
+    //     <div id="users-bookings-container">
+    //       {past.map((booking) => (
+    //         <PastBookings booking={booking} key={booking.id} />
+    //       ))}
+    //     </div>
+    //   ) : null}
+    // </>
   )
 }
 
