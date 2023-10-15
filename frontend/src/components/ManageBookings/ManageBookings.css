@@ -62,3 +62,15 @@
 .booking-success-message {
   text-align: center;
 }
+
+.pagination-buttons {
+  font-size: 1.1rem;
+  display: flex;
+  margin: 0px auto;
+  background-color: white;
+  border: none;
+}
+
+.pagination-buttons:hover {
+  color: #f68d56;
+}
