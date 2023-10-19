@@ -52,7 +52,7 @@ function App() {
               <SearchResultsPage />
             </Route>
             <Route>
-              <h1>Page Not Found</h1>
+              <h1 style={{textAlign: "center"}}>Page Not Found</h1>
             </Route>
           </Switch>}
       </div>
