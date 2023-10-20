@@ -1,0 +1,24 @@
+#not-found-container {
+  display: flex;
+  width: 600px;
+  margin: 50px auto;
+}
+
+.not-found-title {
+  font-size: 120px;
+  margin-bottom: 5px;
+  margin-top: 0px;
+  color: #484848;;
+}
+
+.not-found-text {
+  color: #484848;
+}
+
+.not-found-home-link {
+  color: rgb(244, 203, 127);
+}
+
+.not-found-home-link:hover {
+  color: #f68d56;
+}

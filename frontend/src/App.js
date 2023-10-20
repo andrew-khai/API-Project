@@ -13,6 +13,7 @@ import ManageReviews from "./components/ManageReviews";
 import ManageBookings from "./components/ManageBookings";
 import Footer from "./components/Footer";
 import SearchResultsPage from "./components/SearchResultsPage";
+import NotFound from "./components/404NotFoundPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,7 +53,7 @@ function App() {
               <SearchResultsPage />
             </Route>
             <Route>
-              <h1 style={{textAlign: "center"}}>Page Not Found</h1>
+              <NotFound/>
             </Route>
           </Switch>}
       </div>
